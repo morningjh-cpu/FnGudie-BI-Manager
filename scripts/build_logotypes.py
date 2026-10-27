@@ -6,11 +6,14 @@
 - 개선된 브랜드 로고 "FnGuide"(FnRed)는 서체 패키지의 원본 파일을 쓴다 (서체 문서 5장 사용 원칙).
 - 리타민은 B2C 독립 체계라 전용서체 대신 기존 로고(피그마)를 그대로 쓴다.
 - 그룹색 배경용 흰색 판(logos/white/)과 회사 CI 화면에 보여줄 FnPricing(전시용, 다운로드 없음)도 만든다.
-결과: out/brand-site/logos/*.svg, out/brand-site/logos.js
+- 서체 미리보기의 SVG·PNG 저장에 쓸 글자 모양·간격 정보(font-data.js)도 함께 만든다.
+결과: out/brand-site/logos/*.svg, out/brand-site/logos.js, out/brand-site/font-data.js
 실행: py scripts/build_logotypes.py   (필요: py -m pip install fonttools uharfbuzz)
+      글자 정보(font-data.js)만 다시 만들 때: py scripts/build_logotypes.py --font-data
 """
 import json
 import re
+import sys
 from pathlib import Path
 
 import uharfbuzz as hb
@@ -22,7 +25,7 @@ from fontTools.ttLib import TTFont
 
 ROOT = Path(__file__).resolve().parent.parent
 FONT_DIR = ROOT / "data" / "FnGuide-Logotype-Font"
-FONT = FONT_DIR / "fonts" / "FnGuideLogotype-Regular.otf"
+FONT = ROOT / "out" / "font-update" / "v1.200" / "fonts" / "FnGuideLogotype-Regular.otf"  # v1.200 (data 의 v1.100 원본은 그대로 둠)
 CI_SVG = FONT_DIR / "source-svg" / "0_logo" / "FnGuide.svg"
 FIGMA = ROOT / "data" / "figma-logo-parts"
 RETAMIN_SVG = FIGMA / "retamin.svg"
@@ -117,6 +120,54 @@ def typeset(text, color, hb_font, glyph_set, upem):
         x += pos.x_advance
     xmin, ymin, xmax, ymax = bounds.bounds
     return svg_doc(svg_pen.getCommands(), xmin, ymin, xmax - xmin, ymax - ymin, color)
+
+
+def font_data():
+    """서체 미리보기 SVG·PNG 저장용: 글자 모양·합자·글자 간격을 브라우저에서 쓸 수 있게 뽑는다.
+
+    외부 프로그램 없이 페이지가 직접 글자를 그리도록, 간격은 하르프버즈로 두 글자씩 조판해 잰 값을 그대로 쓴다.
+    미리보기와 같아야 하므로 로고용 FONT가 아니라 사이트가 쓰는 서체 파일을 읽는다.
+    """
+    site_font = OUT / "fonts" / "FnGuideLogotype-Regular.otf"
+    font = TTFont(site_font)
+    hb_font = hb.Font(hb.Face(hb.Blob.from_file_path(str(site_font))))
+    glyph_set = font.getGlyphSet()
+    names = font.getGlyphOrder()
+    cmap = font.getBestCmap()
+    glyphs = {}
+    for name in names:
+        pen = SVGPathPen(glyph_set, fmt)
+        glyph_set[name].draw(TransformPen(pen, (1, 0, 0, -1, 0, 0)))
+        glyphs[name] = [glyph_set[name].width, pen.getCommands()]
+    liga = []
+    for lookup in font["GSUB"].table.LookupList.Lookup:
+        for sub in lookup.SubTable:
+            for first, ligs in getattr(sub, "ligatures", {}).items():
+                for lg in ligs:
+                    seq = [first] + lg.Component
+                    rev = {v: k for k, v in cmap.items()}
+                    liga.append(["".join(chr(rev[g]) for g in seq), lg.LigGlyph])
+    liga.sort(key=lambda x: -len(x[0]))
+    # 조판 단위: 글자 하나 또는 합자 하나. 두 단위씩 조판해 둘째 글자 위치에서 첫 글자 폭을 뺀 값이 간격 보정
+    units = [(chr(c), n) for c, n in cmap.items()] + [(s, n) for s, n in liga]
+    kern = {}
+    for s1, n1 in units:
+        for s2, n2 in units:
+            buf = hb.Buffer()
+            buf.add_str(s1 + s2)
+            buf.guess_segment_properties()
+            hb.shape(hb_font, buf, {"kern": True, "liga": True})
+            got = [names[i.codepoint] for i in buf.glyph_infos]
+            if got != [n1, n2]:
+                continue  # 이어 붙이면 새 합자가 생기는 쌍 — 합자 쪽에서 처리됨
+            dx = buf.glyph_positions[0].x_advance - glyphs[n1][0]
+            if dx:
+                kern[f"{n1} {n2}"] = dx
+    data = {"upem": font["head"].unitsPerEm, "cmap": {chr(c): n for c, n in cmap.items()},
+            "liga": liga, "kern": kern, "glyphs": glyphs}
+    (OUT / "font-data.js").write_text(
+        "window.FONT_DATA = " + json.dumps(data, ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")
+    print(f"font-data: {len(glyphs)} glyphs, {len(liga)} ligatures, {len(kern)} kerning pairs")
 
 
 def official_ci():
@@ -232,7 +283,8 @@ def main():
         encoding="utf-8",
     )
     print(f"logotypes: {len(items)}")
+    font_data()
 
 
 if __name__ == "__main__":
-    main()
+    font_data() if "--font-data" in sys.argv else main()

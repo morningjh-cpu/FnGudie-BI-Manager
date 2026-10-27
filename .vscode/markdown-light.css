@@ -1,0 +1,17 @@
+/* 마크다운 미리보기를 편집기 테마와 상관없이 밝은 화면으로 (settings.json 의 markdown.styles 에 연결) */
+html, body, body.vscode-body, body.vscode-dark, body.vscode-high-contrast {
+  background: #ffffff !important;
+  color: #24292f !important;
+}
+h1, h2, h3, h4, h5, h6, strong, b { color: #1f2328 !important; }
+h1, h2 { border-bottom-color: #d0d7de !important; }
+a { color: #0969da !important; }
+hr { background: #d0d7de !important; border-color: #d0d7de !important; }
+blockquote { background: #f6f8fa !important; border-left-color: #d0d7de !important; color: #57606a !important; }
+code, pre, pre code { background: #f6f8fa !important; color: #24292f !important; }
+pre code span { color: inherit !important; }
+table { border-color: #d0d7de !important; }
+th, td { border-color: #d0d7de !important; color: #24292f !important; }
+th { background: #f6f8fa !important; }
+tr:nth-child(2n) td { background: #fbfcfd !important; }
+input[type="checkbox"] { accent-color: #0969da; }

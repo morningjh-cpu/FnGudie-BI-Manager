@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FnGuide 로고타입 전용서체 v1.200 개발 결과 공유</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #1f2328;
+    --muted: #59636e;
+    --line: #d1d9e0;
+    --soft: #f6f8fa;
+    --accent: #94243A;
+  }
+  * { box-sizing: border-box; }
+  html { color-scheme: light; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Pretendard", "Malgun Gothic", "Apple SD Gothic Neo", system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    word-break: keep-all;
+  }
+  main { max-width: 860px; margin: 0 auto; padding: 48px 16px 80px; }
+  h1 { font-size: 30px; line-height: 1.35; margin: 0 0 8px; }
+  .meta { color: var(--muted); font-size: 14px; margin: 0 0 28px; }
+  h2 {
+    font-size: 22px; margin: 48px 0 16px; padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  p { margin: 0 0 16px; }
+  strong { font-weight: 700; }
+  ul, ol { margin: 0 0 16px; padding-left: 1.5em; }
+  li { margin: 4px 0; }
+  ul.task { list-style: none; padding-left: 0.2em; }
+  ul.task li { display: flex; gap: 8px; align-items: flex-start; }
+  ul.task input { margin-top: 0.45em; flex: none; }
+  .table-wrap { overflow-x: auto; margin: 0 0 20px; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; }
+  th, td { border: 1px solid var(--line); padding: 8px 12px; text-align: left; vertical-align: top; }
+  th { background: var(--soft); font-weight: 700; white-space: nowrap; }
+  tr:nth-child(even) td { background: #fbfcfd; }
+  code {
+    font-family: Consolas, "D2Coding", ui-monospace, monospace;
+    font-size: 0.9em; background: var(--soft); padding: 0.1em 0.35em; border-radius: 4px;
+  }
+  pre {
+    background: var(--soft); border: 1px solid var(--line); border-radius: 6px;
+    padding: 16px; overflow-x: auto; margin: 0 0 20px; line-height: 1.5;
+  }
+  pre code { background: none; padding: 0; font-size: 14px; }
+  .swatch {
+    display: inline-block; width: 0.9em; height: 0.9em; border-radius: 3px;
+    vertical-align: -0.1em; margin-right: 4px; border: 1px solid rgba(0,0,0,0.12);
+  }
+  .nowrap { white-space: nowrap; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>FnGuide 로고타입 전용서체 v1.200 개발 결과 공유</h1>
+<p class="meta">2026-10-26 · 김진혁 (2026-10-27 v1.200 갱신)</p>
+
+<p><strong>FnGuide 로고타입을 그대로 옮긴 사내 전용서체 FnGuide Logotype v1.200을 완성했습니다. 이제 키보드로 입력한 "FnGuide"가 공식 로고와 같은 형태·같은 간격으로 조판되며, 이는 CI/BI 매니지먼트를 시스템으로 운영하기 위한 첫 번째 기반 자산입니다.</strong></p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>항목</th><th>결과</th></tr></thead>
+  <tbody>
+    <tr><td>수록 글자</td><td>107자 (영문 대소문자 52 · 숫자 10 · 특수문자 37 · f 합자 8)</td></tr>
+    <tr><td>로고 재현</td><td>폰트로 입력한 "FnGuide"와 공식 로고의 글자 위치 차이 최대 0.33% (1000 기준 3.3)</td></tr>
+    <tr><td>커닝</td><td>1,203개 규칙, 글자 간 충돌 0건</td></tr>
+    <tr><td>제공 형식</td><td>OTF · TTF (설치용), WOFF (웹폰트)</td></tr>
+    <tr><td>브랜드 컬러</td><td>BI 컬러 7종으로 미리보기 가능한 교정지 제공</td></tr>
+  </tbody>
+</table></div>
+
+<h2>1. 에프앤가이드 전용서체</h2>
+
+<p>로고를 이미지 파일로만 관리하던 방식에서 벗어나, 누구나 같은 품질로 브랜드 문구를 만들 수 있게 하는 것이 목표였습니다.</p>
+
+<p>「FnGuide CI / BI 사용방안」(2025.06)에서 정리한 현황은 다음과 같습니다.</p>
+
+<ul>
+  <li><strong>서비스 BI가 많고 제각각입니다.</strong> 웹 13개, CS 3개, 앱 1개, 기타 2개의 BI가 운영되고 있어, 브랜드 전체에 일관된 이미지를 주기 어렵고 관리 포인트가 늘어났습니다.</li>
+  <li><strong>CI 서체는 전용으로 재구성한 서체입니다.</strong> Rotis 계열 서체를 디자인 업체에서 새롭게 재구성해 만들었고, 이후 로고 개선 과정에서 시인성을 높이기 위해 타입의 볼륨을 키웠습니다.</li>
+  <li><strong>BI 전략은 "현대적 트렌드 반영"과 "사업분야별 색상 통일"로 정했습니다.</strong> 일관된 BI로 브랜드 신뢰도를 높이고, 서비스 간 혼란을 줄이며, 마케팅 효율을 높이는 방향입니다.</li>
+</ul>
+
+<p>전용서체는 이 전략을 실행하는 도구입니다. 로고타입의 형태를 폰트로 만들어 두면, 사업별 BI 문구(예: FundGuide, FnIndex, ETF Global)를 같은 서체·같은 규칙으로 일관되게 만들 수 있습니다.</p>
+
+<h2>2. 결과물 사양</h2>
+
+<p>로고 원본 22자에서 시작해 영문·숫자·특수문자 전체와 합자까지 갖춘 서체로 확장했습니다.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>구분</th><th>내용</th></tr></thead>
+  <tbody>
+    <tr><td>서체명</td><td>FnGuide Logotype Regular (v1.200)</td></tr>
+    <tr><td>대문자</td><td>A–Z 26자</td></tr>
+    <tr><td>소문자</td><td>a–z 26자</td></tr>
+    <tr><td>숫자</td><td>0–9 (금융 데이터 정렬을 위해 숫자끼리는 커닝 없음)</td></tr>
+    <tr><td>특수문자</td><td>키보드 입력 가능 문자 32종 전체 + – ‘ ’ “ ”</td></tr>
+    <tr><td>합자</td><td>fi fl ff ffi ffl fb fh fk — 입력하면 자동으로 이어진 글자로 바뀜</td></tr>
+    <tr><td>파일</td><td>OTF(디자인 툴 권장) · TTF(오피스 호환) · WOFF(웹)</td></tr>
+    <tr><td>규격</td><td>1000 UPM · 대문자 높이 700 · x-height 498</td></tr>
+  </tbody>
+</table></div>
+
+<p><strong>글자 출처.</strong> 원본 로고 22자를 기준으로, 디자인 파트가 그린 글자(K Z k a &amp; % 숫자 0–9, 특수문자 일부)와 기준 규칙으로 만든 글자를 더했습니다. v1.200에서는 디자인 파트가 f m M s S y r을 새로 그렸고, f 합자 8종은 새 f에 맞춰 다시 만들었습니다. 모든 글자는 같은 획 두께·세리프·높이 규칙을 따르도록 점검했습니다.</p>
+
+<h2>3. 품질 기준과 제작 과정</h2>
+
+<p>모든 판단의 기준은 <strong>공식 로고</strong>였습니다. 로고에서 글자 모양과 간격을 측정해 규칙을 만들고, 그 규칙을 전체 글자로 확장했습니다.</p>
+
+<p><strong>지킨 기준</strong></p>
+
+<ul>
+  <li><strong>로고와 똑같이:</strong> 로고 글자 7자는 폰트 글자와 형태가 0.1% 이내로 일치하고, 폰트로 입력한 "FnGuide"는 로고와 같은 간격으로 놓입니다.</li>
+  <li><strong>구조의 일관성:</strong> 기둥·가로획·세리프·터미널·카운터·꼭짓점·어센더/디센더 등 11개 요소를 원본 기준값과 비교해 어긋난 11자를 보정했습니다. v1.200에서는 다른 글자보다 굵어 보이던 대문자 I와 새로 그린 f·m·r의 기둥을 4% 가늘게 맞췄습니다.</li>
+  <li><strong>고른 간격:</strong> 글자 가장자리의 흰 공간을 측정해 여백을 정하고(스페이싱), 사선·돌출 조합(AV, To, T. 등)은 같은 목표 비율로 커닝했습니다.</li>
+  <li><strong>충돌 없음:</strong> 가능한 모든 글자 쌍 1만여 개를 검사해 글자끼리 닿는 경우가 없음을 확인했습니다.</li>
+</ul>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>버전</th><th>단계</th><th>주요 내용</th></tr></thead>
+  <tbody>
+    <tr><td class="nowrap">v1.200</td><td>글자 디자인 수정</td><td>f m M s S y r 새 디자인 반영, f 합자 8종을 새 f에 맞춰 다시 제작, I·f·m·r 기둥을 4% 가늘게 보정</td></tr>
+    <tr><td class="nowrap">v1.100</td><td>대문자 리듬</td><td>B2C API 로고를 참고해 대문자끼리의 간격을 로고 밀도에 맞춤</td></tr>
+    <tr><td class="nowrap">v1.000</td><td>최종 커닝·합자</td><td>커닝 강도 최종 조정, f 합자 8종 추가</td></tr>
+    <tr><td class="nowrap">v0.700</td><td>구조 점검</td><td>11개 구조 요소 점검, K k M N S U X f r w z 보정</td></tr>
+    <tr><td class="nowrap">v0.600</td><td>자동 커닝</td><td>글자 클래스 정의, 전체 쌍 자동 커닝</td></tr>
+    <tr><td class="nowrap">v0.500</td><td>스페이싱</td><td>FnGuide 로고 간격으로 여백 기준 보정</td></tr>
+    <tr><td class="nowrap">v0.300–0.430</td><td>글자 확장</td><td>숫자·특수문자 추가, 디자인팀 수정안 반영</td></tr>
+    <tr><td class="nowrap">v0.100–0.200</td><td>초기 제작</td><td>로고 22자로 폰트 생성, 대소문자 52자로 확장</td></tr>
+  </tbody>
+</table></div>
+
+<h2>4. BI 컬러 전략과 서체 적용</h2>
+
+<p>「CI/BI 사용방안」의 BI 개선 방안은 <strong>사업별 단일 색상의 일관성</strong>과 <strong>분야별 구분의 유연성</strong>을 함께 가져가는 구조입니다. 전용서체는 모든 그룹에 공통으로 쓰고, 그룹은 컬러로 구분합니다.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>그룹</th><th>컬러</th><th>성격</th><th>대상 BI 예시</th><th>흰 배경 명도 대비</th></tr></thead>
+  <tbody>
+    <tr><td>회사 CI</td><td class="nowrap"><span class="swatch" style="background:#94243A"></span>FnWine <code>#94243A</code></td><td>고급스러움, 신뢰, 무게감, 헤리티지</td><td>FnGuide CI</td><td>8.16 · 본문까지 가능</td></tr>
+    <tr><td>B2B 대표상품군</td><td class="nowrap"><span class="swatch" style="background:#B9023D"></span>FnRed <code>#B9023D</code></td><td>열정, 자신감, 역동성, 현대적</td><td>FnGuide.com, DataGuide, QuantiWise, WiseReport</td><td>6.69 · 본문까지 가능</td></tr>
+    <tr><td>지수</td><td class="nowrap"><span class="swatch" style="background:#45B792"></span>Index <code>#45B792</code></td><td>성장, 투명성, 중립성</td><td>FnIndex, WiseIndex</td><td>2.49 · <strong>흰 배경 비권장</strong></td></tr>
+    <tr><td>펀드</td><td class="nowrap"><span class="swatch" style="background:#0C3178"></span>Fund <code>#0C3178</code></td><td>신뢰, 정확성, 전문성</td><td>FundGuide, PFGuide</td><td>12.17 · 본문까지 가능</td></tr>
+    <tr><td>B2B 계약상품군</td><td class="nowrap"><span class="swatch" style="background:#1C1C3A"></span><code>#1C1C3A</code></td><td>고객사 맞춤형 서비스</td><td>ETF Global, Market Monitor, CompanyGlobal</td><td>16.45 · 본문까지 가능</td></tr>
+    <tr><td>B2C 독립 체계</td><td><span class="nowrap"><span class="swatch" style="background:#26C0D2"></span>리타민 <code>#26C0D2</code></span> · <span class="nowrap"><span class="swatch" style="background:#2457C5"></span>API <code>#2457C5</code></span></td><td>사용자 친화적, 서비스별 독립 컬러</td><td>리타민, FnAPI</td><td>2.20 · 흰 배경 비권장 / 6.47 · 가능</td></tr>
+  </tbody>
+</table></div>
+
+<p><strong>교정지 활용.</strong> 교정지에서 그룹 컬러를 고르면 해당 그룹의 대표 BI 단어가 함께 표시됩니다 (계약상품 → ETF Global, 펀드 → FundGuide, 지수 → FnIndex, API → FnAPI).</p>
+
+<h2>5. 사용 가이드</h2>
+
+<p>서체는 사내 브랜드 자산으로, 정해진 범위 안에서만 사용합니다.</p>
+
+<p><strong>설치</strong></p>
+
+<ol>
+  <li>디자인 툴(Figma, Illustrator 등)에는 OTF, 오피스(Word, PowerPoint)에는 TTF를 설치합니다.</li>
+  <li>PowerPoint·Word에서는 [글꼴] 설정의 "글꼴 커닝"을 켜야 로고와 같은 간격이 적용됩니다.</li>
+  <li>합자(fi, fl 등)는 대부분의 디자인 툴과 웹 브라우저에서 자동으로 적용됩니다.</li>
+</ol>
+
+<p><strong>웹 적용 (사내 서비스)</strong></p>
+
+<pre><code>@font-face {
+  font-family: "FnGuide Logotype";
+  src: url("&lt;사내 CDN 경로&gt;/FnGuideLogotype-Regular.woff") format("woff");
+  font-display: block;
+}
+.brand { font-family: "FnGuide Logotype", serif; font-kerning: normal; }</code></pre>
+
+<p><strong>사용 원칙</strong></p>
+
+<ul>
+  <li><strong>공식 로고는 원본 파일을 사용합니다.</strong> 서체는 BI 문구, 제목, 브랜드 그래픽 제작용이며, 로고 자체를 서체로 다시 입력해 대체하지 않습니다.</li>
+  <li><strong>제목·브랜드 문구 전용입니다.</strong> 간격이 로고 기준으로 조여져 있어, 작은 크기의 본문에는 적합하지 않습니다. 부득이한 경우 자간을 넓혀 사용합니다.</li>
+  <li><strong>사내 사용만 허용합니다.</strong> 폰트 파일을 외부에 전달하거나 외부 서버·공개 저장소에 올리지 않습니다. 협력사 제작물에 필요한 경우 디자인 파트를 통해 요청합니다.</li>
+  <li><strong>수록 글자는 영문·숫자·기호입니다.</strong> 한글은 포함되어 있지 않으므로 한글 문구는 기존 지정 서체를 사용합니다.</li>
+</ul>
+
+<h2>6. 다음 단계</h2>
+
+<p>사내 배포 준비를 마무리하고, BI 매뉴얼과 미리보기 사이트로 활용 범위를 넓힙니다.</p>
+
+<p><strong>활용 확대</strong></p>
+
+<ul class="task">
+  <li><input type="checkbox" disabled><span>BI별 로고 간격 반영: FundGuide, FnIndex, ETF Global, FnAPI 등의 공식 로고 파일을 받아 "FnGuide"처럼 로고와 같은 간격으로 조판되게 보정</span></li>
+  <li><input type="checkbox" disabled><span>브랜드 매뉴얼 제작 (BI별 톤·컬러·서체 사용 규정) 및 관계 부서 공유</span></li>
+  <li><input type="checkbox" disabled><span>서체 미리보기 기능을 브랜드 자산 관리 사이트에 포함 (기존 PRD 기준, 107자·커닝·합자·브랜드 컬러 반영해 업데이트)</span></li>
+</ul>
+
+<p><strong>브랜드 자산 관리 사이트 (예정)</strong></p>
+
+<p>서체 개발에 이어, 임직원이 회사의 CI/BI 자산을 한곳에서 찾아보고 내려받을 수 있는 사내 브랜드 자산 관리 사이트를 디자인해 게시할 예정입니다. 파일을 메일이나 메신저로 주고받던 방식을 줄이고, 모두가 항상 최신 버전의 공식 자산을 쓰도록 하는 것이 목표입니다.</p>
+
+<div class="table-wrap"><table>
+  <thead><tr><th>구분</th><th>제공 내용</th></tr></thead>
+  <tbody>
+    <tr><td>CI</td><td>FnGuide CI 로고 원본 파일, 사용 규정</td></tr>
+    <tr><td>BI</td><td>서비스별 로고타입 (FnGuide.com, DataGuide, FundGuide, PFGuide, FnIndex, ETF Global, FnAPI 등)</td></tr>
+    <tr><td>컬러</td><td>BI 그룹별 컬러 코드와 배경별 사용 예시</td></tr>
+    <tr><td>서체</td><td>FnGuide Logotype 미리보기(커닝·합자·브랜드 컬러 적용)와 OTF·TTF·WOFF 다운로드</td></tr>
+    <tr><td>가이드</td><td>브랜드 매뉴얼(BI별 톤·컬러·서체 규정)과 활용 예시</td></tr>
+  </tbody>
+</table></div>
+
+<ul>
+  <li><strong>사내 전용:</strong> 사내 계정으로 로그인해 이용하며, 자산별로 다운로드 권한을 관리합니다.</li>
+  <li><strong>최신 버전 제공:</strong> 모든 자산은 현재 버전만 내려받을 수 있고, 변경 이력을 함께 공개합니다.</li>
+  <li><strong>최소한의 기록:</strong> 다운로드 이력은 브랜드 자산 관리에 필요한 범위(사번·파일·시각)만 남기고 일정 기간 후 파기합니다.</li>
+</ul>
+
+<p>사이트 구성과 오픈 일정은 확정되는 대로 별도로 공지하겠습니다.</p>
+
+<p><strong>자료와 문의</strong></p>
+
+<ul>
+  <li>폰트 패키지: FnGuide-Logotype-Font-v1.200 (서체 파일, 원본 SVG, 빌드 스크립트, 점검 보고서 포함)</li>
+  <li>교정지: final-kerning-proof-v1.100 (브랜드 컬러·배경별 미리보기, v1.100 기준)</li>
+  <li>문의: 웹&amp;모바일팀 김진혁</li>
+</ul>
+
+</main>
+</body>
+</html>

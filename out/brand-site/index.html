@@ -8,7 +8,7 @@
 <style>
   @font-face {
     font-family: "FnGuide Logotype";
-    src: url("fonts/FnGuideLogotype-Regular.woff") format("woff");
+    src: url("fonts/FnGuideLogotype-Regular.woff?v=1.200s") format("woff");
     font-display: block;
   }
   :root {
@@ -42,9 +42,7 @@
   .menu a { display: flex; align-items: center; gap: 10px; text-decoration: none; padding: 9px 12px; border-radius: 10px; font-weight: 600; color: var(--ink-2); font-size: 14.5px; }
   .menu a:hover { background: var(--soft); color: var(--ink); }
   .menu a[aria-current="page"] { background: var(--red); color: #fff; }
-  .menu .num { font-family: var(--brand); font-size: 13px; width: 18px; color: var(--ink-3); }
-  .menu a[aria-current="page"] .num { color: rgba(255,255,255,.75); }
-  .menu .sub { margin: 2px 0 6px 28px; border-left: 1px solid var(--line); padding-left: 8px; }
+  .menu .sub { margin: 2px 0 6px 12px; border-left: 1px solid var(--line); padding-left: 8px; }
   .menu .sub a { font-weight: 500; font-size: 13.5px; padding: 6px 10px; }
   .menu .sub a[aria-current="page"] { background: var(--soft); color: var(--ink); font-weight: 700; }
   .menu .sub .dot { width: 8px; height: 8px; }
@@ -212,12 +210,12 @@
 <aside>
   <div class="side-top"><a href="#home" id="sideLogo" aria-label="홈으로"></a></div>
   <nav class="menu" id="menu">
-    <a href="#home"><span class="num">0</span>홈</a>
-    <a href="#font"><span class="num">1</span>전용서체 소개</a>
-    <a href="#logo/b2b" data-parent="logo"><span class="num">2</span>로고타입 소개</a>
+    <a href="#home">BI 디자인 운영</a>
+    <a href="#font">브랜드 전용서체 소개</a>
+    <a href="#logo/b2b" data-parent="logo">브랜드 로고타입 소개</a>
     <div class="sub" id="subMenu"></div>
-    <a href="#download"><span class="num">3</span>다운로드</a>
-    <a href="#rules"><span class="num">4</span>사용 규칙</a>
+    <a href="#download">로고타입 다운로드</a>
+    <a href="#rules">사용 규칙</a>
   </nav>
   <div class="side-foot"><b>사내 전용</b> · FnGuide 임직원만 사용할 수 있습니다.</div>
 </aside>
@@ -284,6 +282,7 @@
       <div class="sec-head"><h2>최근 업데이트</h2></div>
       <div class="box" style="padding:4px 22px">
         <ul class="news">
+          <li><time>2026.10.27</time><div><b>전용서체 FnGuide Logotype v1.200 공개</b><span>f m M s S y r 디자인을 수정하고 I·f·m·r 기둥 굵기를 보정했습니다. 해당 글자가 들어간 로고타입도 새 서체로 다시 만들었습니다.</span></div></li>
           <li><time>2026.10.27</time><div><b>서비스 로고타입 17종을 전용서체로 새로 제작</b><span>B2B 대표·지수·펀드·B2B 계약상품군과 FnAPI 로고타입을 FnGuide Logotype으로 다시 만들었습니다.</span></div></li>
           <li><time>2026.10.26</time><div><b>전용서체 FnGuide Logotype v1.100 공개</b><span>대문자끼리의 간격을 로고 밀도에 맞춰 조정했습니다.</span></div></li>
           <li><time>2025.06</time><div><b>FnGuide CI / BI 사용방안 · BI 컬러 가이드라인</b><span>사업별 컬러 체계와 FnRed 2025를 정했습니다.</span></div></li>
@@ -310,11 +309,12 @@
     </div>
 
     <div class="sec">
-      <div class="sec-head"><h2>업데이트 현황</h2><p>현재 버전 <span class="pill">v1.100</span> · 2026.10.26</p></div>
+      <div class="sec-head"><h2>업데이트 현황</h2><p>현재 버전 <span class="pill">v1.200</span> · 2026.10.27</p></div>
       <div class="table-wrap">
         <table>
           <thead><tr><th>버전</th><th>단계</th><th>주요 내용</th></tr></thead>
           <tbody>
+            <tr><td><b>v1.200</b></td><td>글자 디자인 수정</td><td>f m M s S y r 새 디자인 반영, f 합자 8종을 새 f에 맞춰 다시 제작, I·f·m·r 기둥을 4% 가늘게 보정</td></tr>
             <tr><td><b>v1.100</b></td><td>대문자 리듬</td><td>B2C API 로고를 참고해 대문자끼리의 간격을 로고 밀도에 맞춤</td></tr>
             <tr><td><b>v1.000</b></td><td>최종 커닝·합자</td><td>글자 간격 보정 강도 최종 조정, f 합자 8종 추가</td></tr>
             <tr><td><b>v0.700</b></td><td>구조 점검</td><td>11개 구조 요소 점검, K k M N S U X f r w z 보정</td></tr>
@@ -332,7 +332,7 @@
       <div class="table-wrap">
         <table>
           <tbody>
-            <tr><th>서체명</th><td>FnGuide Logotype Regular (v1.100)</td></tr>
+            <tr><th>서체명</th><td>FnGuide Logotype Regular (v1.200)</td></tr>
             <tr><th>수록 글자</th><td>107자 — 영문 대문자 26 · 소문자 26 · 숫자 10 · 특수문자(키보드 입력 문자 32종 + – ‘ ’ “ ”) · f 합자 8</td></tr>
             <tr><th>숫자</th><td>0–9 · 금융 데이터 정렬을 위해 숫자끼리는 간격 보정 없음</td></tr>
             <tr><th>합자</th><td>fi fl ff ffi ffl fb fh fk — 입력하면 자동으로 이어진 글자로 바뀜</td></tr>
@@ -348,7 +348,7 @@
       <div class="cols c4">
         <div class="box"><span class="big-no">0.33%</span><h3>로고와 똑같이</h3><p>폰트로 입력한 "FnGuide"와 공식 로고의 글자 위치 차이가 최대 0.33%입니다.</p></div>
         <div class="box"><span class="big-no">11</span><h3>구조의 일관성</h3><p>기둥·가로획·세리프 등 11개 요소를 원본 기준값과 비교해 어긋난 글자를 보정했습니다.</p></div>
-        <div class="box"><span class="big-no">1,149</span><h3>고른 간격</h3><p>글자 가장자리의 흰 공간을 측정해 여백을 정하고, 1,149개 간격 보정 규칙을 넣었습니다.</p></div>
+        <div class="box"><span class="big-no">1,203</span><h3>고른 간격</h3><p>글자 가장자리의 흰 공간을 측정해 여백을 정하고, 1,203개 간격 보정 규칙을 넣었습니다.</p></div>
         <div class="box"><span class="big-no">0</span><h3>충돌 없음</h3><p>가능한 글자 쌍 1만여 개를 검사해 글자끼리 닿는 경우가 없음을 확인했습니다.</p></div>
       </div>
     </div>
@@ -361,6 +361,7 @@
           <label>문구 <input type="text" id="specInput" value="FnGuide Brand" maxlength="40"></label>
           <label>크기 <input type="range" id="specSize" min="32" max="140" value="88"></label>
           <label>색상 <span class="swatches" id="swatches"></span></label>
+          <span class="btns" id="specDl" style="margin-left:auto"><button class="btn" data-type="svg">SVG 받기</button><button class="btn" data-type="png">PNG 받기</button></span>
         </div>
         <div class="glyphs">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 &amp;@#%$!?()[]{}</div>
       </div>
@@ -421,7 +422,7 @@
       </div>
     </div>
     <div class="sec">
-      <div class="sec-head"><h2>전용서체 · FnGuide Logotype</h2><p>v1.100 Regular</p></div>
+      <div class="sec-head"><h2>전용서체 · FnGuide Logotype</h2><p>v1.200 Regular</p></div>
       <div class="cols c3 font-files"></div>
     </div>
   </section>
@@ -467,7 +468,8 @@
 </main>
 <div class="toast" id="toast"></div>
 
-<script src="logos.js"></script>
+<script src="logos.js?v=1.200r"></script>
+<script src="font-data.js?v=1.200s"></script>
 <script>
 (() => {
   const { groups, logos, archive } = window.BRAND;
@@ -566,23 +568,70 @@
   input.addEventListener("input", () => { spec.textContent = input.value || " "; });
   spec.addEventListener("input", () => { input.value = spec.textContent; });
   $("#specSize").addEventListener("input", e => { spec.style.fontSize = e.target.value + "px"; });
+  // 투명 배경 표시용 회색 격자 (받는 파일은 그대로 투명)
+  const CHECKER = "repeating-conic-gradient(#C4C4C4 0 25%, #E2E2E2 0 50%) 0 0 / 20px 20px";
   const SW = [
     { c: "#1C1C3A", bg: "#FFFFFF", word: null },
     { c: "#B9023D", bg: "#FFFFFF", word: "FnGuide" },
-    { c: "#45B792", bg: "#1C1C3A", word: "FnIndex" },
+    { c: "#45B792", bg: "#FFFFFF", word: "FnIndex" },
     { c: "#0C3178", bg: "#FFFFFF", word: "FundGuide" },
     { c: "#1C1C3A", bg: "#FFFFFF", word: "ETF Global" },
     { c: "#2457C5", bg: "#FFFFFF", word: "FnAPI" },
-    { c: "#FFFFFF", bg: "#B9023D", word: "FnGuide" },
+    { c: "#FFFFFF", bg: CHECKER, word: "FnGuide" },
   ];
   $("#swatches").innerHTML = SW.map((s, i) =>
-    `<button class="sw" aria-label="색상 ${s.c}" aria-pressed="${i === 0}" data-i="${i}" style="background:${s.c};${s.c === "#FFFFFF" ? "outline:3px solid " + s.bg + ";outline-offset:-8px" : ""}"></button>`).join("");
+    `<button class="sw" aria-label="색상 ${s.c}" aria-pressed="${i === 0}" data-i="${i}" style="background:${s.bg === CHECKER ? CHECKER.replace("20px 20px", "8px 8px") : s.c}"></button>`).join("");
   $("#swatches").addEventListener("click", e => {
     const b = e.target.closest(".sw"); if (!b) return;
     const s = SW[b.dataset.i];
     document.querySelectorAll(".sw").forEach(x => x.setAttribute("aria-pressed", x === b));
-    $("#specimen").style.background = s.bg; spec.style.color = s.c;
+    $("#specimen").style.background = s.bg; spec.style.color = s.c; specColor = s.c;
     if (s.word) { spec.textContent = s.word; input.value = s.word; }
+  });
+  let specColor = SW[0].c;
+
+  // 미리보기 문구를 SVG·PNG로 저장: 서체 안의 합자·글자 간격 규칙을 그대로 적용해 글자 윤곽선으로 그린다 (font-data.js)
+  function shape(text) {
+    const F = window.FONT_DATA, out = [], missing = new Set();
+    let i = 0, x = 0, prev = null;
+    while (i < text.length) {
+      const lg = F.liga.find(([seq]) => text.startsWith(seq, i));
+      const name = lg ? lg[1] : F.cmap[text[i]];
+      i += lg ? lg[0].length : 1;
+      if (!name) { missing.add(text[i - 1]); continue; }
+      if (prev) x += F.kern[prev + " " + name] || 0;
+      out.push([name, x]); x += F.glyphs[name][0]; prev = name;
+    }
+    return { glyphs: out, missing: [...missing] };
+  }
+  // 글자 하나의 윤곽선을 옆으로 dx만큼 옮긴다 (M·L·C·Q는 x,y 짝, H는 x만)
+  const shift = (d, dx) => d.replace(/([MLCQHVZ])([^MLCQHVZ]*)/g, (_, c, args) => {
+    const n = args.trim() ? args.trim().split(/[\s,]+/).map(Number) : [];
+    return c + n.map((v, k) => c === "V" || (c !== "H" && k % 2) ? v : Math.round((v + dx) * 100) / 100).join(" ");
+  });
+  function specSvg() {
+    const text = spec.textContent.replace(/\s+/g, " ");
+    const { glyphs, missing } = shape(text);
+    const d = glyphs.map(([n, x]) => shift(window.FONT_DATA.glyphs[n][1], x)).join("");
+    if (!d) return { missing };
+    // 실제 글자 윤곽 크기를 재서 여백 없이 자른다 (로고 파일과 같은 방식)
+    const probe = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    probe.style.cssText = "position:absolute;width:0;height:0;visibility:hidden";
+    probe.innerHTML = `<path d="${d}"/>`;
+    document.body.appendChild(probe);
+    const bb = probe.firstChild.getBBox(); probe.remove();
+    const k = parseFloat(getComputedStyle(spec).fontSize) / window.FONT_DATA.upem;
+    const r = v => Math.round(v * 100) / 100;
+    const w = r(bb.width * k), h = r(bb.height * k);
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="${r(bb.x)} ${r(bb.y)} ${r(bb.width)} ${r(bb.height)}"><path fill="${specColor}" d="${d}"/></svg>\n`;
+    return { svg, w, h, missing, name: text.trim().replace(/[\\/:*?"<>|\s]+/g, "-").slice(0, 40) || "FnGuide-Logotype" };
+  }
+  $("#specDl").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    const r = specSvg();
+    if (!r.svg) { toast("저장할 글자가 없습니다 (한글은 서체에 없습니다)"); return; }
+    b.dataset.type === "svg" ? save(new Blob([r.svg], { type: "image/svg+xml" }), r.name + ".svg") : savePng(r.svg, r.w, r.h, r.name + "@4x.png");
+    if (r.missing.length) setTimeout(() => toast("서체에 없는 글자는 빠졌습니다: " + r.missing.join(" ")), 1700);
   });
 
   // 로고타입 그룹 화면
