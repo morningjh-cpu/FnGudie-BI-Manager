@@ -25,7 +25,8 @@ from fontTools.ttLib import TTFont
 
 ROOT = Path(__file__).resolve().parent.parent
 FONT_DIR = ROOT / "data" / "FnGuide-Logotype-Font"
-FONT = ROOT / "out" / "font-update" / "v1.200" / "fonts" / "FnGuideLogotype-Regular.otf"  # v1.200 (data 의 v1.100 원본은 그대로 둠)
+# 로고타입은 f·m·r 기둥 조정 전 v1.200 으로 만든다(조정본으로 다시 만들지는 결정 대기). 조정본: out/font-update/v1.200/fonts
+FONT = ROOT / "out" / "font-update" / "logo-font" / "FnGuideLogotype-Regular.otf"
 CI_SVG = FONT_DIR / "source-svg" / "0_logo" / "FnGuide.svg"
 FIGMA = ROOT / "data" / "figma-logo-parts"
 RETAMIN_SVG = FIGMA / "retamin.svg"
@@ -57,6 +58,8 @@ BRANDS = [
     ("fundguide", "FundGuide", "fund", None),
     ("pfguide", "PFGuide", "fund", None),
     ("fnaims", "FnAIMS", "fund", None),
+    ("fnspectrum", "FnSpectrum", "fund", None),
+    ("fnares", "FnARES", "fund", None),
     ("companyguide", "CompanyGuide", "contract", None),
     ("companywise", "CompanyWise", "contract", None),
     ("companyglobal", "CompanyGlobal", "contract", None),
@@ -85,6 +88,27 @@ NOTES = {
 ARCHIVE = [
     ("ci-fnpricing", "FnPricing", "2011년 6월 창립 — 에프앤자산평가 자체 제작", ROOT / "data" / "fnpricing" / "img_ci_logo.png"),
 ]
+
+# 서비스 웹사이트 (로고타입 카드에 링크로 표시)
+SERVICE_URL = {
+    "fnguide-com": "https://www.fnguide.com/",
+    "dataguide": "https://dataguide.fnguide.com/",
+    "quantiwise": "https://corp.fnguide.com/fng/serviceinfo_quantiwiseIndex",
+    "wisereport": "https://www.wisereport.co.kr",
+    "fnindex": "https://www.fnindex.co.kr/overview/info/MIS",
+    "wiseindex": "https://www.wiseindex.com/Index/Index#/WMI500",
+    "cryptoguide": "https://crypto.fnguide.com/",
+    "fundguide": "https://www.fundguide.net/",
+    "pfguide": "https://www.pfguide.co.kr/",
+    "fnaims": "https://www.fnaims.co.kr/",
+    "fnspectrum": "https://www.fnspectrum.com/",
+    "companyguide": "https://wcomp.fnguide.com/",
+    "companywise": "https://comp.wisereport.co.kr/",
+    "companyglobal": "https://compglobal.wisereport.co.kr",
+    "etfglobal": "https://globaletf.wisereport.co.kr",
+    "fnspace": "https://www.fnspace.com/",
+    "retamin": "https://retamin.fnguide.com/",
+}
 
 ARCHIVE_URL = {"ci-fnpricing": "https://www.fnpricing.com/fr/pc/intro/vision"}
 
@@ -276,6 +300,7 @@ def main():
         w, h = (float(v) for v in re.search(r'width="([\d.]+)" height="([\d.]+)"', svg).groups())
         items.append({"id": file, "name": "FnGuide (개선 로고)" if file == "fnguide" else text, "group": group,
                       "kind": "improved" if file == "fnguide" else "bi", "w": w, "h": h, "note": NOTES.get(file, ""),
+                      "url": SERVICE_URL.get(file, ""),
                       "svg": svg.strip(), "white": white.strip()})
     archive = [{"id": f, "name": n, "desc": d, "url": ARCHIVE_URL.get(f, ""), "svg": png_logo(img)} for f, n, d, img in ARCHIVE]
     (OUT / "logos.js").write_text(

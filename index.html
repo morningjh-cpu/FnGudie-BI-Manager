@@ -468,7 +468,7 @@
 </main>
 <div class="toast" id="toast"></div>
 
-<script src="out/brand-site/logos.js?v=1.200r"></script>
+<script src="out/brand-site/logos.js?v=1.200v"></script>
 <script src="out/brand-site/font-data.js?v=1.200s"></script>
 <script>
 (() => {
@@ -640,17 +640,19 @@
   // 회사 CI 원본 파일은 크기 기준이 달라 따로 맞춘다 (상자가 있는 CI, 긴 로고타입)
   const fit = l => ({ official: 0.7, logotype: 0.6 }[l.kind] || 1);
   const big = (svg, l) => sized(svg, l.w * STAGE_SCALE * fit(l), l.h * STAGE_SCALE * fit(l));
+  // 서비스 웹사이트 링크 (있는 로고만, 주소는 사이트 이름까지만 표시)
+  const site = l => l.url ? `<a class="note" href="${l.url}" target="_blank" rel="noopener">${esc(new URL(l.url).hostname.replace(/^www\./, ""))} ↗</a>` : "";
   function logoRow(l, info) {
     if (!l.white) return `<div class="logo-row">
       <div class="stages" style="grid-template-columns:1fr"><div class="stage" style="background:#fff"><small>흰 배경</small>${big(l.svg, l)}</div></div>
-      <div class="row-meta"><strong>${esc(l.name)}</strong><span class="note">${esc(l.note || "")}</span>${dl(l.id)}</div>
+      <div class="row-meta"><strong>${esc(l.name)}</strong><span class="note">${esc(l.note || "")}</span>${site(l)}${dl(l.id)}</div>
     </div>`;
     const second = info.darkBg
       ? `<div class="stage" style="background:#1C1C3A;color:#fff"><small>어두운 배경 · 권장</small>${big(l.svg, l)}</div>`
       : `<div class="stage" style="background:${bgOf(l)};color:#fff"><small>컬러 배경 · 흰색 판</small>${big(l.white, l)}</div>`;
     return `<div class="logo-row">
       <div class="stages"><div class="stage" style="background:#fff"><small>흰 배경</small>${big(l.svg, l)}</div>${second}</div>
-      <div class="row-meta"><strong>${esc(l.name)}</strong><span class="note">${esc(l.note || "")}</span>${dl(l.id)}${dl(l.id, "white", "흰색 ")}</div>
+      <div class="row-meta"><strong>${esc(l.name)}</strong><span class="note">${esc(l.note || "")}</span>${site(l)}${dl(l.id)}${dl(l.id, "white", "흰색 ")}</div>
     </div>`;
   }
   function renderGroup(id) {
