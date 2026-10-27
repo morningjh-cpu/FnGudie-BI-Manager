@@ -35,9 +35,9 @@ OUT = ROOT / "out" / "brand-site"
 
 HEIGHT_PX = 40  # 대문자 높이 700 단위가 28px 정도로 보이는 크기 (1000 단위 = 40px)
 
-# 그룹·색상: 서체 문서 4장 표. 회사 CI 주색상 Fn Wine #94243A (홈페이지 표의 #962E45는 잘못된 값, 사용자 확인). 개선 로고 FnRed와 구분해 Fn Wine으로 부름
+# 그룹·색상: 서체 문서 4장 표. 회사 CI 주색상 FnWine #94243A (홈페이지 표의 #962E45는 잘못된 값, 사용자 확인). 개선 로고 FnRed와 구분해 FnWine으로 부름
 GROUPS = [
-    {"id": "ci", "name": "회사 CI", "color": "#94243A", "colorName": "Fn Wine"},
+    {"id": "ci", "name": "회사 CI", "color": "#94243A", "colorName": "FnWine"},
     {"id": "b2b", "name": "B2B 대표상품군", "color": "#B9023D", "colorName": "FnRed"},
     {"id": "index", "name": "지수", "color": "#45B792", "colorName": "Index"},
     {"id": "fund", "name": "펀드", "color": "#0C3178", "colorName": "Fund"},
@@ -261,7 +261,7 @@ def main():
     official = []
     for file, name, src, white, kind, extra in [
         ("fnguide-ci", "FnGuide CI", "cip.svg", "logo_white.svg", "official",
-         [("wine", "단색 Fn Wine", "logo_red.svg"), ("darkgray", "단색 Fn Dark Gray", "logo_darkGray.svg")]),
+         [("wine", "단색 FnWine", "logo_red.svg"), ("darkgray", "단색 FnDarkGray", "logo_darkGray.svg")]),
         ("fnguide-inc", "FnGuide Inc.", "logo_cip1.svg", None, "logotype", []),
         ("fnguide-kr", "(주)에프앤가이드", "logo_cip2.svg", None, "logotype", []),
     ]:
