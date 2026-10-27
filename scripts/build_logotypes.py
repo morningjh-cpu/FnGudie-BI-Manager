@@ -3,6 +3,7 @@
 - 글자 간격(커닝)과 f 합자는 서체에 들어 있는 규칙을 그대로 적용한다.
 - 회사 CI "FnGuide"는 서체로 다시 입력하지 않고 공식 원본 파일을 쓴다 (서체 문서 5장 사용 원칙).
 - 리타민은 B2C 독립 체계라 전용서체 대신 기존 로고(피그마)를 그대로 쓴다.
+- 그룹색 배경용 흰색 판(logos/white/)과 회사 CI 화면에 보여줄 이전 CI(전시용, 다운로드 없음)도 만든다.
 결과: out/brand-site/logos/*.svg, out/brand-site/logos.js
 실행: py scripts/build_logotypes.py   (필요: py -m pip install fonttools uharfbuzz)
 """
@@ -21,7 +22,8 @@ ROOT = Path(__file__).resolve().parent.parent
 FONT_DIR = ROOT / "data" / "FnGuide-Logotype-Font"
 FONT = FONT_DIR / "fonts" / "FnGuideLogotype-Regular.otf"
 CI_SVG = FONT_DIR / "source-svg" / "0_logo" / "FnGuide.svg"
-RETAMIN_SVG = ROOT / "data" / "figma-logo-parts" / "retamin.svg"
+FIGMA = ROOT / "data" / "figma-logo-parts"
+RETAMIN_SVG = FIGMA / "retamin.svg"
 OUT = ROOT / "out" / "brand-site"
 
 HEIGHT_PX = 40  # 대문자 높이 700 단위가 28px 정도로 보이는 크기 (1000 단위 = 40px)
@@ -56,6 +58,30 @@ BRANDS = [
     ("marketmonitor", "Market Monitor", "contract", None),
     ("fnspace", "FnSpace", "contract", None),
     ("fnapi", "FnAPI", "b2c", "#2457C5"),
+]
+
+
+# 서비스 이력: 피그마 「FnGuide Brand Color」의 숨김 메모
+NOTES = {
+    "wisereport": "2018년 합병 후 수정",
+    "fundguide": "2020년 12월 서비스 출시",
+    "pfguide": "2020년 서비스 출시",
+    "fnaims": "2020년 서비스 출시",
+    "companyguide": "2004년 FnCompanyGuide 런칭, 2012년 CompanyGuide로 변경",
+    "companywise": "2018년 합병 후 수정, 2024년 6월 컬러 단일화",
+    "companyglobal": "2018년 합병 후 수정",
+    "marketmonitor": "2024년 7월 범용 기업정보 ASP 서비스",
+    "fnspace": "2019년 12월 API 기반 데이터 제공 서비스 출시",
+}
+
+# 이전 CI: 피그마 「CI / BI 사용방안」 05 장표 — (파일명, 이름, 설명, 폭, 높이, [(조각, x, y)])
+ARCHIVE = [
+    ("ci-2000", "FnGuide", "2000년 7월 창립 — 대형 에이전시를 통해 제작 (리뉴얼 이전 CI)", 790, 267, [("ci2000", 0, 0)]),
+    ("ci-fnpricing", "FnPricing", "2011년 6월 창립 — 에프앤자산평가 자체 제작", 925, 308, [
+        ("fp_v0", 0, 0), ("fp_v1", 159.19, 166.78), ("fp_v2", 287.95, 128.31), ("fp_v3", 408.85, 168.26),
+        ("fp_v4", 552.23, 168.29), ("fp_v5", 495.99, 165.46), ("fp_v6", 508.01, 126.19), ("fp_v7", 641.4, 165.46),
+        ("fp_v8", 653.42, 126.19), ("fp_v9", 698.0, 168.26), ("fp_v10", 818.26, 168.29), ("fp_tag", 289.99, 27.13),
+    ]),
 ]
 
 
@@ -117,6 +143,27 @@ def existing_logo(path):
     return src.strip() + "\n"
 
 
+def compose(w, h, parts, out_h=56):
+    """피그마 조각을 정해진 위치에 놓아 SVG 한 파일로 합친다."""
+    body = []
+    for name, x, y in parts:
+        src = (FIGMA / f"{name}.svg").read_text(encoding="utf-8")
+        vb = re.search(r'viewBox="([^"]+)"', src).group(1)
+        pw, ph = re.search(r'width="([^"]+)" height="([^"]+)"', src).groups()
+        inner = re.search(r"<svg[^>]*>(.*)</svg>", src, re.S).group(1)
+        inner = re.sub(r'\s(id|data-figma-[\w-]+)="[^"]*"', "", inner)
+        body.append(f'<svg x="{x}" y="{y}" width="{pw}" height="{ph}" viewBox="{vb}" overflow="visible">{inner.strip()}</svg>')
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{fmt(w * out_h / h)}" height="{out_h}" '
+        f'viewBox="0 0 {w} {h}" fill="none">' + "".join(body) + "</svg>\n"
+    )
+
+
+def to_white(svg):
+    """색이 있는 칠을 모두 흰색으로 바꾼 판 (모양은 그대로)."""
+    return re.sub(r'fill="#[0-9A-Fa-f]{3,6}"', 'fill="#FFFFFF"', svg)
+
+
 TTFONT = TTFont(FONT)
 
 
@@ -126,18 +173,22 @@ def main():
     glyph_set = TTFONT.getGlyphSet()
     upem = TTFONT["head"].unitsPerEm
 
-    (OUT / "logos").mkdir(parents=True, exist_ok=True)
+    (OUT / "logos" / "white").mkdir(parents=True, exist_ok=True)
     items = []
     entries = [("fnguide", "FnGuide", "ci", official_ci())]
     for file, text, group, color in BRANDS:
         entries.append((file, text, group, typeset(text, color or COLOR[group], hb_font, glyph_set, upem)))
     entries.insert(-1, ("retamin", "Retamin", "b2c", existing_logo(RETAMIN_SVG)))
     for file, text, group, svg in entries:
+        white = to_white(svg)
         (OUT / "logos" / f"{file}.svg").write_text(svg, encoding="utf-8")
+        (OUT / "logos" / "white" / f"{file}.svg").write_text(white, encoding="utf-8")
         w, h = (float(v) for v in re.search(r'width="([\d.]+)" height="([\d.]+)"', svg).groups())
-        items.append({"id": file, "name": text, "group": group, "w": w, "h": h, "svg": svg.strip()})
+        items.append({"id": file, "name": text, "group": group, "w": w, "h": h, "note": NOTES.get(file, ""),
+                      "svg": svg.strip(), "white": white.strip()})
+    archive = [{"id": f, "name": n, "desc": d, "svg": compose(w, h, parts).strip()} for f, n, d, w, h, parts in ARCHIVE]
     (OUT / "logos.js").write_text(
-        "window.BRAND = " + json.dumps({"groups": GROUPS, "logos": items}, ensure_ascii=False) + ";\n",
+        "window.BRAND = " + json.dumps({"groups": GROUPS, "logos": items, "archive": archive}, ensure_ascii=False) + ";\n",
         encoding="utf-8",
     )
     print(f"logotypes: {len(items)}")

@@ -2,18 +2,18 @@
 
 ## 현재 상태
 - 주제: FnGuide Brand Identity Management(회사 CI/BI 자원 관리·공유 서비스) 웹페이지 디자인
-- 요청·결정: plan/phase-1/01~03 (화면: 로고 목록/다운로드/사용 규칙, 전용서체 사용, 한글·본문 서체는 안 만듦, 심볼 디자인은 제외)
-- 1차 시안 완성: out/brand-site/index.html (내 컴퓨터에서 여는 파일, 인터넷 공유 안 함 — 서체가 사내 전용)
-  - 로고 19종: 전용서체로 새로 조판 → scripts/build_logotypes.py (다시 만들기: py scripts/build_logotypes.py, 필요: fonttools·uharfbuzz)
-    - 회사 CI FnGuide만 공식 원본(data/FnGuide-Logotype-Font/source-svg/0_logo/FnGuide.svg) 사용 — 서체 문서 "로고를 서체로 대체하지 않음"
-    - 피그마 로고(data/figma-logo-parts, scripts/build_logos.py)는 서체 제작 전 옛 로고라 쓰지 않음
-    - 색: 서체 문서 그룹 컬러. 회사 CI = FnRed #B9023D (리뉴얼 후). FnWine #94243A 는 리뉴얼 이전 오리지널 CI 색 → 컬러 표 맨 아래 참고용
-    - 리타민: B2C 독립 체계라 전용서체 안 씀 → 피그마 원래 로고 그대로 (data/figma-logo-parts/retamin.svg)
-  - 서체: data/FnGuide-Logotype-Font/fonts → out/brand-site/fonts 로 복사
-  - 문구·색상·규칙은 서체 문서(FnGuide-Logotype-v1.0 copy.md) 4~5장 내용만 사용
-- 확인 필요(사용자에게 물어봄)
-  - (해결됨) CI 색, 리타민 처리 — plan/phase-1/03 맨 아래
-  - 로고 여백·최소 크기·금지 예시: 브랜드 매뉴얼 확정 전이라 "추가 예정" 칸만 둠
+- 요청·결정 기록: plan/phase-1/01~06 (06에 최종 콘텐츠 결정)
+- 2차 시안 완성: out/brand-site/index.html — 왼쪽 메뉴 구조
+  - 0 홈(소개·브랜드 방향·사업별 컬러 체계·B2B/B2C·기대 효과·최근 업데이트)
+  - 1 전용서체 소개(왜·업데이트 현황·사양·품질 기준·미리보기·사용 방법·파일 받기)
+  - 2 로고타입 소개(하위: B2B 대표/지수/펀드/B2B 계약/B2C/회사 CI — 흰 배경+컬러 배경 흰색 판, 서비스 이력 메모, CI 화면에 로고타입 개선·이전 CI 2종 전시용)
+  - 3 다운로드(로고 컬러·흰색 SVG/PNG, 서체 파일), 4 사용 규칙(원칙·배경 조합·협력사·매뉴얼 빈칸)
+- 로고 만들기: py scripts/build_logotypes.py (fonttools·uharfbuzz 필요)
+  - 서비스 17종 전용서체 조판 / 회사 CI 공식 원본 / 리타민 피그마 원래 로고 / 흰색 판 logos/white / 이전 CI는 data/figma-logo-parts 조각으로 합침
+  - scripts/build_logos.py 는 옛 피그마 로고용, 더 이상 안 씀
+- 색: 회사 CI·B2B = FnRed #B9023D, FnWine #94243A 는 리뉴얼 이전 오리지널 CI 색
+- 사이트는 내 컴퓨터용 파일. 서체가 사내 전용이라 인터넷 공유 안 함
+- 확인 안 된 것: 다운로드 단추 실제 동작(브라우저에서 눌러 보기), FnAPI 로고를 서체로 둘지(사용자 답 없음)
 
 ## 다음 할 일
 - 사용자 검토 의견 반영

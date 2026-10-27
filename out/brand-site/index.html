@@ -13,74 +13,106 @@
   }
   :root {
     --bg: #FFFAF7;
+    --side: #FFFFFF;
     --surface: #FFFFFF;
     --line: #EFE4DF;
+    --soft: #F8EFEB;
     --ink: #1C1C3A;
     --ink-2: #5B5866;
     --ink-3: #8E8A96;
-    --wine: #B9023D;
     --red: #B9023D;
+    --red-dark: #960231;
     --radius: 14px;
     --brand: "FnGuide Logotype", serif;
     --text: "Pretendard Variable", Pretendard, -apple-system, "Malgun Gothic", sans-serif;
+    --side-w: 260px;
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--text); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--text); font-size: 15px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
   a { color: inherit; }
-  .brand { font-family: var(--brand); font-kerning: normal; font-feature-settings: "liga" 1, "kern" 1; letter-spacing: 0; }
+  .brand { font-family: var(--brand); font-kerning: normal; }
 
-  /* 머리 */
-  header { position: sticky; top: 0; z-index: 10; background: rgba(255,250,247,.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
-  .bar { max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 28px; }
-  .home { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-  .home svg { height: 22px; width: auto; display: block; }
-  .home span { font-family: var(--brand); font-size: 19px; color: var(--ink-2); padding-left: 12px; border-left: 1px solid var(--line); line-height: 1.1; }
-  nav { display: flex; gap: 4px; margin-left: auto; }
-  nav a { text-decoration: none; padding: 8px 14px; border-radius: 999px; font-weight: 600; color: var(--ink-2); font-size: 14.5px; }
-  nav a:hover { background: #F6ECE8; color: var(--ink); }
-  nav a[aria-current="page"] { background: var(--wine); color: #fff; }
+  /* 왼쪽 메뉴 */
+  aside { position: fixed; inset: 0 auto 0 0; width: var(--side-w); background: var(--side); border-right: 1px solid var(--line); display: flex; flex-direction: column; z-index: 20; }
+  .side-top { padding: 26px 24px 20px; border-bottom: 1px solid var(--line); }
+  .side-top a { text-decoration: none; display: block; }
+  .side-top svg { height: 24px; width: auto; display: block; }
+  .side-top span { display: block; font-family: var(--brand); font-size: 17px; color: var(--ink-2); margin-top: 8px; line-height: 1.2; }
+  .menu { padding: 16px 12px; overflow-y: auto; flex: 1; }
+  .menu a { display: flex; align-items: center; gap: 10px; text-decoration: none; padding: 9px 12px; border-radius: 10px; font-weight: 600; color: var(--ink-2); font-size: 14.5px; }
+  .menu a:hover { background: var(--soft); color: var(--ink); }
+  .menu a[aria-current="page"] { background: var(--red); color: #fff; }
+  .menu .num { font-family: var(--brand); font-size: 13px; width: 18px; color: var(--ink-3); }
+  .menu a[aria-current="page"] .num { color: rgba(255,255,255,.75); }
+  .menu .sub { margin: 2px 0 6px 28px; border-left: 1px solid var(--line); padding-left: 8px; }
+  .menu .sub a { font-weight: 500; font-size: 13.5px; padding: 6px 10px; }
+  .menu .sub a[aria-current="page"] { background: var(--soft); color: var(--ink); font-weight: 700; }
+  .menu .sub .dot { width: 8px; height: 8px; }
+  .side-foot { padding: 16px 24px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--ink-3); }
+  .side-foot b { color: var(--red); }
+  .menu-btn { display: none; }
 
-  main { max-width: 1200px; margin: 0 auto; padding: 0 24px 96px; }
+  main { margin-left: var(--side-w); padding: 0 56px 96px; max-width: calc(1180px + var(--side-w)); }
   section.page { display: none; }
   section.page.on { display: block; }
 
   /* 첫머리 */
-  .hero { padding: 64px 0 40px; }
-  .eyebrow { font-weight: 700; color: var(--wine); font-size: 14px; letter-spacing: .02em; }
-  .hero h1 { font-family: var(--brand); font-weight: 400; font-size: clamp(44px, 7vw, 84px); line-height: 1.02; margin: 10px 0 18px; color: var(--ink); }
+  .hero { padding: 56px 0 28px; }
+  .eyebrow { font-weight: 700; color: var(--red); font-size: 13.5px; letter-spacing: .02em; }
+  .hero h1 { font-family: var(--brand); font-weight: 400; font-size: clamp(40px, 5.6vw, 76px); line-height: 1.04; margin: 8px 0 16px; }
   .hero h1 em { font-style: normal; color: var(--red); }
-  .hero p { max-width: 640px; color: var(--ink-2); margin: 0; font-size: 16px; }
+  .hero p { max-width: 680px; color: var(--ink-2); margin: 0; font-size: 16px; }
 
-  h2 { font-size: 22px; margin: 0; letter-spacing: -.01em; }
-  .sec { margin-top: 48px; }
+  h2 { font-size: 21px; margin: 0; letter-spacing: -.01em; }
+  h3 { font-size: 16.5px; margin: 0; }
+  .sec { margin-top: 52px; }
   .sec-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
   .sec-head p { margin: 0; color: var(--ink-3); font-size: 14px; }
+  .lead { color: var(--ink-2); margin: 0 0 16px; max-width: 760px; }
 
-  /* 거르개 */
-  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
-  .chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 7px 14px; font: 600 13.5px var(--text); color: var(--ink-2); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
-  .chip:hover { border-color: #DCCBC4; }
-  .chip[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .box { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; }
+  .box p { margin: 0; color: var(--ink-2); font-size: 14px; }
+  .box h3 + p { margin-top: 6px; }
+  .cols { display: grid; gap: 16px; }
+  .c2 { grid-template-columns: repeat(2, 1fr); }
+  .c3 { grid-template-columns: repeat(3, 1fr); }
+  .c4 { grid-template-columns: repeat(4, 1fr); }
+  .big-no { font-family: var(--brand); color: var(--red); font-size: 30px; line-height: 1; margin-bottom: 10px; display: block; }
   .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
+  .code { font: 500 12.5px ui-monospace, "Cascadia Mono", Consolas, monospace; color: var(--ink-2); background: var(--soft); padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
+  ul.plain { margin: 8px 0 0; padding-left: 18px; color: var(--ink-2); font-size: 14px; }
+  ul.plain li { margin: 2px 0; }
 
-  /* 로고 묶음 */
-  .group { margin-top: 36px; }
-  .group-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-  .group-head h3 { margin: 0; font-size: 17px; }
-  .code { font: 500 12.5px ui-monospace, "Cascadia Mono", Consolas, monospace; color: var(--ink-3); background: #F6ECE8; padding: 2px 8px; border-radius: 6px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr)); gap: 16px; }
-  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; }
-  .stage { height: 150px; display: grid; place-items: center; padding: 24px; border-bottom: 1px solid var(--line); }
-  .stage svg { max-width: 82%; height: auto; max-height: 52px; width: auto; }
-  .card.big .stage svg { max-height: 70px; }
-  .meta { padding: 12px 14px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-  .meta strong { font-size: 14.5px; flex: 1 0 100%; }
-  .btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px; padding: 6px 11px; font: 600 12.5px var(--text); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
-  .btn:hover { border-color: var(--ink); }
-  .btn.primary { background: var(--wine); border-color: var(--wine); color: #fff; }
-  .btn.primary:hover { background: #960231; }
-  .btn svg { width: 14px; height: 14px; }
+  /* 홈: 메뉴 카드 */
+  .go { text-decoration: none; display: flex; flex-direction: column; gap: 6px; transition: border-color .15s, transform .15s; }
+  .go:hover { border-color: var(--red); transform: translateY(-2px); }
+  .go b { font-family: var(--brand); font-weight: 400; font-size: 24px; line-height: 1.1; }
+  .go span { color: var(--ink-2); font-size: 13.5px; }
+  .go i { font-style: normal; color: var(--red); font-weight: 700; font-size: 13px; margin-top: 4px; }
+
+  /* 홈: 컬러 체계 */
+  .color-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
+  .color-card .chip-top { height: 92px; padding: 14px 16px; color: #fff; display: flex; flex-direction: column; justify-content: space-between; }
+  .color-card .chip-top b { font-family: var(--brand); font-weight: 400; font-size: 22px; line-height: 1; }
+  .color-card .chip-top span { font: 500 12.5px ui-monospace, Consolas, monospace; color: #fff; opacity: .9; }
+  .color-card .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .color-card .body h3 { font-size: 15px; }
+  .color-card .body p { font-size: 13.5px; }
+  .color-card .targets { font-size: 13px; color: var(--ink); }
+  .ratio { font-size: 12.5px; font-weight: 600; margin-top: auto; padding-top: 6px; }
+  .ok { color: #1E7F55; }
+  .warn { color: #B4231F; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .split .box h3 { display: flex; align-items: center; gap: 8px; }
+  .tag { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--soft); color: var(--red); }
+
+  /* 홈: 업데이트 */
+  .news { list-style: none; margin: 0; padding: 0; }
+  .news li { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .news li:last-child { border-bottom: 0; }
+  .news time { font: 600 13px ui-monospace, Consolas, monospace; color: var(--ink-3); padding-top: 1px; }
+  .news b { display: block; font-size: 14.5px; }
+  .news span { color: var(--ink-2); font-size: 13.5px; }
 
   /* 표 */
   .table-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow-x: auto; }
@@ -90,7 +122,38 @@
   tr:last-child td { border-bottom: 0; }
   td.logo-cell svg { height: 22px; width: auto; display: block; }
   td.actions { text-align: right; white-space: nowrap; }
-  td.actions .btn + .btn { margin-left: 6px; }
+  .pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; background: var(--red); color: #fff; }
+
+  /* 단추 */
+  .btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px; padding: 6px 11px; font: 600 12.5px var(--text); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .btn:hover { border-color: var(--ink); }
+  .btn.primary { background: var(--red); border-color: var(--red); color: #fff; }
+  .btn.primary:hover { background: var(--red-dark); }
+  .btn svg { width: 14px; height: 14px; }
+  .btns { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+
+  /* 로고타입 */
+  .group-hero { padding: 56px 0 8px; }
+  .group-hero h1 { font-size: 34px; margin: 8px 0 12px; letter-spacing: -.02em; }
+  .facts { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 14px; font-size: 13.5px; color: var(--ink-2); }
+  .facts b { color: var(--ink); margin-right: 6px; }
+  .logo-list { display: grid; gap: 16px; }
+  .logo-row { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .stages { display: grid; grid-template-columns: 1fr 1fr; }
+  .stage { height: 150px; display: grid; place-items: center; padding: 24px; position: relative; }
+  .stage + .stage { border-left: 1px solid var(--line); }
+  .stage svg { max-width: 78%; height: auto; width: auto; max-height: 48px; }
+  .stage small { position: absolute; left: 12px; top: 10px; font-size: 11.5px; font-weight: 600; opacity: .6; }
+  .row-meta { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+  .row-meta strong { font-size: 15px; }
+  .row-meta .note { color: var(--ink-3); font-size: 13px; margin-right: auto; }
+  .alert { display: flex; gap: 10px; align-items: flex-start; background: #FFF3F0; border: 1px solid #F3D2CA; border-radius: var(--radius); padding: 12px 16px; font-size: 13.5px; color: #8A2A1E; margin-top: 16px; }
+  .archive { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .archive .stage { height: 170px; background: #FFFFFF; }
+  .archive .stage svg { max-height: 64px; }
+  .archive .row-meta { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .story { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .story .box span { font-size: 12.5px; font-weight: 700; color: var(--red); }
 
   /* 서체 */
   .font-panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
@@ -99,97 +162,198 @@
   .controls { display: flex; flex-wrap: wrap; gap: 16px 28px; padding: 16px 20px; align-items: center; }
   .controls label { font-size: 13px; color: var(--ink-3); font-weight: 600; display: flex; align-items: center; gap: 10px; }
   .controls input[type=text] { font: 500 14px var(--text); padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; width: 220px; color: var(--ink); }
-  .controls input[type=range] { accent-color: var(--wine); width: 140px; }
+  .controls input[type=range] { accent-color: var(--red); width: 140px; }
   .swatches { display: flex; gap: 6px; }
   .sw { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--line); cursor: pointer; padding: 0; }
   .sw[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--ink); }
-  .font-files { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 16px; }
-  .file { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; display: flex; flex-direction: column; gap: 6px; }
-  .file b { font-family: var(--brand); font-weight: 400; font-size: 26px; color: var(--wine); line-height: 1; }
+  .glyphs { font-family: var(--brand); font-size: 26px; line-height: 1.6; padding: 18px 20px; border-top: 1px solid var(--line); word-break: break-word; }
+  .file { display: flex; flex-direction: column; gap: 6px; }
+  .file b { font-family: var(--brand); font-weight: 400; font-size: 26px; color: var(--red); line-height: 1; }
   .file span { color: var(--ink-2); font-size: 13.5px; flex: 1; }
   .file .btn { align-self: flex-start; margin-top: 8px; }
-  .glyphs { font-family: var(--brand); font-size: 26px; line-height: 1.6; color: var(--ink); padding: 18px 20px; border-top: 1px solid var(--line); word-break: break-word; }
-
-  /* 규칙 */
-  .rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-  .rule { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
-  .rule .no { font-family: var(--brand); color: var(--red); font-size: 30px; line-height: 1; }
-  .rule h4 { margin: 10px 0 6px; font-size: 16px; }
-  .rule p { margin: 0; color: var(--ink-2); font-size: 14px; }
-  .sample { width: 44px; height: 30px; border-radius: 6px; display: grid; place-items: center; font-family: var(--brand); font-size: 17px; }
-  .ok { color: #1E7F55; font-weight: 600; }
-  .warn { color: #B4231F; font-weight: 600; }
-  ol.steps { margin: 0; padding-left: 20px; color: var(--ink-2); }
+  ol.steps { margin: 0; padding-left: 20px; color: var(--ink-2); font-size: 14px; }
   ol.steps li { margin: 4px 0; }
   pre { background: var(--ink); color: #F2EEF6; border-radius: var(--radius); padding: 18px 20px; overflow-x: auto; font: 13px/1.6 ui-monospace, "Cascadia Mono", Consolas, monospace; margin: 0; }
-  .note { background: #FCF1EC; border: 1px dashed #E3C3B8; border-radius: var(--radius); padding: 16px 20px; color: var(--ink-2); font-size: 14px; }
-  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-  footer { border-top: 1px solid var(--line); }
-  footer .bar { color: var(--ink-3); font-size: 13px; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
-  .badge { font-weight: 700; color: var(--wine); }
+  .note-box { background: #FCF1EC; border: 1px dashed #E3C3B8; border-radius: var(--radius); padding: 16px 20px; color: var(--ink-2); font-size: 14px; }
+  .sample { width: 44px; height: 30px; border-radius: 6px; display: grid; place-items: center; font-family: var(--brand); font-size: 17px; color: #fff; flex: none; }
 
-  .toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(20px); background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 14px; opacity: 0; pointer-events: none; transition: .25s; }
+  .toast { position: fixed; left: calc(50% + var(--side-w) / 2); bottom: 28px; transform: translateX(-50%) translateY(20px); background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 14px; opacity: 0; pointer-events: none; transition: .25s; z-index: 30; }
   .toast.on { opacity: 1; transform: translateX(-50%); }
 
-  @media (max-width: 760px) {
-    .bar { padding: 12px 16px; gap: 12px; flex-wrap: wrap; }
-    .home span { display: none; }
-    nav { margin-left: 0; width: 100%; overflow-x: auto; }
-    main { padding: 0 16px 72px; }
-    .hero { padding: 40px 0 24px; }
+  @media (max-width: 1100px) {
+    .c4 { grid-template-columns: repeat(2, 1fr); }
+    .c3, .story { grid-template-columns: repeat(2, 1fr); }
+    main { padding: 0 32px 80px; }
+  }
+  @media (max-width: 860px) {
+    aside { transform: translateX(-100%); transition: transform .25s; box-shadow: 0 0 40px rgba(0,0,0,.12); }
+    body.menu-open aside { transform: none; }
+    .menu-btn { display: flex; position: fixed; top: 0; left: 0; right: 0; height: 56px; align-items: center; gap: 12px; padding: 0 16px; background: rgba(255,250,247,.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); z-index: 15; }
+    .menu-btn button { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; width: 38px; height: 36px; font-size: 18px; cursor: pointer; color: var(--ink); }
+    .menu-btn svg { height: 20px; width: auto; }
+    main { margin-left: 0; padding: 56px 16px 72px; }
+    .toast { left: 50%; }
+    .c2, .c3, .c4, .split, .story, .archive { grid-template-columns: 1fr; }
+    .stages { grid-template-columns: 1fr; }
+    .stage + .stage { border-left: 0; border-top: 1px solid var(--line); }
     .specimen { padding: 24px 18px; }
     .specimen div { font-size: 52px; }
-    .two { grid-template-columns: 1fr; }
-    th:nth-child(3), td:nth-child(3) { display: none; }
+    .news li { grid-template-columns: 1fr; gap: 2px; }
+    th.hide-m, td.hide-m { display: none; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="bar">
-    <a class="home" href="#logos" id="homeLogo" aria-label="FnGuide Brand Identity 처음으로"></a>
-    <nav>
-      <a href="#logos" data-page="logos">로고 목록</a>
-      <a href="#download" data-page="download">다운로드</a>
-      <a href="#rules" data-page="rules">사용 규칙</a>
-    </nav>
-  </div>
-</header>
+<div class="menu-btn"><button type="button" id="openMenu" aria-label="메뉴 열기">☰</button><span id="mobileLogo"></span></div>
+
+<aside>
+  <div class="side-top"><a href="#home" id="sideLogo" aria-label="홈으로"></a></div>
+  <nav class="menu" id="menu">
+    <a href="#home"><span class="num">0</span>홈</a>
+    <a href="#font"><span class="num">1</span>전용서체 소개</a>
+    <a href="#logo/b2b" data-parent="logo"><span class="num">2</span>로고타입 소개</a>
+    <div class="sub" id="subMenu"></div>
+    <a href="#download"><span class="num">3</span>다운로드</a>
+    <a href="#rules"><span class="num">4</span>사용 규칙</a>
+  </nav>
+  <div class="side-foot"><b>사내 전용</b> · FnGuide 임직원만 사용할 수 있습니다.</div>
+</aside>
 
 <main>
-  <!-- 1. 로고 목록 -->
-  <section class="page" id="page-logos">
+  <!-- 0. 홈 -->
+  <section class="page" id="page-home">
     <div class="hero">
       <div class="eyebrow">FnGuide CI / BI</div>
       <h1>Brand <em>Identity</em><br>Management</h1>
-      <p>회사 CI와 서비스별 BI 로고를 한곳에서 찾아보고 내려받으세요. 서비스 로고타입은 전용서체 FnGuide Logotype으로 만들었으며(B2C 독립 체계 제외), 항상 최신 버전만 제공합니다.</p>
+      <p>임직원이 회사의 CI/BI 자산을 한곳에서 찾아보고 내려받는 사내 브랜드 자산 관리 서비스입니다. 파일을 메일이나 메신저로 주고받던 방식을 줄이고, 모두가 항상 최신 버전의 공식 자산을 쓰도록 합니다.</p>
     </div>
-    <div class="filters" id="filters"></div>
-    <div id="groups"></div>
-  </section>
 
-  <!-- 2. 다운로드 -->
-  <section class="page" id="page-download">
-    <div class="hero">
-      <div class="eyebrow">Download</div>
-      <h1>Assets</h1>
-      <p>로고는 SVG(크기를 바꿔도 깨지지 않는 그림)와 PNG(투명 배경 이미지)로, 전용서체는 쓰는 곳에 맞는 형식으로 받을 수 있습니다.</p>
+    <div class="cols c4">
+      <a class="box go" href="#font"><b>Typeface</b><span>로고타입을 옮긴 사내 전용서체 FnGuide Logotype</span><i>전용서체 소개 →</i></a>
+      <a class="box go" href="#logo/b2b"><b>Logotype</b><span>회사 CI와 사업별 서비스 로고타입</span><i>로고타입 소개 →</i></a>
+      <a class="box go" href="#download"><b>Download</b><span>로고 SVG·PNG와 서체 파일</span><i>다운로드 →</i></a>
+      <a class="box go" href="#rules"><b>Guidelines</b><span>사용 원칙과 배경 조합 규칙</span><i>사용 규칙 →</i></a>
     </div>
 
     <div class="sec">
-      <div class="sec-head"><h2>로고</h2><p>PNG는 원본의 4배 크기, 투명 배경으로 저장됩니다.</p></div>
+      <div class="sec-head"><h2>브랜드 방향</h2></div>
+      <p class="lead">CI에 기반한 일관된 브랜드 경험을 만들고, B2B와 B2C 고객 특성을 고려해 서비스의 목적에 따른 브랜드 전략을 씁니다.</p>
+      <div class="cols c2">
+        <div class="box"><span class="big-no">01</span><h3>현대적 트렌드 반영</h3><p>로고타입의 볼륨과 컬러를 조정해 디지털 환경에 맞는 현대적인 인상을 줍니다.</p></div>
+        <div class="box"><span class="big-no">02</span><h3>사업분야별 색상 통일</h3><p>일관된 BI 전략으로 브랜드 신뢰도를 높이고, 서비스 간 혼란을 줄이며, 마케팅 효율성을 높입니다.</p></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><h2>사업별 컬러 체계</h2><p>전용서체는 모든 그룹에 공통으로 쓰고, 그룹은 컬러로 구분합니다.</p></div>
+      <p class="lead">사업별 단일 색상 전략의 <b>일관성</b>과 분야별 구분 전략의 <b>유연성</b>을 함께 가져갑니다. 브랜드 구조에 맞게 역할을 명확히 나눌 수 있고, 앞으로 신규 서비스를 늘릴 때도 같은 체계로 적용할 수 있습니다.</p>
+      <div class="cols c3" id="colorCards"></div>
+      <div class="split" style="margin-top:16px">
+        <div class="box"><h3><span class="tag">B2B</span>사업별 컬러 통일</h3>
+          <ul class="plain">
+            <li>B2B 대표상품군 — Flagship 브랜드 (FnGuide.com, DataGuide, QuantiWise…)</li>
+            <li>지수상품, 펀드·운용</li>
+            <li>B2B 계약상품군 — 고객사 맞춤형 서비스 (ETF Global, Market Monitor, CompanyGlobal)</li>
+          </ul>
+        </div>
+        <div class="box"><h3><span class="tag">B2C</span>독립 체계</h3>
+          <ul class="plain">
+            <li>모바일 앱 — 고객 친화형, 독립적인 정체성 강조</li>
+            <li>컬러: 서비스별 독립 컬러 사용</li>
+            <li>폰트: 서비스 성격에 맞게 사용</li>
+            <li>톤앤매너: 사용자 친화적, 감성</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><h2>기대 효과</h2></div>
+      <div class="cols c4">
+        <div class="box"><h3>브랜드 일관성 강화</h3></div>
+        <div class="box"><h3>내·외부 커뮤니케이션 효율 향상</h3></div>
+        <div class="box"><h3>브랜드 자산 강화와 사용자 경험 개선</h3></div>
+        <div class="box"><h3>신규 서비스 확장 시 유연한 대응</h3></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><h2>최근 업데이트</h2></div>
+      <div class="box" style="padding:4px 22px">
+        <ul class="news">
+          <li><time>2026.10.27</time><div><b>서비스 로고타입 17종을 전용서체로 새로 제작</b><span>B2B 대표·지수·펀드·B2B 계약상품군과 FnAPI 로고타입을 FnGuide Logotype으로 다시 만들었습니다.</span></div></li>
+          <li><time>2026.10.26</time><div><b>전용서체 FnGuide Logotype v1.100 공개</b><span>대문자끼리의 간격을 로고 밀도에 맞춰 조정했습니다.</span></div></li>
+          <li><time>2025.06</time><div><b>FnGuide CI / BI 사용방안 · BI 컬러 가이드라인</b><span>사업별 컬러 체계와 FnRed 2025를 정했습니다.</span></div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. 전용서체 소개 -->
+  <section class="page" id="page-font">
+    <div class="hero">
+      <div class="eyebrow">Typeface</div>
+      <h1>FnGuide <em>Logotype</em></h1>
+      <p>FnGuide 로고타입을 그대로 옮긴 사내 전용서체입니다. 키보드로 입력한 "FnGuide"가 공식 로고와 같은 형태·같은 간격으로 조판되며, CI/BI를 시스템으로 운영하기 위한 첫 번째 기반 자산입니다.</p>
+    </div>
+
+    <div class="sec" style="margin-top:20px">
+      <div class="sec-head"><h2>왜 전용서체인가</h2></div>
+      <div class="cols c3">
+        <div class="box"><h3>이미지에서 서체로</h3><p>로고를 이미지 파일로만 관리하던 방식에서 벗어나, 누구나 같은 품질로 브랜드 문구를 만들 수 있게 합니다.</p></div>
+        <div class="box"><h3>CI 서체를 그대로</h3><p>CI 서체는 Rotis 계열 서체를 재구성한 전용 서체이며, 로고 개선 과정에서 시인성을 위해 볼륨을 키웠습니다. 그 형태를 폰트로 옮겼습니다.</p></div>
+        <div class="box"><h3>사업별 BI에 일관되게</h3><p>FundGuide, FnIndex, ETF Global 같은 사업별 BI 문구를 같은 서체·같은 규칙으로 만들 수 있습니다.</p></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><h2>업데이트 현황</h2><p>현재 버전 <span class="pill">v1.100</span> · 2026.10.26</p></div>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>로고</th><th>이름</th><th>그룹</th><th></th></tr></thead>
-          <tbody id="dlRows"></tbody>
+          <thead><tr><th>버전</th><th>단계</th><th>주요 내용</th></tr></thead>
+          <tbody>
+            <tr><td><b>v1.100</b></td><td>대문자 리듬</td><td>B2C API 로고를 참고해 대문자끼리의 간격을 로고 밀도에 맞춤</td></tr>
+            <tr><td><b>v1.000</b></td><td>최종 커닝·합자</td><td>글자 간격 보정 강도 최종 조정, f 합자 8종 추가</td></tr>
+            <tr><td><b>v0.700</b></td><td>구조 점검</td><td>11개 구조 요소 점검, K k M N S U X f r w z 보정</td></tr>
+            <tr><td><b>v0.600</b></td><td>자동 커닝</td><td>글자 묶음 정의, 전체 글자 쌍 간격 자동 보정</td></tr>
+            <tr><td><b>v0.500</b></td><td>스페이싱</td><td>FnGuide 로고 간격으로 글자 양옆 여백 기준 보정</td></tr>
+            <tr><td><b>v0.300–0.430</b></td><td>글자 확장</td><td>숫자·특수문자 추가, 디자인팀 수정안 반영</td></tr>
+            <tr><td><b>v0.100–0.200</b></td><td>초기 제작</td><td>로고 22자로 폰트 생성, 대소문자 52자로 확장</td></tr>
+          </tbody>
         </table>
       </div>
     </div>
 
-    <div class="sec" id="font">
-      <div class="sec-head"><h2>전용서체 · FnGuide Logotype</h2><p>v1.100 Regular · 영문 대소문자·숫자·특수문자·f 합자 107자</p></div>
+    <div class="sec">
+      <div class="sec-head"><h2>서체 사양</h2></div>
+      <div class="table-wrap">
+        <table>
+          <tbody>
+            <tr><th>서체명</th><td>FnGuide Logotype Regular (v1.100)</td></tr>
+            <tr><th>수록 글자</th><td>107자 — 영문 대문자 26 · 소문자 26 · 숫자 10 · 특수문자(키보드 입력 문자 32종 + – ‘ ’ “ ”) · f 합자 8</td></tr>
+            <tr><th>숫자</th><td>0–9 · 금융 데이터 정렬을 위해 숫자끼리는 간격 보정 없음</td></tr>
+            <tr><th>합자</th><td>fi fl ff ffi ffl fb fh fk — 입력하면 자동으로 이어진 글자로 바뀜</td></tr>
+            <tr><th>파일</th><td>OTF(디자인 툴 권장) · TTF(오피스 호환) · WOFF(웹)</td></tr>
+            <tr><th>규격</th><td>1000 UPM · 대문자 높이 700 · x-height 498</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><h2>품질 기준</h2><p>모든 판단의 기준은 공식 로고였습니다.</p></div>
+      <div class="cols c4">
+        <div class="box"><span class="big-no">0.33%</span><h3>로고와 똑같이</h3><p>폰트로 입력한 "FnGuide"와 공식 로고의 글자 위치 차이가 최대 0.33%입니다.</p></div>
+        <div class="box"><span class="big-no">11</span><h3>구조의 일관성</h3><p>기둥·가로획·세리프 등 11개 요소를 원본 기준값과 비교해 어긋난 글자를 보정했습니다.</p></div>
+        <div class="box"><span class="big-no">1,149</span><h3>고른 간격</h3><p>글자 가장자리의 흰 공간을 측정해 여백을 정하고, 1,149개 간격 보정 규칙을 넣었습니다.</p></div>
+        <div class="box"><span class="big-no">0</span><h3>충돌 없음</h3><p>가능한 글자 쌍 1만여 개를 검사해 글자끼리 닿는 경우가 없음을 확인했습니다.</p></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><h2>미리보기</h2><p>문구를 입력하고 그룹 컬러를 골라 보세요.</p></div>
       <div class="font-panel">
         <div class="specimen" id="specimen"><div contenteditable="true" spellcheck="false" id="specText">FnGuide Brand</div></div>
         <div class="controls">
@@ -197,58 +361,25 @@
           <label>크기 <input type="range" id="specSize" min="32" max="140" value="88"></label>
           <label>색상 <span class="swatches" id="swatches"></span></label>
         </div>
-        <div class="glyphs">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 &amp;@#%$!?()[]{} fi fl ff ffi</div>
-      </div>
-      <div class="font-files">
-        <div class="file"><b>OTF</b><span>디자인 툴용 (Figma, Illustrator 등)</span><a class="btn primary" href="fonts/FnGuideLogotype-Regular.otf" download>OTF 받기</a></div>
-        <div class="file"><b>TTF</b><span>오피스용 (Word, PowerPoint)</span><a class="btn primary" href="fonts/FnGuideLogotype-Regular.ttf" download>TTF 받기</a></div>
-        <div class="file"><b>WOFF</b><span>사내 웹 서비스용</span><a class="btn primary" href="fonts/FnGuideLogotype-Regular.woff" download>WOFF 받기</a></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 3. 사용 규칙 -->
-  <section class="page" id="page-rules">
-    <div class="hero">
-      <div class="eyebrow">Guidelines</div>
-      <h1>Usage <em>Rules</em></h1>
-      <p>전용서체는 모든 그룹에 공통으로 쓰고, 그룹은 컬러로 구분합니다. 사업별 단일 색상의 일관성과 분야별 구분의 유연성을 함께 가져갑니다.</p>
-    </div>
-
-    <div class="sec">
-      <div class="sec-head"><h2>기본 원칙</h2></div>
-      <div class="rules">
-        <div class="rule"><div class="no">01</div><h4>공식 로고는 원본 파일로</h4><p>서체는 BI 문구, 제목, 브랜드 그래픽 제작용입니다. 로고 자체를 서체로 다시 입력해 대체하지 않습니다.</p></div>
-        <div class="rule"><div class="no">02</div><h4>제목·브랜드 문구 전용</h4><p>간격이 로고 기준으로 조여져 있어 작은 크기의 본문에는 적합하지 않습니다. 부득이한 경우 자간을 넓혀 사용합니다.</p></div>
-        <div class="rule"><div class="no">03</div><h4>사내 사용만 허용</h4><p>폰트 파일을 외부에 전달하거나 외부 서버·공개 저장소에 올리지 않습니다. 협력사 제작물에 필요하면 디자인 파트를 통해 요청합니다.</p></div>
-        <div class="rule"><div class="no">04</div><h4>영문·숫자·기호만 수록</h4><p>한글은 포함되어 있지 않으므로 한글 문구는 기존 지정 서체를 사용합니다.</p></div>
+        <div class="glyphs">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 &amp;@#%$!?()[]{}</div>
       </div>
     </div>
 
     <div class="sec">
-      <div class="sec-head"><h2>BI 그룹 컬러</h2><p>흰 배경 명도 대비 4.5 이상이면 본문 글자까지 사용할 수 있습니다.</p></div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>그룹</th><th>컬러</th><th>성격</th><th>흰 배경 명도 대비</th></tr></thead>
-          <tbody id="colorRows"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="sec two">
-      <div>
-        <div class="sec-head"><h2>서체 설치</h2></div>
-        <div class="rule">
-          <ol class="steps">
-            <li>디자인 툴에는 <b>OTF</b>, 오피스에는 <b>TTF</b>를 설치합니다.</li>
+      <div class="sec-head"><h2>사용 방법</h2></div>
+      <div class="split">
+        <div class="box">
+          <h3>설치</h3>
+          <ol class="steps" style="margin-top:8px">
+            <li>디자인 툴(Figma, Illustrator 등)에는 <b>OTF</b>, 오피스(Word, PowerPoint)에는 <b>TTF</b>를 설치합니다.</li>
             <li>PowerPoint·Word에서는 [글꼴] 설정의 <b>"글꼴 커닝"</b>을 켜야 로고와 같은 간격이 적용됩니다.</li>
             <li>합자(fi, fl 등)는 대부분의 디자인 툴과 웹 브라우저에서 자동으로 적용됩니다.</li>
           </ol>
+          <p style="margin-top:12px">제목·브랜드 문구 전용이며 한글은 들어 있지 않습니다. 자세한 원칙은 <a href="#rules">사용 규칙</a>을 확인하세요.</p>
         </div>
-      </div>
-      <div>
-        <div class="sec-head"><h2>웹 적용 (사내 서비스)</h2></div>
-<pre>@font-face {
+        <div>
+<pre>/* 웹 적용 (사내 서비스) */
+@font-face {
   font-family: "FnGuide Logotype";
   src: url("&lt;사내 CDN 경로&gt;/FnGuideLogotype-Regular.woff")
        format("woff");
@@ -258,72 +389,139 @@
   font-family: "FnGuide Logotype", serif;
   font-kerning: normal;
 }</pre>
+        </div>
       </div>
     </div>
 
     <div class="sec">
+      <div class="sec-head"><h2>서체 파일 받기</h2><p>사내 사용만 허용됩니다. 외부 전달·공개 저장소 업로드 금지.</p></div>
+      <div class="cols c3 font-files"></div>
+    </div>
+  </section>
+
+  <!-- 2. 로고타입 소개 (그룹별 화면은 스크립트가 채움) -->
+  <section class="page" id="page-logo"></section>
+
+  <!-- 3. 다운로드 -->
+  <section class="page" id="page-download">
+    <div class="hero">
+      <div class="eyebrow">Download</div>
+      <h1>Assets</h1>
+      <p>로고는 SVG(크기를 바꿔도 깨지지 않는 그림)와 PNG(투명 배경 이미지, 원본의 4배 크기)로 받을 수 있습니다. 흰색 판은 그룹 컬러나 어두운 배경 위에 씁니다.</p>
+    </div>
+    <div class="note-box">모든 자산은 사내 전용입니다. 외부에 전달하지 말고, 협력사 제작물에 필요하면 디자인 파트를 통해 요청하세요.</div>
+    <div class="sec">
+      <div class="sec-head"><h2>로고</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>로고</th><th>이름</th><th class="hide-m">그룹</th><th style="text-align:right">컬러</th><th style="text-align:right">흰색</th></tr></thead>
+          <tbody id="dlRows"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-head"><h2>전용서체 · FnGuide Logotype</h2><p>v1.100 Regular</p></div>
+      <div class="cols c3 font-files"></div>
+    </div>
+  </section>
+
+  <!-- 4. 사용 규칙 -->
+  <section class="page" id="page-rules">
+    <div class="hero">
+      <div class="eyebrow">Guidelines</div>
+      <h1>Usage <em>Rules</em></h1>
+      <p>서체와 로고는 사내 브랜드 자산으로, 정해진 범위 안에서만 사용합니다.</p>
+    </div>
+
+    <div class="sec" style="margin-top:20px">
+      <div class="sec-head"><h2>기본 원칙</h2></div>
+      <div class="cols c4">
+        <div class="box"><span class="big-no">01</span><h3>공식 로고는 원본 파일로</h3><p>서체는 BI 문구, 제목, 브랜드 그래픽 제작용입니다. 로고 자체를 서체로 다시 입력해 대체하지 않습니다.</p></div>
+        <div class="box"><span class="big-no">02</span><h3>제목·브랜드 문구 전용</h3><p>간격이 로고 기준으로 조여져 있어 작은 크기의 본문에는 적합하지 않습니다. 부득이한 경우 자간을 넓혀 사용합니다.</p></div>
+        <div class="box"><span class="big-no">03</span><h3>사내 사용만 허용</h3><p>폰트 파일을 외부에 전달하거나 외부 서버·공개 저장소에 올리지 않습니다.</p></div>
+        <div class="box"><span class="big-no">04</span><h3>영문·숫자·기호만 수록</h3><p>한글은 포함되어 있지 않으므로 한글 문구는 기존 지정 서체를 사용합니다.</p></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><h2>배경 조합</h2><p>흰 배경 명도 대비 4.5 이상이면 본문 글자까지 쓸 수 있습니다.</p></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>그룹</th><th>컬러</th><th>흰 배경 명도 대비</th><th class="hide-m">권장 조합</th></tr></thead>
+          <tbody id="bgRows"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-head"><h2>협력사 제작물</h2></div>
+      <div class="box"><p>협력사 제작물에 로고나 서체가 필요하면 파일을 직접 전달하지 말고 <b>디자인 파트</b>를 통해 요청합니다.</p></div>
+    </div>
+
+    <div class="sec">
       <div class="sec-head"><h2>로고 여백 · 최소 크기 · 금지 예시</h2></div>
-      <div class="note">브랜드 매뉴얼(BI별 톤·컬러·서체 규정)이 확정되면 이 자리에 추가됩니다.</div>
+      <div class="note-box">브랜드 매뉴얼(BI별 톤·컬러·서체 규정)이 확정되면 이 자리에 추가됩니다.</div>
     </div>
   </section>
 </main>
-
-<footer>
-  <div class="bar"><span><span class="badge">사내 전용</span> · 모든 자산은 FnGuide 임직원만 사용할 수 있습니다.</span><span class="brand">FnGuide Brand Identity</span></div>
-</footer>
 <div class="toast" id="toast"></div>
 
 <script src="logos.js"></script>
 <script>
 (() => {
-  const { groups, logos } = window.BRAND;
+  const { groups, logos, archive } = window.BRAND;
   const G = Object.fromEntries(groups.map(g => [g.id, g]));
+  const L = Object.fromEntries(logos.map(l => [l.id, l]));
   const $ = s => document.querySelector(s);
-  const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const icon = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M3 13h10"/></svg>';
 
-  // 색 정보 (서체 문서 4장)
-  const COLOR_INFO = {
-    ci: { mood: "열정, 자신감, 역동성, 현대적", ratio: "6.69", ok: true },
-    b2b: { mood: "열정, 자신감, 역동성, 현대적", ratio: "6.69", ok: true },
-    index: { mood: "성장, 투명성, 중립성", ratio: "2.49", ok: false },
-    fund: { mood: "신뢰, 정확성, 전문성", ratio: "12.17", ok: true },
-    contract: { mood: "고객사 맞춤형 서비스", ratio: "16.45", ok: true },
+  // 그룹 정보 — 출처: 서체 문서 4장, BI 컬러 가이드라인(2025.06), CI/BI 사용방안
+  const INFO = {
+    b2b: { menu: "B2B 대표상품", title: "B2B 대표상품군", mood: "열정, 자신감, 역동성, 현대적", ratio: 6.69,
+      desc: "대표 주력 상품으로 FnRed 2025 컬러를 단독으로 사용합니다.", extra: "Flagship 브랜드" },
+    index: { menu: "지수 상품", title: "지수", mood: "성장, 투명성, 중립성", ratio: 2.49,
+      desc: "지수 서비스를 대표하는 브랜드 컬러입니다.", extra: "지수 산출의 중립성과 투명한 처리과정",
+      darkBg: true },
+    fund: { menu: "펀드 상품", title: "펀드", mood: "신뢰, 정확성, 전문성", ratio: 12.17,
+      desc: "펀드 및 평가 서비스를 대표하는 브랜드 컬러입니다." },
+    contract: { menu: "B2B 계약상품", title: "B2B 계약상품군", mood: "고객사 맞춤형 서비스", ratio: 16.45,
+      desc: "회사별로 ASP 또는 웹서비스로 제공되는 브랜드 컬러입니다." },
+    b2c: { menu: "B2C 독립 체계", title: "B2C 독립 체계", mood: "사용자 친화적, 서비스별 독립 컬러",
+      desc: "개인 고객에게 특화된 서비스로, 사용자 트렌드에 맞게 독립적인 컬러를 사용합니다. 폰트도 서비스 성격에 맞게 사용합니다." },
+    ci: { menu: "회사 CI", title: "회사 CI", mood: "열정, 자신감, 역동성, 현대적", ratio: 6.69,
+      desc: "FnGuide의 공식 로고입니다. 리뉴얼 후 FnRed를 사용합니다." },
   };
+  const ORDER = ["b2b", "index", "fund", "contract", "b2c", "ci"];
+  const B2C_COLORS = { retamin: "#26C0D2", fnapi: "#2457C5" };
+  const bgOf = l => l.group === "b2c" ? B2C_COLORS[l.id] : G[l.group].color;
 
-  // 머리 로고
-  $("#homeLogo").innerHTML = logos.find(l => l.id === "fnguide").svg + "<span>Brand Identity</span>";
+  // 로고 자리
+  const logoSvg = L.fnguide.svg;
+  $("#sideLogo").innerHTML = logoSvg + "<span>Brand Identity</span>";
+  $("#mobileLogo").innerHTML = logoSvg;
 
-  // 쪽 넘기기
-  const pages = ["logos", "download", "rules"];
-  function route() {
-    const h = location.hash.slice(1);
-    const page = pages.includes(h) ? h : (h === "font" ? "download" : "logos");
-    pages.forEach(p => $("#page-" + p).classList.toggle("on", p === page));
-    document.querySelectorAll("nav a").forEach(a => a.dataset.page === page ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current"));
-    if (h === "font") $("#font").scrollIntoView(); else window.scrollTo(0, 0);
-  }
-  window.addEventListener("hashchange", route);
+  // 하위 메뉴
+  $("#subMenu").innerHTML = ORDER.map(id =>
+    `<a href="#logo/${id}"><i class="dot" style="background:${id === "b2c" ? "#2457C5" : G[id].color}"></i>${INFO[id].menu}</a>`).join("");
 
   // 내려받기
   function save(blob, name) {
     const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = name;
+    a.href = URL.createObjectURL(blob); a.download = name;
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
     toast(name + " 저장");
   }
-  function saveSvg(l) { save(new Blob([l.svg], { type: "image/svg+xml" }), `${l.id}.svg`); }
-  function savePng(l, scale = 4) {
+  function savePng(svg, w, h, name, scale = 4) {
     const img = new Image();
     img.onload = () => {
       const c = document.createElement("canvas");
-      c.width = Math.round(l.w * scale); c.height = Math.round(l.h * scale);
+      c.width = Math.round(w * scale); c.height = Math.round(h * scale);
       c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
-      c.toBlob(b => save(b, `${l.id}@${scale}x.png`), "image/png");
+      c.toBlob(b => save(b, name), "image/png");
     };
-    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(l.svg);
+    img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
   }
   let tId;
   function toast(msg) {
@@ -332,42 +530,31 @@
   }
   document.addEventListener("click", e => {
     const b = e.target.closest("[data-dl]"); if (!b) return;
-    const l = logos.find(x => x.id === b.dataset.id);
-    b.dataset.dl === "svg" ? saveSvg(l) : savePng(l);
+    const l = L[b.dataset.id], white = b.dataset.v === "white";
+    const svg = white ? l.white : l.svg, base = l.id + (white ? "-white" : "");
+    b.dataset.dl === "svg" ? save(new Blob([svg], { type: "image/svg+xml" }), base + ".svg") : savePng(svg, l.w, l.h, `${base}@4x.png`);
   });
-  const dlButtons = id => `<button class="btn" data-dl="svg" data-id="${id}">${icon}SVG</button><button class="btn" data-dl="png" data-id="${id}">${icon}PNG</button>`;
+  const dl = (id, v = "color", label = "") => `<span class="btns"><button class="btn" data-dl="svg" data-v="${v}" data-id="${id}">${icon}${label}SVG</button><button class="btn" data-dl="png" data-v="${v}" data-id="${id}">${icon}${label}PNG</button></span>`;
 
-  // 1. 로고 목록
-  let current = "all";
-  function renderFilters() {
-    const all = [{ id: "all", name: "전체" }, ...groups];
-    $("#filters").innerHTML = all.map(g =>
-      `<button class="chip" data-g="${g.id}" aria-pressed="${g.id === current}">${g.color ? `<i class="dot" style="background:${g.color}"></i>` : ""}${esc(g.name)}</button>`).join("");
-  }
-  function renderGroups() {
-    $("#groups").innerHTML = groups.filter(g => current === "all" || g.id === current).map(g => {
-      const items = logos.filter(l => l.group === g.id);
-      return `<div class="group">
-        <div class="group-head"><i class="dot" style="background:${g.color};width:14px;height:14px"></i><h3>${esc(g.name)}</h3><span class="code">${g.colorName} ${g.id === "b2c" ? "#2457C5 · #26C0D2" : g.color}</span></div>
-        <div class="grid">${items.map(l => `
-          <div class="card${l.id === "fnguide" ? " big" : ""}">
-            <div class="stage">${l.svg}</div>
-            <div class="meta"><strong>${esc(l.name)}</strong>${dlButtons(l.id)}</div>
-          </div>`).join("")}</div>
-      </div>`;
-    }).join("");
-  }
-  $("#filters").addEventListener("click", e => {
-    const c = e.target.closest(".chip"); if (!c) return;
-    current = c.dataset.g; renderFilters(); renderGroups();
-  });
+  // 홈 — 컬러 카드
+  $("#colorCards").innerHTML = ["ci", "b2b", "index", "fund", "contract", "b2c"].map(id => {
+    const g = G[id], i = INFO[id];
+    const targets = logos.filter(l => l.group === id).map(l => l.name).join(", ");
+    const top = id === "b2c"
+      ? `<div class="chip-top" style="background:linear-gradient(90deg,#26C0D2 0 50%,#2457C5 50%)"><b>Retamin · API</b><span>#26C0D2 · #2457C5</span></div>`
+      : `<div class="chip-top" style="background:${g.color}"><b>${g.colorName}</b><span>${g.color}</span></div>`;
+    const ratio = id === "b2c"
+      ? `<span class="warn">리타민 2.20 흰 배경 비권장</span> · <span class="ok">API 6.47 가능</span>`
+      : `<span class="${i.ratio >= 4.5 ? "ok" : "warn"}">흰 배경 대비 ${i.ratio} · ${i.ratio >= 4.5 ? "본문까지 가능" : "흰 배경 비권장"}</span>`;
+    return `<a class="box color-card go" href="#logo/${id}" style="gap:0">${top}<div class="body"><h3>${i.title}</h3><p>${i.mood}</p><div class="targets">${esc(targets)}</div><div class="ratio">${ratio}</div></div></a>`;
+  }).join("");
+  $("#colorCards").insertAdjacentHTML("afterend",
+    `<p style="margin:12px 0 0;color:var(--ink-3);font-size:13px"><span class="dot" style="background:#94243A;width:8px;height:8px"></span> FnWine #94243A는 브랜드 리뉴얼 이전의 오리지널 CI 색상입니다 — 고급스러움, 신뢰, 무게감, 헤리티지.</p>`);
 
-  // 2. 다운로드 표
-  $("#dlRows").innerHTML = logos.map(l => `<tr>
-    <td class="logo-cell">${l.svg}</td>
-    <td><b>${esc(l.name)}</b></td>
-    <td><span style="display:inline-flex;align-items:center;gap:8px"><i class="dot" style="background:${G[l.group].color}"></i>${esc(G[l.group].name)}</span></td>
-    <td class="actions">${dlButtons(l.id)}</td></tr>`).join("");
+  // 서체 파일
+  document.querySelectorAll(".font-files").forEach(el => el.innerHTML = [
+    ["OTF", "디자인 툴용 (Figma, Illustrator 등)"], ["TTF", "오피스용 (Word, PowerPoint)"], ["WOFF", "사내 웹 서비스용"],
+  ].map(([f, d]) => `<div class="box file"><b>${f}</b><span>${d}</span><a class="btn primary" href="fonts/FnGuideLogotype-Regular.${f.toLowerCase()}" download>${icon}${f} 받기</a></div>`).join(""));
 
   // 서체 미리보기
   const spec = $("#specText"), input = $("#specInput");
@@ -379,11 +566,12 @@
     { c: "#B9023D", bg: "#FFFFFF", word: "FnGuide" },
     { c: "#45B792", bg: "#1C1C3A", word: "FnIndex" },
     { c: "#0C3178", bg: "#FFFFFF", word: "FundGuide" },
+    { c: "#1C1C3A", bg: "#FFFFFF", word: "ETF Global" },
     { c: "#2457C5", bg: "#FFFFFF", word: "FnAPI" },
     { c: "#FFFFFF", bg: "#B9023D", word: "FnGuide" },
   ];
   $("#swatches").innerHTML = SW.map((s, i) =>
-    `<button class="sw" aria-label="색상 ${s.c}" aria-pressed="${i === 0}" data-i="${i}" style="background:${s.c};${s.c === "#FFFFFF" ? "box-shadow:0 0 0 1px #ccc;outline:3px solid " + s.bg + ";outline-offset:-8px" : ""}"></button>`).join("");
+    `<button class="sw" aria-label="색상 ${s.c}" aria-pressed="${i === 0}" data-i="${i}" style="background:${s.c};${s.c === "#FFFFFF" ? "outline:3px solid " + s.bg + ";outline-offset:-8px" : ""}"></button>`).join("");
   $("#swatches").addEventListener("click", e => {
     const b = e.target.closest(".sw"); if (!b) return;
     const s = SW[b.dataset.i];
@@ -392,22 +580,85 @@
     if (s.word) { spec.textContent = s.word; input.value = s.word; }
   });
 
-  // 3. 사용 규칙 — 컬러 표
-  const rows = groups.filter(g => g.id !== "b2c").map(g => {
-    const i = COLOR_INFO[g.id];
-    return `<tr><td><b>${esc(g.name)}</b></td>
-      <td><span style="display:inline-flex;align-items:center;gap:10px"><span class="sample" style="background:${g.color};color:#fff">Fn</span><span><b>${g.colorName}</b><br><span class="code">${g.color}</span></span></span></td>
-      <td>${i.mood}</td><td><span class="${i.ok ? "ok" : "warn"}">${i.ratio}</span> · ${i.ok ? "본문까지 가능" : "흰 배경 비권장"}</td></tr>`;
-  });
-  rows.push(`<tr><td><b>B2C 독립 체계</b></td>
-    <td><span style="display:inline-flex;align-items:center;gap:10px"><span class="sample" style="background:#26C0D2;color:#fff">R</span><span class="sample" style="background:#2457C5;color:#fff">API</span><span><b>리타민 · API</b><br><span class="code">#26C0D2 · #2457C5</span></span></span></td>
-    <td>사용자 친화적, 서비스별 독립 컬러</td><td><span class="warn">2.20</span> 흰 배경 비권장 / <span class="ok">6.47</span> 가능</td></tr>`);
-  rows.push(`<tr style="color:var(--ink-3)"><td><b>오리지널 CI</b><br><span style="font-size:12.5px">브랜드 리뉴얼 이전</span></td>
-    <td><span style="display:inline-flex;align-items:center;gap:10px"><span class="sample" style="background:#94243A;color:#fff">Fn</span><span><b>FnWine</b><br><span class="code">#94243A</span></span></span></td>
-    <td>고급스러움, 신뢰, 무게감, 헤리티지</td><td>8.16</td></tr>`);
-  $("#colorRows").innerHTML = rows.join("");
+  // 로고타입 그룹 화면
+  function logoRow(l, info) {
+    const second = info.darkBg
+      ? `<div class="stage" style="background:#1C1C3A;color:#fff"><small>어두운 배경 · 권장</small>${l.svg}</div>`
+      : `<div class="stage" style="background:${bgOf(l)};color:#fff"><small>컬러 배경 · 흰색 판</small>${l.white}</div>`;
+    return `<div class="logo-row">
+      <div class="stages"><div class="stage" style="background:#fff"><small>흰 배경</small>${l.svg}</div>${second}</div>
+      <div class="row-meta"><strong>${esc(l.name)}</strong><span class="note">${esc(l.note || "")}</span>${dl(l.id)}${dl(l.id, "white", "흰색 ")}</div>
+    </div>`;
+  }
+  function renderGroup(id) {
+    const g = G[id], i = INFO[id];
+    const items = logos.filter(l => l.group === id);
+    const color = id === "b2c" ? "리타민 #26C0D2 · API #2457C5" : `${g.colorName} ${g.color}`;
+    let html = `<div class="group-hero"><div>
+        <div class="eyebrow">Logotype · ${i.menu}</div>
+        <h1>${i.title}</h1>
+        <p class="lead" style="margin:0">${i.desc}</p>
+        <div class="facts"><span><b>컬러</b>${color}</span><span><b>성격</b>${i.mood}</span>${i.extra ? `<span><b>의미</b>${i.extra}</span>` : ""}${i.ratio ? `<span><b>흰 배경 대비</b>${i.ratio}</span>` : ""}</div>
+      </div></div>`;
+    if (id === "index") html += `<div class="alert">⚠ Index 컬러는 흰 배경에서 명도 대비가 낮아(2.49) 흰 배경 사용을 권장하지 않습니다. 어두운 배경과 조합하세요.</div>`;
+    if (id === "b2c") html += `<div class="alert">ⓘ 리타민은 B2C 독립 체계에 따라 전용서체가 아닌 서비스 고유 로고를 사용합니다. 리타민 컬러(#26C0D2)는 흰 배경 대비가 낮아(2.20) 흰 배경 글자에는 권장하지 않습니다.</div>`;
+    if (id === "ci") {
+      html += `<div class="sec" style="margin-top:28px"><div class="sec-head"><h2>공식 로고</h2></div><div class="logo-list">${items.map(l => logoRow(l, i)).join("")}</div></div>
+        <div class="sec"><div class="sec-head"><h2>로고타입 개선</h2></div>
+          <div class="story">
+            <div class="box"><span>이전</span><h3>헤리티지의 클래식 세리프</h3><p>헤리티지를 강조한 클래식한 세리프 타입으로 2000년에 제작된 회사 로고타입입니다.</p></div>
+            <div class="box"><span>개선</span><h3>볼륨 향상</h3><p>서체 고유의 유니크함을 유지하되, 시인성을 높이기 위해 타입의 전체적인 볼륨을 키웠습니다.</p></div>
+            <div class="box"><span>컬러</span><h3>Dark Wine → FnRed</h3><p>미래 지향적인 컬러로, 사용자와 시대의 트렌드를 이끌어낼 수 있도록 로고타입을 개선했습니다.</p></div>
+          </div>
+        </div>
+        <div class="sec"><div class="sec-head"><h2>이전 CI</h2><p>기록용으로만 보여 드리며 다운로드는 제공하지 않습니다.</p></div>
+          <div class="archive">${archive.map(a => `<div class="logo-row"><div class="stage">${a.svg}</div><div class="row-meta"><strong>${esc(a.name)}</strong><span class="note">${esc(a.desc)}</span></div></div>`).join("")}</div>
+          <p style="margin:12px 0 0;color:var(--ink-3);font-size:13px">이전 CI 컬러 Dark Wine(FnWine #94243A) — 고급스러움, 신뢰감, 무게감. 고전적이면서도 우아한 분위기의 헤리티지 컬러.</p>
+        </div>`;
+    } else {
+      html += `<div class="sec" style="margin-top:28px"><div class="sec-head"><h2>로고타입</h2><p>${items.length}종</p></div><div class="logo-list">${items.map(l => logoRow(l, i)).join("")}</div></div>`;
+    }
+    $("#page-logo").innerHTML = html;
+  }
 
-  renderFilters(); renderGroups(); route();
+  // 다운로드 표
+  $("#dlRows").innerHTML = ["ci", "b2b", "index", "fund", "contract", "b2c"].flatMap(gid => logos.filter(l => l.group === gid)).map(l => `<tr>
+    <td class="logo-cell">${l.svg}</td>
+    <td><b>${esc(l.name)}</b></td>
+    <td class="hide-m"><span style="display:inline-flex;align-items:center;gap:8px"><i class="dot" style="background:${bgOf(l)}"></i>${INFO[l.group].title}</span></td>
+    <td class="actions">${dl(l.id)}</td><td class="actions">${dl(l.id, "white")}</td></tr>`).join("");
+
+  // 사용 규칙 — 배경 조합
+  const bgRows = [
+    ["회사 CI · B2B 대표상품군", "#B9023D", "FnRed", "6.69", true, "흰 배경 / FnRed 배경에 흰색 판"],
+    ["지수", "#45B792", "Index", "2.49", false, "어두운 배경(#1C1C3A)과 조합"],
+    ["펀드", "#0C3178", "Fund", "12.17", true, "흰 배경 / Fund 배경에 흰색 판"],
+    ["B2B 계약상품군", "#1C1C3A", "Contract", "16.45", true, "흰 배경 / 어두운 배경에 흰색 판"],
+    ["B2C · 리타민", "#26C0D2", "Retamin", "2.20", false, "흰 배경 글자 비권장"],
+    ["B2C · API", "#2457C5", "API", "6.47", true, "흰 배경 / API 배경에 흰색 판"],
+  ];
+  $("#bgRows").innerHTML = bgRows.map(([n, c, cn, r, ok, rec]) => `<tr><td><b>${n}</b></td>
+    <td><span style="display:inline-flex;align-items:center;gap:10px"><span class="sample" style="background:${c}">Fn</span><span><b>${cn}</b><br><span class="code">${c}</span></span></span></td>
+    <td><span class="${ok ? "ok" : "warn"}">${r} · ${ok ? "본문까지 가능" : "흰 배경 비권장"}</span></td><td class="hide-m">${rec}</td></tr>`).join("");
+
+  // 쪽 넘기기
+  function route() {
+    const h = location.hash.slice(1) || "home";
+    let [page, sub] = h.split("/");
+    if (!["home", "font", "logo", "download", "rules"].includes(page)) page = "home";
+    if (page === "logo") { if (!ORDER.includes(sub)) sub = "b2b"; renderGroup(sub); }
+    document.querySelectorAll("section.page").forEach(s => s.classList.toggle("on", s.id === "page-" + page));
+    document.querySelectorAll("#menu a").forEach(a => {
+      const t = a.getAttribute("href").slice(1);
+      const on = a.dataset.parent ? page === "logo" : (t === page || (page === "logo" && t === "logo/" + sub));
+      on ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current");
+    });
+    document.body.classList.remove("menu-open");
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener("hashchange", route);
+  $("#openMenu").addEventListener("click", () => document.body.classList.toggle("menu-open"));
+  route();
 })();
 </script>
 </body>
