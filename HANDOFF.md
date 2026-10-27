@@ -6,11 +6,11 @@
 - 2차 시안 완성: index.html(폴더 맨 위로 옮김, 그림·서체·logos.js 등은 out/brand-site/ 그대로) — 왼쪽 메뉴 구조
   - BI 디자인 운영(홈: 소개·브랜드 방향·사업별 컬러 체계·B2B/B2C·기대 효과·최근 업데이트) — 메뉴 숫자는 없앰
   - 브랜드 전용서체 소개(왜·업데이트 현황·사양·품질 기준·미리보기·사용 방법·파일 받기). 미리보기 문구를 SVG·PNG로 받기 가능(font-data.js 의 글자 윤곽·간격으로 그림, 하르프버즈 조판과 5천여 문구 일치 확인)
-  - 브랜드 로고타입 소개(하위: B2B 대표/지수/펀드/B2B 계약/B2C/회사 CI — 흰 배경+컬러 배경 흰색 판, 서비스 이력 메모, CI 화면에 로고타입 개선·이전 CI 2종 전시용)
+  - 브랜드 로고타입 소개(하위: B2B 대표/지수/펀드/B2B 계약/B2C/회사 CI — 흰 배경+컬러 배경 흰색 판, 웹사이트 링크(서비스 이력 메모는 삭제), CI 화면에 로고타입 개선·이전 CI 2종 전시용)
   - 로고타입 다운로드(로고 컬러·흰색 SVG/PNG, 서체 파일), 사용 규칙(원칙·배경 조합·협력사·매뉴얼 빈칸)
 - 사이트는 전용서체 v1.200 반영 완료(서체 파일·로고타입 13종·업데이트 글). 기록: plan/phase-1/09. 옛 v1.100 서체·로고는 _trash/
 - 로고 만들기: py scripts/build_logotypes.py (fonttools·uharfbuzz 필요). 서체는 out/font-update/logo-font 의 OTF(기둥 조정 전 v1.200, 기존 로고와 맞춤)를 씀. 조정본으로 바꾸려면 스크립트의 FONT 를 out/font-update/v1.200/fonts 로
-  - 펀드에 FnSpectrum·FnARES 추가(2026-10-27). 서비스 웹사이트 링크는 스크립트의 SERVICE_URL(서비스 17종 입력됨. 없는 것: FnARES·MarketMonitor·FnAPI·회사 CI)
+  - 펀드에 FnSpectrum·FnARES 추가(2026-10-27). 서비스 웹사이트 링크는 스크립트의 SERVICE_URL(서비스 18종 입력됨. FnARES 는 개발 서버(devares) 주소. 없는 것: MarketMonitor·FnAPI·회사 CI)
   - 서비스 17종 전용서체 조판 / 회사 CI 공식 원본 / 리타민 피그마 원래 로고 / 흰색 판 logos/white / 이전 CI는 data/figma-logo-parts 조각으로 합침
   - 주의: 전체 실행하면 로고가 기둥 조정본 서체로 다시 만들어짐(결정 대기 ①). 미리보기용 글자 정보만 다시 만들 땐 py scripts/build_logotypes.py --font-data (사이트 fonts/ 의 OTF 를 읽음)
   - scripts/build_logos.py 는 옛 피그마 로고용, 더 이상 안 씀

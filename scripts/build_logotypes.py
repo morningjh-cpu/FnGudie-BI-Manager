@@ -70,18 +70,6 @@ BRANDS = [
 ]
 
 
-# 서비스 이력: 피그마 「FnGuide Brand Color」의 숨김 메모
-NOTES = {
-    "wisereport": "2018년 합병 후 수정",
-    "fundguide": "2020년 12월 서비스 출시",
-    "pfguide": "2020년 서비스 출시",
-    "fnaims": "2020년 서비스 출시",
-    "companyguide": "2004년 FnCompanyGuide 런칭, 2012년 CompanyGuide로 변경",
-    "companywise": "2018년 합병 후 수정, 2024년 6월 컬러 단일화",
-    "companyglobal": "2018년 합병 후 수정",
-    "marketmonitor": "2024년 7월 범용 기업정보 ASP 서비스",
-    "fnspace": "2019년 12월 API 기반 데이터 제공 서비스 출시",
-}
 
 # 그 밖의 CI (전시용, 다운로드 없음) — (파일명, 이름, 설명, 이미지 파일)
 # FnPricing: 에프앤자산평가 홈페이지 CI 이미지 (https://www.fnpricing.com/fr/images/img_ci_logo.png → data/fnpricing)
@@ -102,6 +90,7 @@ SERVICE_URL = {
     "pfguide": "https://www.pfguide.co.kr/",
     "fnaims": "https://www.fnaims.co.kr/",
     "fnspectrum": "https://www.fnspectrum.com/",
+    "fnares": "https://devares.fnguide.com/",
     "companyguide": "https://wcomp.fnguide.com/",
     "companywise": "https://comp.wisereport.co.kr/",
     "companyglobal": "https://compglobal.wisereport.co.kr",
@@ -299,7 +288,7 @@ def main():
         (OUT / "logos" / "white" / f"{file}.svg").write_text(white, encoding="utf-8")
         w, h = (float(v) for v in re.search(r'width="([\d.]+)" height="([\d.]+)"', svg).groups())
         items.append({"id": file, "name": "FnGuide (개선 로고)" if file == "fnguide" else text, "group": group,
-                      "kind": "improved" if file == "fnguide" else "bi", "w": w, "h": h, "note": NOTES.get(file, ""),
+                      "kind": "improved" if file == "fnguide" else "bi", "w": w, "h": h, "note": "",
                       "url": SERVICE_URL.get(file, ""),
                       "svg": svg.strip(), "white": white.strip()})
     archive = [{"id": f, "name": n, "desc": d, "url": ARCHIVE_URL.get(f, ""), "svg": png_logo(img)} for f, n, d, img in ARCHIVE]
