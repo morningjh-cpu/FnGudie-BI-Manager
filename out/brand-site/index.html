@@ -120,7 +120,8 @@
   th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: middle; }
   th { font-size: 12.5px; color: var(--ink-3); font-weight: 600; background: #FCF6F3; white-space: nowrap; }
   tr:last-child td { border-bottom: 0; }
-  td.logo-cell svg { height: 22px; width: auto; display: block; }
+  td.logo-cell { width: 280px; }
+  td.logo-cell svg { display: block; } /* 크기는 스크립트가 같은 배율로 지정 */
   td.actions { text-align: right; white-space: nowrap; }
   .pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; background: var(--red); color: #fff; }
 
@@ -142,7 +143,7 @@
   .stages { display: grid; grid-template-columns: 1fr 1fr; }
   .stage { height: 150px; display: grid; place-items: center; padding: 24px; position: relative; }
   .stage + .stage { border-left: 1px solid var(--line); }
-  .stage svg { max-width: 78%; height: auto; width: auto; max-height: 48px; }
+  .stage svg { max-width: 92%; height: auto; } /* 크기는 스크립트가 같은 배율로 지정 */
   .stage small { position: absolute; left: 12px; top: 10px; font-size: 11.5px; font-weight: 600; opacity: .6; }
   .row-meta { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-top: 1px solid var(--line); flex-wrap: wrap; }
   .row-meta strong { font-size: 15px; }
@@ -150,7 +151,7 @@
   .alert { display: flex; gap: 10px; align-items: flex-start; background: #FFF3F0; border: 1px solid #F3D2CA; border-radius: var(--radius); padding: 12px 16px; font-size: 13.5px; color: #8A2A1E; margin-top: 16px; }
   .archive { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .archive .stage { height: 170px; background: #FFFFFF; }
-  .archive .stage svg { max-height: 64px; }
+  .archive .stage svg { max-height: 64px; width: auto; }
   .archive .row-meta { flex-direction: column; align-items: flex-start; gap: 2px; }
   .story { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .story .box span { font-size: 12.5px; font-weight: 700; color: var(--red); }
@@ -489,12 +490,12 @@
       desc: "회사별로 ASP 또는 웹서비스로 제공되는 브랜드 컬러입니다." },
     b2c: { menu: "B2C 독립 체계", title: "B2C 독립 체계", mood: "사용자 친화적, 서비스별 독립 컬러",
       desc: "개인 고객에게 특화된 서비스로, 사용자 트렌드에 맞게 독립적인 컬러를 사용합니다. 폰트도 서비스 성격에 맞게 사용합니다." },
-    ci: { menu: "회사 CI", title: "회사 CI", mood: "열정, 자신감, 역동성, 현대적", ratio: 6.69,
-      desc: "FnGuide의 공식 로고입니다. 리뉴얼 후 FnRed를 사용합니다." },
+    ci: { menu: "회사 CI", title: "회사 CI", mood: "고급스러움, 신뢰, 무게감, 헤리티지", ratio: 8.16,
+      desc: "FnGuide의 CI는 금융시장을 바라보는 새로운 창이라는 컨셉으로 디자인하였습니다." },
   };
   const ORDER = ["b2b", "index", "fund", "contract", "b2c", "ci"];
-  const B2C_COLORS = { retamin: "#26C0D2", fnapi: "#2457C5" };
-  const bgOf = l => l.group === "b2c" ? B2C_COLORS[l.id] : G[l.group].color;
+  const B2C_COLORS = { retamin: "#1C1C3A", fnapi: "#2457C5" }; // 리타민: 주 #1C1C3A, 보조 #26C0D2
+  const bgOf = l => l.group === "b2c" ? B2C_COLORS[l.id] : l.kind === "improved" ? "#B9023D" : G[l.group].color;
 
   // 로고 자리
   const logoSvg = L.fnguide.svg;
@@ -530,9 +531,11 @@
   }
   document.addEventListener("click", e => {
     const b = e.target.closest("[data-dl]"); if (!b) return;
-    const l = L[b.dataset.id], white = b.dataset.v === "white";
-    const svg = white ? l.white : l.svg, base = l.id + (white ? "-white" : "");
-    b.dataset.dl === "svg" ? save(new Blob([svg], { type: "image/svg+xml" }), base + ".svg") : savePng(svg, l.w, l.h, `${base}@4x.png`);
+    const l = L[b.dataset.id], v = b.dataset.v;
+    const svg = v === "color" ? l.svg : v === "white" ? l.white : l.variants.find(x => x.key === v).svg;
+    const base = l.id + (v === "color" ? "" : "-" + v);
+    const [w, h] = svg.match(/width="([\d.]+)" height="([\d.]+)"/).slice(1).map(Number);
+    b.dataset.dl === "svg" ? save(new Blob([svg], { type: "image/svg+xml" }), base + ".svg") : savePng(svg, w, h, `${base}@4x.png`);
   });
   const dl = (id, v = "color", label = "") => `<span class="btns"><button class="btn" data-dl="svg" data-v="${v}" data-id="${id}">${icon}${label}SVG</button><button class="btn" data-dl="png" data-v="${v}" data-id="${id}">${icon}${label}PNG</button></span>`;
 
@@ -541,15 +544,17 @@
     const g = G[id], i = INFO[id];
     const targets = logos.filter(l => l.group === id).map(l => l.name).join(", ");
     const top = id === "b2c"
-      ? `<div class="chip-top" style="background:linear-gradient(90deg,#26C0D2 0 50%,#2457C5 50%)"><b>Retamin · API</b><span>#26C0D2 · #2457C5</span></div>`
+      ? `<div class="chip-top" style="background:linear-gradient(90deg,#1C1C3A 0 40%,#26C0D2 40% 60%,#2457C5 60%)"><b>Retamin · API</b><span>#1C1C3A · #26C0D2 · #2457C5</span></div>`
+      : id === "ci"
+      ? `<div class="chip-top" style="background:linear-gradient(90deg,#94243A 0 65%,#778288 65%)"><b>Fn Wine · Fn Dark Gray</b><span>#94243A · #778288</span></div>`
       : `<div class="chip-top" style="background:${g.color}"><b>${g.colorName}</b><span>${g.color}</span></div>`;
     const ratio = id === "b2c"
-      ? `<span class="warn">리타민 2.20 흰 배경 비권장</span> · <span class="ok">API 6.47 가능</span>`
+      ? `<span class="ok">리타민 주 16.45 · API 6.47 본문까지 가능</span><br><span class="warn">리타민 보조 2.20 흰 배경 비권장</span>`
       : `<span class="${i.ratio >= 4.5 ? "ok" : "warn"}">흰 배경 대비 ${i.ratio} · ${i.ratio >= 4.5 ? "본문까지 가능" : "흰 배경 비권장"}</span>`;
     return `<a class="box color-card go" href="#logo/${id}" style="gap:0">${top}<div class="body"><h3>${i.title}</h3><p>${i.mood}</p><div class="targets">${esc(targets)}</div><div class="ratio">${ratio}</div></div></a>`;
   }).join("");
   $("#colorCards").insertAdjacentHTML("afterend",
-    `<p style="margin:12px 0 0;color:var(--ink-3);font-size:13px"><span class="dot" style="background:#94243A;width:8px;height:8px"></span> FnWine #94243A는 브랜드 리뉴얼 이전의 오리지널 CI 색상입니다 — 고급스러움, 신뢰, 무게감, 헤리티지.</p>`);
+    `<p style="margin:12px 0 0;color:var(--ink-3);font-size:13px"><span class="dot" style="background:#94243A;width:8px;height:8px"></span> 회사 CI 전용색상 Fn Wine(#94243A)은 BI 컬러 FnRed 2025(#B9023D)와 다른 색입니다.</p>`);
 
   // 서체 파일
   document.querySelectorAll(".font-files").forEach(el => el.innerHTML = [
@@ -581,19 +586,28 @@
   });
 
   // 로고타입 그룹 화면
+  // 로고 카드도 칸에 맞춰 줄이지 않고 같은 배율로 (글자 크기가 같게 보이도록)
+  const STAGE_SCALE = 1;
+  // 회사 CI 원본 파일은 크기 기준이 달라 따로 맞춘다 (상자가 있는 CI, 긴 로고타입)
+  const fit = l => ({ official: 0.7, logotype: 0.6 }[l.kind] || 1);
+  const big = (svg, l) => sized(svg, l.w * STAGE_SCALE * fit(l), l.h * STAGE_SCALE * fit(l));
   function logoRow(l, info) {
+    if (!l.white) return `<div class="logo-row">
+      <div class="stages" style="grid-template-columns:1fr"><div class="stage" style="background:#fff"><small>흰 배경</small>${big(l.svg, l)}</div></div>
+      <div class="row-meta"><strong>${esc(l.name)}</strong><span class="note">${esc(l.note || "")}</span>${dl(l.id)}</div>
+    </div>`;
     const second = info.darkBg
-      ? `<div class="stage" style="background:#1C1C3A;color:#fff"><small>어두운 배경 · 권장</small>${l.svg}</div>`
-      : `<div class="stage" style="background:${bgOf(l)};color:#fff"><small>컬러 배경 · 흰색 판</small>${l.white}</div>`;
+      ? `<div class="stage" style="background:#1C1C3A;color:#fff"><small>어두운 배경 · 권장</small>${big(l.svg, l)}</div>`
+      : `<div class="stage" style="background:${bgOf(l)};color:#fff"><small>컬러 배경 · 흰색 판</small>${big(l.white, l)}</div>`;
     return `<div class="logo-row">
-      <div class="stages"><div class="stage" style="background:#fff"><small>흰 배경</small>${l.svg}</div>${second}</div>
+      <div class="stages"><div class="stage" style="background:#fff"><small>흰 배경</small>${big(l.svg, l)}</div>${second}</div>
       <div class="row-meta"><strong>${esc(l.name)}</strong><span class="note">${esc(l.note || "")}</span>${dl(l.id)}${dl(l.id, "white", "흰색 ")}</div>
     </div>`;
   }
   function renderGroup(id) {
     const g = G[id], i = INFO[id];
     const items = logos.filter(l => l.group === id);
-    const color = id === "b2c" ? "리타민 #26C0D2 · API #2457C5" : `${g.colorName} ${g.color}`;
+    const color = id === "b2c" ? "리타민 주 #1C1C3A · 보조 #26C0D2 · API #2457C5" : `${g.colorName} ${g.color}`;
     let html = `<div class="group-hero"><div>
         <div class="eyebrow">Logotype · ${i.menu}</div>
         <h1>${i.title}</h1>
@@ -601,9 +615,40 @@
         <div class="facts"><span><b>컬러</b>${color}</span><span><b>성격</b>${i.mood}</span>${i.extra ? `<span><b>의미</b>${i.extra}</span>` : ""}${i.ratio ? `<span><b>흰 배경 대비</b>${i.ratio}</span>` : ""}</div>
       </div></div>`;
     if (id === "index") html += `<div class="alert">⚠ Index 컬러는 흰 배경에서 명도 대비가 낮아(2.49) 흰 배경 사용을 권장하지 않습니다. 어두운 배경과 조합하세요.</div>`;
-    if (id === "b2c") html += `<div class="alert">ⓘ 리타민은 B2C 독립 체계에 따라 전용서체가 아닌 서비스 고유 로고를 사용합니다. 리타민 컬러(#26C0D2)는 흰 배경 대비가 낮아(2.20) 흰 배경 글자에는 권장하지 않습니다.</div>`;
+    if (id === "b2c") html += `<div class="alert">ⓘ 리타민은 B2C 독립 체계에 따라 전용서체가 아닌 서비스 고유 로고를 사용합니다. 리타민은 주 색상 #1C1C3A, 보조 색상 #26C0D2를 씁니다. 보조 색상은 흰 배경 대비가 낮아(2.20) 흰 배경 글자에는 권장하지 않습니다.</div>`;
     if (id === "ci") {
-      html += `<div class="sec" style="margin-top:28px"><div class="sec-head"><h2>공식 로고</h2></div><div class="logo-list">${items.map(l => logoRow(l, i)).join("")}</div></div>
+      const ci = L["fnguide-ci"], improved = L.fnguide;
+      const mono = [
+        ["#94243A", ci.white, "Fn Wine 배경 · 흰색"], ["#FFFFFF", ci.variants[0].svg, "단색 Fn Wine"],
+        ["#778288", ci.white, "Fn Dark Gray 배경 · 흰색"], ["#FFFFFF", ci.variants[1].svg, "단색 Fn Dark Gray"],
+      ];
+      const sys = [
+        ["Fn Wine", "#94243A", "Pantone 704 C", "148 / 36 / 58", "50 / 100 / 80 / 0"],
+        ["Fn Dark Gray", "#778288", "Pantone 431 C", "119 / 130 / 136", "15 / 0 / 0 / 60"],
+        ["Fn Light Gray", "#A8B0B6", "Pantone 429 C", "155 / 165 / 165", "5 / 0 / 0 / 35"],
+      ];
+      html += `<div class="sec" style="margin-top:28px"><div class="sec-head"><h2>공식 로고 · CI (Corporate Identity)</h2></div>
+          <div class="logo-row">
+            <div class="stages"><div class="stage" style="background:#fff;height:190px"><small>흰 배경</small>${big(ci.svg, ci)}</div><div class="stage" style="background:#94243A;color:#fff;height:190px"><small>Fn Wine 배경 · 흰색</small>${big(ci.white, ci)}</div></div>
+            <div class="row-meta"><strong>${esc(ci.name)}</strong><span class="note"></span>${dl(ci.id)}${dl(ci.id, "white", "흰색 ")}</div>
+            <div class="row-meta"><span class="note">원본 파일 (회사 홈페이지 제공)</span><span class="btns"><a class="btn primary" href="files/fnguide-logo-AI.zip" download>${icon}AI 파일</a><a class="btn primary" href="files/fnguide-logo-PNG.zip" download>${icon}PNG 파일</a></span></div>
+          </div>
+        </div>
+        <div class="sec"><div class="sec-head"><h2>로고타입 (Logotype)</h2></div>
+          <div class="logo-list">${["fnguide-inc", "fnguide-kr"].map(k => logoRow(L[k], i)).join("")}</div>
+          <div class="alert">* 로고타입은 임의로 타이핑하여 사용하거나 색상 조정, 일부만 사용하는 등의 변형을 할 수 없습니다.</div>
+        </div>
+        <div class="sec"><div class="sec-head"><h2>전용색상 (Color System)</h2><p>FnGuide의 두 가지 핵심 컬러는 Fn Wine과 Fn Dark Gray를 기본으로 합니다.</p></div>
+          <div class="table-wrap"><table>
+            <thead><tr><th>컬러</th><th>HEX</th><th>Pantone</th><th class="hide-m">RGB</th><th class="hide-m">CMYK</th></tr></thead>
+            <tbody>${sys.map(([n, hx, p, rgb, cmyk]) => `<tr><td><span style="display:inline-flex;align-items:center;gap:10px"><span class="sample" style="background:${hx}"></span><b>${n}</b></span></td><td><span class="code">${hx}</span></td><td>${p}</td><td class="hide-m">${rgb}</td><td class="hide-m">${cmyk}</td></tr>`).join("")}</tbody>
+          </table></div>
+        </div>
+        <div class="sec"><div class="sec-head"><h2>단도 색상</h2><p>한 가지 색으로 표현해야 할 때 씁니다.</p></div>
+          <div class="cols c4">${mono.map(([bg, svg, cap]) => `<div class="logo-row"><div class="stage" style="background:${bg};height:130px">${sized(svg, ci.w * 0.4, ci.h * 0.4)}</div><div class="row-meta" style="font-size:13px">${cap}</div></div>`).join("")}</div>
+          <div class="row-meta" style="border:0;padding:12px 0 0"><span class="note">단색 파일</span><span class="btns">${dl(ci.id, "wine", "Fn Wine ")}${dl(ci.id, "darkgray", "Dark Gray ")}</span></div>
+        </div>
+        <div class="sec"><div class="sec-head"><h2>개선된 브랜드 로고</h2><p>리뉴얼 후 FnRed 2025(#B9023D)를 쓰는 브랜드 로고입니다.</p></div><div class="logo-list">${logoRow(improved, i)}</div></div>
         <div class="sec"><div class="sec-head"><h2>로고타입 개선</h2></div>
           <div class="story">
             <div class="box"><span>이전</span><h3>헤리티지의 클래식 세리프</h3><p>헤리티지를 강조한 클래식한 세리프 타입으로 2000년에 제작된 회사 로고타입입니다.</p></div>
@@ -611,9 +656,8 @@
             <div class="box"><span>컬러</span><h3>Dark Wine → FnRed</h3><p>미래 지향적인 컬러로, 사용자와 시대의 트렌드를 이끌어낼 수 있도록 로고타입을 개선했습니다.</p></div>
           </div>
         </div>
-        <div class="sec"><div class="sec-head"><h2>이전 CI</h2><p>기록용으로만 보여 드리며 다운로드는 제공하지 않습니다.</p></div>
+        <div class="sec"><div class="sec-head"><h2>그 밖의 CI</h2><p>기록용으로만 보여 드리며 다운로드는 제공하지 않습니다.</p></div>
           <div class="archive">${archive.map(a => `<div class="logo-row"><div class="stage">${a.svg}</div><div class="row-meta"><strong>${esc(a.name)}</strong><span class="note">${esc(a.desc)}</span></div></div>`).join("")}</div>
-          <p style="margin:12px 0 0;color:var(--ink-3);font-size:13px">이전 CI 컬러 Dark Wine(FnWine #94243A) — 고급스러움, 신뢰감, 무게감. 고전적이면서도 우아한 분위기의 헤리티지 컬러.</p>
         </div>`;
     } else {
       html += `<div class="sec" style="margin-top:28px"><div class="sec-head"><h2>로고타입</h2><p>${items.length}종</p></div><div class="logo-list">${items.map(l => logoRow(l, i)).join("")}</div></div>`;
@@ -621,25 +665,41 @@
     $("#page-logo").innerHTML = html;
   }
 
-  // 다운로드 표
-  $("#dlRows").innerHTML = ["ci", "b2b", "index", "fund", "contract", "b2c"].flatMap(gid => logos.filter(l => l.group === gid)).map(l => `<tr>
-    <td class="logo-cell">${l.svg}</td>
+  // 다운로드 표 — 칸에 맞춰 줄이지 않고 모든 로고를 같은 배율로 보여 준다 (글자 크기가 같게 보이도록)
+  const DL_SCALE = 0.6;
+  const sized = (svg, w, h) => svg.replace(/width="[^"]*" height="[^"]*"/, `width="${w.toFixed(1)}" height="${h.toFixed(1)}"`);
+  // 다운로드 표에서만: FnGuide Inc. 빼기, 한글 로고타입은 크게, FnAPI를 Retamin 앞으로
+  const DL_FIT = { "fnguide-kr": 0.8 };
+  const dlFit = l => DL_FIT[l.id] || fit(l);
+  const dlList = ["ci", "b2b", "index", "fund", "contract", "b2c"].flatMap(gid => logos.filter(l => l.group === gid))
+    .filter(l => l.id !== "fnguide-inc");
+  const ri = dlList.findIndex(l => l.id === "retamin"), ai = dlList.findIndex(l => l.id === "fnapi");
+  [dlList[ri], dlList[ai]] = [dlList[ai], dlList[ri]];
+  $("#dlRows").innerHTML = dlList.map(l => `<tr>
+    <td class="logo-cell">${sized(l.svg, l.w * DL_SCALE * dlFit(l), l.h * DL_SCALE * dlFit(l))}</td>
     <td><b>${esc(l.name)}</b></td>
     <td class="hide-m"><span style="display:inline-flex;align-items:center;gap:8px"><i class="dot" style="background:${bgOf(l)}"></i>${INFO[l.group].title}</span></td>
-    <td class="actions">${dl(l.id)}</td><td class="actions">${dl(l.id, "white")}</td></tr>`).join("");
+    <td class="actions">${dl(l.id)}</td><td class="actions">${l.white ? dl(l.id, "white") : '<span style="color:var(--ink-3)">—</span>'}</td></tr>`).join("");
 
   // 사용 규칙 — 배경 조합
   const bgRows = [
-    ["회사 CI · B2B 대표상품군", "#B9023D", "FnRed", "6.69", true, "흰 배경 / FnRed 배경에 흰색 판"],
+    ["회사 CI", "#94243A", "Fn Wine", "8.16", true, "흰 배경 / Fn Wine·Fn Dark Gray 배경에 흰색 판"],
+    ["B2B 대표상품군 · 개선 로고", "#B9023D", "FnRed 2025", "6.69", true, "흰 배경 / FnRed 배경에 흰색 판"],
     ["지수", "#45B792", "Index", "2.49", false, "어두운 배경(#1C1C3A)과 조합"],
     ["펀드", "#0C3178", "Fund", "12.17", true, "흰 배경 / Fund 배경에 흰색 판"],
     ["B2B 계약상품군", "#1C1C3A", "Contract", "16.45", true, "흰 배경 / 어두운 배경에 흰색 판"],
-    ["B2C · 리타민", "#26C0D2", "Retamin", "2.20", false, "흰 배경 글자 비권장"],
-    ["B2C · API", "#2457C5", "API", "6.47", true, "흰 배경 / API 배경에 흰색 판"],
   ];
   $("#bgRows").innerHTML = bgRows.map(([n, c, cn, r, ok, rec]) => `<tr><td><b>${n}</b></td>
     <td><span style="display:inline-flex;align-items:center;gap:10px"><span class="sample" style="background:${c}">Fn</span><span><b>${cn}</b><br><span class="code">${c}</span></span></span></td>
-    <td><span class="${ok ? "ok" : "warn"}">${r} · ${ok ? "본문까지 가능" : "흰 배경 비권장"}</span></td><td class="hide-m">${rec}</td></tr>`).join("");
+    <td><span class="${ok ? "ok" : "warn"}">${r} · ${ok ? "본문까지 가능" : "흰 배경 비권장"}</span></td><td class="hide-m">${rec}</td></tr>`).join("")
+    // 리타민은 주·보조 색을 한 줄에 함께 표시
+    + `<tr><td><b>B2C · 리타민</b></td>
+    <td><span style="display:inline-flex;align-items:center;gap:10px"><span class="sample" style="background:#1C1C3A">R</span><span class="sample" style="background:#26C0D2">R</span><span><b>주 · 보조</b><br><span class="code">#1C1C3A · #26C0D2</span></span></span></td>
+    <td><span class="ok">주 16.45 · 본문까지 가능</span><br><span class="warn">보조 2.20 · 흰 배경 비권장</span></td>
+    <td class="hide-m">흰 배경 / 주 색상 배경에 흰색 판. 보조 색상은 흰 배경 글자에 쓰지 않음</td></tr>`
+    + `<tr><td><b>B2C · API</b></td>
+    <td><span style="display:inline-flex;align-items:center;gap:10px"><span class="sample" style="background:#2457C5">Fn</span><span><b>API</b><br><span class="code">#2457C5</span></span></span></td>
+    <td><span class="ok">6.47 · 본문까지 가능</span></td><td class="hide-m">흰 배경 / API 배경에 흰색 판</td></tr>`;
 
   // 쪽 넘기기
   function route() {

@@ -1,9 +1,11 @@
 """전용서체(FnGuide Logotype)로 브랜드별 로고타입 SVG를 만든다.
 
 - 글자 간격(커닝)과 f 합자는 서체에 들어 있는 규칙을 그대로 적용한다.
-- 회사 CI "FnGuide"는 서체로 다시 입력하지 않고 공식 원본 파일을 쓴다 (서체 문서 5장 사용 원칙).
+- 회사 CI 공식 로고는 회사 홈페이지 CIP(https://corp.fnguide.com/Company/CIP) 파일을 그대로 쓴다 (data/corp-cip).
+  공식 CI는 색 바꾸기 등 변형 금지 → 흰색 판을 만들지 않고 홈페이지가 주는 단색 판만 쓴다.
+- 개선된 브랜드 로고 "FnGuide"(FnRed)는 서체 패키지의 원본 파일을 쓴다 (서체 문서 5장 사용 원칙).
 - 리타민은 B2C 독립 체계라 전용서체 대신 기존 로고(피그마)를 그대로 쓴다.
-- 그룹색 배경용 흰색 판(logos/white/)과 회사 CI 화면에 보여줄 이전 CI(전시용, 다운로드 없음)도 만든다.
+- 그룹색 배경용 흰색 판(logos/white/)과 회사 CI 화면에 보여줄 FnPricing(전시용, 다운로드 없음)도 만든다.
 결과: out/brand-site/logos/*.svg, out/brand-site/logos.js
 실행: py scripts/build_logotypes.py   (필요: py -m pip install fonttools uharfbuzz)
 """
@@ -24,13 +26,14 @@ FONT = FONT_DIR / "fonts" / "FnGuideLogotype-Regular.otf"
 CI_SVG = FONT_DIR / "source-svg" / "0_logo" / "FnGuide.svg"
 FIGMA = ROOT / "data" / "figma-logo-parts"
 RETAMIN_SVG = FIGMA / "retamin.svg"
+CIP = ROOT / "data" / "corp-cip"
 OUT = ROOT / "out" / "brand-site"
 
 HEIGHT_PX = 40  # 대문자 높이 700 단위가 28px 정도로 보이는 크기 (1000 단위 = 40px)
 
-# 그룹·색상: 서체 문서 4장 표. 회사 CI는 리뉴얼 후 색 FnRed (FnWine #94243A는 리뉴얼 이전 오리지널 CI 색)
+# 그룹·색상: 서체 문서 4장 표. 회사 CI 주색상 Fn Wine #94243A (홈페이지 표의 #962E45는 잘못된 값, 사용자 확인). 개선 로고 FnRed와 구분해 Fn Wine으로 부름
 GROUPS = [
-    {"id": "ci", "name": "회사 CI", "color": "#B9023D", "colorName": "FnRed"},
+    {"id": "ci", "name": "회사 CI", "color": "#94243A", "colorName": "Fn Wine"},
     {"id": "b2b", "name": "B2B 대표상품군", "color": "#B9023D", "colorName": "FnRed"},
     {"id": "index", "name": "지수", "color": "#45B792", "colorName": "Index"},
     {"id": "fund", "name": "펀드", "color": "#0C3178", "colorName": "Fund"},
@@ -76,7 +79,6 @@ NOTES = {
 
 # 이전 CI: 피그마 「CI / BI 사용방안」 05 장표 — (파일명, 이름, 설명, 폭, 높이, [(조각, x, y)])
 ARCHIVE = [
-    ("ci-2000", "FnGuide", "2000년 7월 창립 — 대형 에이전시를 통해 제작 (리뉴얼 이전 CI)", 790, 267, [("ci2000", 0, 0)]),
     ("ci-fnpricing", "FnPricing", "2011년 6월 창립 — 에프앤자산평가 자체 제작", 925, 308, [
         ("fp_v0", 0, 0), ("fp_v1", 159.19, 166.78), ("fp_v2", 287.95, 128.31), ("fp_v3", 408.85, 168.26),
         ("fp_v4", 552.23, 168.29), ("fp_v5", 495.99, 165.46), ("fp_v6", 508.01, 126.19), ("fp_v7", 641.4, 165.46),
@@ -136,10 +138,11 @@ def official_ci():
     )
 
 
-def existing_logo(path):
-    """기존 로고 파일을 모양·색 그대로 쓴다 (피그마 내보내기 속성만 정리)."""
+def existing_logo(path, keep_ids=False):
+    """기존 로고 파일을 모양·색 그대로 쓴다 (피그마 내보내기 속성만 정리, 잘라내기 영역 id는 필요하면 남김)."""
     src = path.read_text(encoding="utf-8")
-    src = re.sub(r'\s(preserveAspectRatio|overflow|style|id)="[^"]*"', "", src)
+    attrs = "preserveAspectRatio|overflow|style" if keep_ids else "preserveAspectRatio|overflow|style|id"
+    src = re.sub(r'\s(' + attrs + r')="[^"]*"', "", src)
     return src.strip() + "\n"
 
 
@@ -159,6 +162,11 @@ def compose(w, h, parts, out_h=56):
     )
 
 
+def recolor(svg):
+    """홈페이지 단색 Dark Gray 파일의 회색 #6B7B84를 확정 색 #778288로 다시 칠한다 (사용자 확인)."""
+    return svg.replace('fill="#6B7B84"', 'fill="#778288"')
+
+
 def to_white(svg):
     """색이 있는 칠을 모두 흰색으로 바꾼 판 (모양은 그대로)."""
     return re.sub(r'fill="#[0-9A-Fa-f]{3,6}"', 'fill="#FFFFFF"', svg)
@@ -175,16 +183,38 @@ def main():
 
     (OUT / "logos" / "white").mkdir(parents=True, exist_ok=True)
     items = []
+    # 회사 CI: 홈페이지 공식 파일 (흰색 판은 홈페이지 단색 판만)
+    official = []
+    for file, name, src, white, kind, extra in [
+        ("fnguide-ci", "FnGuide CI", "cip.svg", "logo_white.svg", "official",
+         [("wine", "단색 Fn Wine", "logo_red.svg"), ("darkgray", "단색 Fn Dark Gray", "logo_darkGray.svg")]),
+        ("fnguide-inc", "FnGuide Inc.", "logo_cip1.svg", None, "logotype", []),
+        ("fnguide-kr", "(주)에프앤가이드", "logo_cip2.svg", None, "logotype", []),
+    ]:
+        official.append({"id": file, "name": name, "kind": kind, "svg": existing_logo(CIP / src, True),
+                         "white": existing_logo(CIP / white, True) if white else None,
+                         "variants": [{"key": k, "label": lb, "svg": recolor(existing_logo(CIP / f, True)).strip()} for k, lb, f in extra]})
     entries = [("fnguide", "FnGuide", "ci", official_ci())]
     for file, text, group, color in BRANDS:
         entries.append((file, text, group, typeset(text, color or COLOR[group], hb_font, glyph_set, upem)))
     entries.insert(-1, ("retamin", "Retamin", "b2c", existing_logo(RETAMIN_SVG)))
+    for o in official:
+        (OUT / "logos" / f"{o['id']}.svg").write_text(o["svg"], encoding="utf-8")
+        if o["white"]:
+            (OUT / "logos" / "white" / f"{o['id']}.svg").write_text(o["white"], encoding="utf-8")
+        for v in o["variants"]:
+            (OUT / "logos" / f"{o['id']}-{v['key']}.svg").write_text(v["svg"] + "\n", encoding="utf-8")
+        w, h = (float(v) for v in re.search(r'width="([\d.]+)" height="([\d.]+)"', o["svg"]).groups())
+        items.append({"id": o["id"], "name": o["name"], "group": "ci", "kind": o["kind"], "w": w, "h": h, "note": "",
+                      "svg": o["svg"].strip(), "white": o["white"].strip() if o["white"] else None,
+                      "variants": o["variants"]})
     for file, text, group, svg in entries:
         white = to_white(svg)
         (OUT / "logos" / f"{file}.svg").write_text(svg, encoding="utf-8")
         (OUT / "logos" / "white" / f"{file}.svg").write_text(white, encoding="utf-8")
         w, h = (float(v) for v in re.search(r'width="([\d.]+)" height="([\d.]+)"', svg).groups())
-        items.append({"id": file, "name": text, "group": group, "w": w, "h": h, "note": NOTES.get(file, ""),
+        items.append({"id": file, "name": "FnGuide (개선 로고)" if file == "fnguide" else text, "group": group,
+                      "kind": "improved" if file == "fnguide" else "bi", "w": w, "h": h, "note": NOTES.get(file, ""),
                       "svg": svg.strip(), "white": white.strip()})
     archive = [{"id": f, "name": n, "desc": d, "svg": compose(w, h, parts).strip()} for f, n, d, w, h, parts in ARCHIVE]
     (OUT / "logos.js").write_text(
