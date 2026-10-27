@@ -93,6 +93,7 @@
   /* 홈: 메뉴 카드 */
   .go { text-decoration: none; display: flex; flex-direction: column; gap: 6px; transition: border-color .15s, transform .15s; }
   .go:hover { border-color: var(--red); transform: translateY(-2px); }
+  .color-card.go:hover { border-color: var(--main); } /* 사업별 주색상 */
   .go b { font-family: var(--brand); font-weight: 400; font-size: 24px; line-height: 1.1; }
   .go span { color: var(--ink-2); font-size: 13.5px; }
   .go i { font-style: normal; color: var(--red); font-weight: 700; font-size: 13px; margin-top: 4px; }
@@ -100,13 +101,13 @@
   /* 홈: 컬러 체계 */
   .color-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
   /* 그룹 색은 배경 대신 네모 색상칩으로 */
-  .color-card .chip-top { padding: 18px 16px 4px; display: flex; align-items: center; gap: 14px; }
+  .color-card .chip-top { padding: 28px 28px 4px; display: flex; align-items: center; gap: 14px; }
   .color-card .chips { display: flex; gap: 4px; flex: none; margin-left: auto; }
   .color-card .chips i { width: 40px; height: 40px; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
   .color-card .chip-name { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
-  .color-card .chip-top b { font-family: var(--brand); font-weight: 400; font-size: 20px; line-height: 1; }
+  .color-card .chip-top b { font-family: var(--brand); font-weight: 400; font-size: 24px; line-height: 1; }
   .color-card .chip-top span { font: 500 12.5px ui-monospace, Consolas, monospace; color: var(--ink-3); }
-  .color-card .body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .color-card .body { padding: 22px 28px 28px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
   .color-card .body h3 { font-size: 15px; }
   .color-card .body p { font-size: 13.5px; }
   .color-card .targets { font-size: 13px; color: var(--ink); }
@@ -574,11 +575,8 @@
       : id === "ci" ? [[["FnWine", "#94243A"], ["FnDarkGray", "#778288"]], ["#94243A", "#778288"]]
       : [[[g.colorName, g.color]], [g.color]];
     const label = names.map(([n, c]) => `<span style="color:${c};font:inherit">${n}</span>`).join(`<span style="color:var(--ink-3);font:inherit"> · </span>`);
-    const top = `<div class="chip-top"><div class="chip-name"><b>${label}</b><span>${hexes.join(" · ")}</span></div><div class="chips">${hexes.map(h => `<i style="background:${h}"></i>`).join("")}</div></div>`;
-    const ratio = id === "b2c"
-      ? `<span class="ok">리타민 주 16.45 · API 6.47 본문까지 가능</span><br><span class="warn">리타민 보조 2.20 흰 배경 비권장</span>`
-      : `<span class="${i.ratio >= 4.5 ? "ok" : "warn"}">흰 배경 대비 ${i.ratio} · ${i.ratio >= 4.5 ? "본문까지 가능" : "흰 배경 비권장"}</span>`;
-    return `<a class="box color-card go" href="#logo/${id}" style="gap:0">${top}<div class="body"><h3>${i.title}</h3><p>${i.mood}</p><div class="targets">${esc(targets)}</div><div class="ratio">${ratio}</div></div></a>`;
+    const top = `<div class="chip-top"><div class="chip-name"><b>${label}</b></div><div class="chips">${hexes.map(h => `<i style="background:${h}"></i>`).join("")}</div></div>`;
+    return `<a class="box color-card go" href="#logo/${id}" style="gap:0;--main:${id === "b2c" ? G.b2c.color : hexes[0]}">${top}<div class="body"><h3>${i.title}</h3><p>${i.mood}</p><div class="targets">${esc(targets)}</div><div class="ratio">${hexes.map(h => `<span style="color:${h}">${h}</span>`).join(`<span style="color:var(--ink-3)"> · </span>`)}</div></div></a>`;
   }).join("");
   $("#colorCards").insertAdjacentHTML("afterend",
     `<p style="margin:12px 0 0;color:var(--ink-3);font-size:13px"><span class="dot" style="background:#94243A;width:8px;height:8px"></span> 회사 CI 전용색상 FnWine(#94243A)은 BI 컬러 FnRed 2025(#B9023D)와 다른 색입니다.</p>`);
