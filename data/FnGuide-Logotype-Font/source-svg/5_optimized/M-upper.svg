@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 35 35">
+  <defs><style>.st0 { fill: #b9023d; }</style></defs>
+  <path class="st0" d="M1.90,6.37V7.5C2.61,7.59 4.30,7.83 4.77,8.29C5.23,8.75 5.20,9.85 5.20,10.69V28.25H7.70V6.37Z"/>
+  <path class="st0" d="M5.2,6.37H9.5L19.5,28.25H15.7Z"/>
+  <path class="st0" d="M17.3,28.25L26.6,6.37H29.0L19.5,28.25Z"/>
+  <path class="st0" d="M26.6,6.37H30.65V28.25H26.6Z"/>
+</svg>
