@@ -631,7 +631,7 @@
           <div class="logo-row">
             <div class="stages"><div class="stage" style="background:#fff;height:190px"><small>흰 배경</small>${big(ci.svg, ci)}</div><div class="stage" style="background:#94243A;color:#fff;height:190px"><small>Fn Wine 배경 · 흰색</small>${big(ci.white, ci)}</div></div>
             <div class="row-meta"><strong>${esc(ci.name)}</strong><span class="note"></span>${dl(ci.id)}${dl(ci.id, "white", "흰색 ")}</div>
-            <div class="row-meta"><span class="note">원본 파일 (회사 홈페이지 제공)</span><span class="btns"><a class="btn primary" href="files/fnguide-logo-AI.zip" download>${icon}AI 파일</a><a class="btn primary" href="files/fnguide-logo-PNG.zip" download>${icon}PNG 파일</a></span></div>
+            <div class="row-meta"><span class="note">원본 파일 (<a href="https://corp.fnguide.com/Company/CIP" target="_blank" rel="noopener">회사 홈페이지 브랜드 리소스 ↗</a> 제공)</span><span class="btns"><a class="btn primary" href="files/fnguide-logo-AI.zip" download>${icon}AI 파일</a><a class="btn primary" href="files/fnguide-logo-PNG.zip" download>${icon}PNG 파일</a></span></div>
           </div>
         </div>
         <div class="sec"><div class="sec-head"><h2>로고타입 (Logotype)</h2></div>
@@ -657,7 +657,7 @@
           </div>
         </div>
         <div class="sec"><div class="sec-head"><h2>그 밖의 CI</h2><p>기록용으로만 보여 드리며 다운로드는 제공하지 않습니다.</p></div>
-          <div class="archive">${archive.map(a => `<div class="logo-row"><div class="stage">${a.svg}</div><div class="row-meta"><strong>${esc(a.name)}</strong><span class="note">${esc(a.desc)}</span></div></div>`).join("")}</div>
+          <div class="archive">${archive.map(a => `<div class="logo-row"><div class="stage">${a.svg}</div><div class="row-meta"><strong>${esc(a.name)}</strong><span class="note">${esc(a.desc)}</span>${a.url ? `<a class="note" href="${a.url}" target="_blank" rel="noopener">${esc(a.url.replace(/^https:\/\//, ""))} ↗</a>` : ""}</div></div>`).join("")}</div>
         </div>`;
     } else {
       html += `<div class="sec" style="margin-top:28px"><div class="sec-head"><h2>로고타입</h2><p>${items.length}종</p></div><div class="logo-list">${items.map(l => logoRow(l, i)).join("")}</div></div>`;

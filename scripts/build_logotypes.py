@@ -77,14 +77,13 @@ NOTES = {
     "fnspace": "2019년 12월 API 기반 데이터 제공 서비스 출시",
 }
 
-# 이전 CI: 피그마 「CI / BI 사용방안」 05 장표 — (파일명, 이름, 설명, 폭, 높이, [(조각, x, y)])
+# 그 밖의 CI (전시용, 다운로드 없음) — (파일명, 이름, 설명, 이미지 파일)
+# FnPricing: 에프앤자산평가 홈페이지 CI 이미지 (https://www.fnpricing.com/fr/images/img_ci_logo.png → data/fnpricing)
 ARCHIVE = [
-    ("ci-fnpricing", "FnPricing", "2011년 6월 창립 — 에프앤자산평가 자체 제작", 925, 308, [
-        ("fp_v0", 0, 0), ("fp_v1", 159.19, 166.78), ("fp_v2", 287.95, 128.31), ("fp_v3", 408.85, 168.26),
-        ("fp_v4", 552.23, 168.29), ("fp_v5", 495.99, 165.46), ("fp_v6", 508.01, 126.19), ("fp_v7", 641.4, 165.46),
-        ("fp_v8", 653.42, 126.19), ("fp_v9", 698.0, 168.26), ("fp_v10", 818.26, 168.29), ("fp_tag", 289.99, 27.13),
-    ]),
+    ("ci-fnpricing", "FnPricing", "2011년 6월 창립 — 에프앤자산평가 자체 제작", ROOT / "data" / "fnpricing" / "img_ci_logo.png"),
 ]
+
+ARCHIVE_URL = {"ci-fnpricing": "https://www.fnpricing.com/fr/pc/intro/vision"}
 
 
 def fmt(v):
@@ -167,6 +166,17 @@ def recolor(svg):
     return svg.replace('fill="#6B7B84"', 'fill="#778288"')
 
 
+def png_logo(path, out_h=56):
+    """PNG 로고를 웹페이지에 바로 넣을 수 있게 SVG로 감싼다 (그림은 그대로)."""
+    import base64
+    import struct
+    data = path.read_bytes()
+    w, h = struct.unpack(">II", data[16:24])
+    b64 = base64.b64encode(data).decode()
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{fmt(w * out_h / h)}" height="{out_h}" viewBox="0 0 {w} {h}">'
+            f'<image width="{w}" height="{h}" href="data:image/png;base64,{b64}"/></svg>')
+
+
 def to_white(svg):
     """색이 있는 칠을 모두 흰색으로 바꾼 판 (모양은 그대로)."""
     return re.sub(r'fill="#[0-9A-Fa-f]{3,6}"', 'fill="#FFFFFF"', svg)
@@ -216,7 +226,7 @@ def main():
         items.append({"id": file, "name": "FnGuide (개선 로고)" if file == "fnguide" else text, "group": group,
                       "kind": "improved" if file == "fnguide" else "bi", "w": w, "h": h, "note": NOTES.get(file, ""),
                       "svg": svg.strip(), "white": white.strip()})
-    archive = [{"id": f, "name": n, "desc": d, "svg": compose(w, h, parts).strip()} for f, n, d, w, h, parts in ARCHIVE]
+    archive = [{"id": f, "name": n, "desc": d, "url": ARCHIVE_URL.get(f, ""), "svg": png_logo(img)} for f, n, d, img in ARCHIVE]
     (OUT / "logos.js").write_text(
         "window.BRAND = " + json.dumps({"groups": GROUPS, "logos": items, "archive": archive}, ensure_ascii=False) + ";\n",
         encoding="utf-8",

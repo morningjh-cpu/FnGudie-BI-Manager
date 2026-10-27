@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		
+<title>에프앤자산평가 FnPricing</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=0.8">
+<link href="/fr/css/common.css" rel="stylesheet" media="screen">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/><!-- 폰트어썸 -->
+<script type="text/javascript" src="https://kit.fontawesome.com/fa31d91a9e.js"></script><!-- 폰트어썸 -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script> <!-- 스크롤에 반응하는 스크롤 애니메이션 -->
+<script type="text/javascript" src="/common/js/vendor/jquery.counterup.min.js"></script>    
+<script type="text/javascript" src="/fr/js/lib.js"></script>
+<script type="text/javascript" src="/fr/js/design.js"></script>
+<script type="text/javascript" src="/common/js/vendor/modernizr.custom.2.8.3.min.js"></script>
+<script type="text/javascript" src="/common/js/plugins/jquery.cookie.js"></script>
+<script type="text/javascript" src="/common/js/plugins/jquery.form.js"></script>
+<script type="text/javascript">
+    var dep1 = 1;
+    var dep2 = 2;
+    var dep3 = 0;
+</script>
+	</head>
+	<body>
+		
+
+<!-- Header -->
+<header class="area-header">
+    <div class="area-inner">
+        <h1><a href="/fr/pc/main">에프앤자산평가 FnPricing</a></h1>
+        <!-- Global Navigation -->
+        <nav class="navigation-global">
+            <ul>
+                <li><a href="/fr/pc/intro/ceo"><span>회사소개</span></a>
+                    <ul>
+                        <li><a href="/fr/pc/intro/ceo">CEO인사말</a></li>
+                        <li><a href="/fr/pc/intro/vision">비전/CI</a></li>
+                        <li><a href="/fr/pc/intro/history">주요 연혁</a></li>
+                        <li><a href="/fr/pc/intro/stockholder">주요고객사</a></li>
+                        <li><a href="/fr/pc/intro/map">찾아오시는길</a></li>
+                        <li><a href="/fr/pc/intro/recruit">인재채용</a>
+                            <ul>
+                                <li><a href="/fr/pc/intro/recruit">기업문화</a></li>
+                                <li><a href="/fr/pc/recruitPost/list">채용절차/공고</a></li>
+                            </ul>
+                        </li>                                
+                    </ul>
+                </li>
+                <li><a href="/fr/pc/svc/appraisal01"><span>서비스</span></a>
+                    <ul>
+                        <li><a href="/fr/pc/svc/appraisal01">시가평가</a>
+                            <ul>
+                                <li><a href="/fr/pc/svc/appraisal01">원화채권</a></li>
+                                <li><a href="/fr/pc/svc/appraisal02">해외채권</a></li>
+                                <li><a href="/fr/pc/svc/appraisal03">주식연계파생상품</a></li>
+                                <li><a href="/fr/pc/svc/appraisal04">금리연계파생상품</a></li>
+                                <li><a href="/fr/pc/svc/appraisal05">신용연계파생상품</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/fr/pc/svc/invest01">대체투자</a>
+                            <ul>
+                                <li><a href="/fr/pc/svc/invest01">대체투자평가</a></li>
+                                <li><a href="/fr/pc/svc/invest02">대체투자자문</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/fr/pc/svc/standard01">평가기준서</a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="/fr/pc/solution/quant"><span>솔루션</span></a>
+                    <ul>
+                        <li><a href="/fr/pc/solution/quant">SmartQuant</a></li>
+                        <li><a href="/fr/pc/solution/multipack">채권멀티팩터</a></li>                                
+                    </ul>
+                </li>
+                <li><a href="/fr/pc/profit/ytm"><span>수익률</span></a>
+                    <ul>
+                        <li><a href="/fr/pc/profit/ytm">수익률</a>
+                            <ul>
+                                <li><a href="/fr/pc/profit/ytm">YTM 수익률</a></li>
+                                <li><a href="/fr/pc/profit/cdCp">CD/CP수익률</a></li>
+                            </ul>
+                        </li>                        
+                    </ul>
+                </li>
+                <li><a href="/fr/pc/index/indices"><span>지수</span></a>
+                    <ul>                        
+                        <li><a href="/fr/pc/index/indices">지수</a>
+                            <ul>
+                                <li><a href="/fr/pc/index/indices">채권지수</a></li>
+                                <li><a href="/fr/pc/index/composite">구조화지수</a></li>
+                                <li><a href="/fr/pc/index/credit">신용지수</a></li>
+                                <li><a href="/fr/pc/index/fng">Fn Index Family</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="/fr/pc/report/W/list"><span>보고서</span></a>
+                    <ul>
+                        <li><a href="/fr/pc/report/W/list">일간/주간 보고서</a></li>
+                        <li><a href="/fr/pc/report/M/list">월간 보고서</a></li>
+                        <li><a href="/fr/pc/report/R/list">비정기 보고서</a></li>
+                    </ul>
+                </li>
+                <li><a href="/fr/pc/notice/list"><span>고객지원</span></a>
+                    <ul>
+                        <li><a href="/fr/pc/notice/list">공지사항</a></li>
+                        <li><a href="/fr/pc/customer/infra">평가인프라 소개</a></li>
+                        <li><a href="/fr/pc/news/list">FnPricing News</a></li>
+                        <li><a href="/fr/pc/customer/law">관련 법규</a></li>
+                        <li><a href="/fr/pc/request/reqForm">평가신청/문의</a></li>
+                        <li><a href="/fr/pc/customer/fnpContact">담당자 연락처</a></li>   
+                        <li><a href="https://www.bondstar.co.kr/front/board/11ECE0C21D1B531EA4B7DF69F0555E31/main" target='_blank'>교육 동영상</a></li>                            
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <!-- //Global Navigation -->
+        <span class="link-sitemap sitemap-open"><button>Sitemap</button></span><!-- Sitemap -->
+    </div>
+</header>
+<!-- //Header -->
+
+<!-- layer popup - sitemap -->
+<div class="sitemap_pop">
+    <div class="layer-inner">
+	<h4 class="pop_tit">SITEMAP</h4>
+	<ul>
+		<li><span>회사소개</span>
+			<ul>
+				<li><a href="/fr/pc/intro/ceo">CEO인사말</a></li>
+                   <li><a href="/fr/pc/intro/vision">비전/CI</a></li>
+                   <li><a href="/fr/pc/intro/history">주요 연혁</a></li>
+                   <li><a href="/fr/pc/intro/stockholder">주요고객사</a></li>
+                   <li><a href="/fr/pc/intro/map">찾아오시는길</a></li>
+                   <li><a href="/fr/pc/intro/recruit">인재채용</a>
+                       <ul>
+                           <li><a href="/fr/pc/intro/recruit">기업문화</a></li>
+                           <li><a href="/fr/pc/recruitPost/list">채용절차/공고</a></li>
+                       </ul>
+                   </li>
+			</ul>
+		</li>
+		<li><span>서비스</span>
+			<ul>
+				<li><a href="/fr/pc/svc/appraisal01">시가평가</a>
+                       <ul>
+                           <li><a href="/fr/pc/svc/appraisal01">원화채권</a></li>
+                           <li><a href="/fr/pc/svc/appraisal02">해외채권</a></li>
+                           <li><a href="/fr/pc/svc/appraisal03">주식연계파생상품</a></li>
+                           <li><a href="/fr/pc/svc/appraisal04">금리연계파생상품</a></li>
+                           <li><a href="/fr/pc/svc/appraisal05">신용연계파생상품</a></li>
+                       </ul>
+                   </li>
+                   <li><a href="/fr/pc/svc/invest01">대체투자</a>
+                       <ul>
+                           <li><a href="/fr/pc/svc/invest01">대체투자평가</a></li>
+                           <li><a href="/fr/pc/svc/invest02">대체투자자문</a></li>
+                       </ul>
+                   </li>
+                   <li><a href="/fr/pc/svc/standard01">평가기준서</a>
+                   </li>
+			</ul>
+		</li>
+		<li><span>솔루션</span>
+			<ul>
+				<li><a href="/fr/pc/solution/quant">SmartQuant</a></li>
+                   <li><a href="/fr/pc/solution/multipack">채권멀티팩터</a></li>  
+			</ul>
+		</li>
+		<li><span>수익률</span>
+			<ul>
+				<li><a href="/fr/pc/profit/ytm">수익률</a>
+                       <ul>
+                           <li><a href="/fr/pc/profit/ytm">YTM 수익률</a></li>
+                           <li><a href="/fr/pc/profit/cdCp">CD/CP수익률</a></li>
+                       </ul>
+                   </li>                   
+			</ul>
+		</li>
+		<li><span>지수</span>
+			<ul>			
+                <li><a href="/fr/pc/index/indices">지수</a>
+                    <ul>
+                        <li><a href="/fr/pc/index/indices">채권지수</a></li>
+                        <li><a href="/fr/pc/index/composite">구조화지수</a></li>
+                        <li><a href="/fr/pc/index/credit">신용지수</a></li>
+                        <li><a href="/fr/pc/index/fng">Fn Index Family</a></li>
+                    </ul>
+                </li>
+			</ul>
+		</li>
+		<li><span>보고서</span>
+			<ul>
+				<li><a href="/fr/pc/report/W/list">주간 보고서</a></li>
+                   <li><a href="/fr/pc/report/M/list">월간 보고서</a></li>
+                   <li><a href="/fr/pc/report/R/list">비정기 보고서</a></li>
+			</ul>
+		</li>
+		<li><span>고객지원</span>
+			<ul>
+				<li><a href="/fr/pc/notice/list">공지사항</a></li>
+                   <li><a href="/fr/pc/customer/infra">평가인프라 소개</a></li>
+                   <li><a href="/fr/pc/news/list">FnPricing News</a></li>
+                   <li><a href="/fr/pc/customer/law">관련 법규</a></li>
+                   <li><a href="/fr/pc/request/reqForm">평가신청/문의</a></li> 
+                   <li><a href="/fr/pc/customer/fnpContact">담당자 연락처</a></li>  
+                   <li><a href="https://www.bondstar.co.kr/front/board/11ECE0C21D1B531EA4B7DF69F0555E31/main" target='_blank'>교육 동영상</a></li>    
+			</ul>
+		</li>
+	</ul>
+    <button class="pop_close sitemap-close"><img src="/fr/images/btn/btn_close_white.png" alt="닫기" /></button>
+   	</div>
+</div>
+<!-- //layer popup - sitemap -->
+
+<script>
+$(document).ready(function() {
+});
+
+$(function() {
+	$('.sitemap-open').bind('click', function(){
+		$('.sitemap_pop').addClass('active');
+	});
+	$('.sitemap-close').bind('click', function(){
+		$('.sitemap_pop').removeClass('active'); return;
+	});
+});
+
+</script>
+		
+
+
+
+
+
+
+
+
+ 
+
+<!-- Visual Area -->
+<div class="area-visual">
+    <div class="sub1">
+        <p class="text-head">회사소개</p>
+        <p class="text-cont">에프앤자산평가는 금융데이터 제공업체인 에프앤가이드와 한국경제신문,<br />국내4대(KB국민, 신한, 우리 하나)은행이 참여하여 채권 및 파생상품 등 다양한 자산평가 사업을 목적으로 설립되었습니다.</p>
+    </div>
+</div>
+<!-- //Visual Area -->
+
+<!-- Local Navigation -->
+<div class="area-navigation">
+    <nav class="navigation-local">
+        <!-- 회사소개 -->
+        <ul class="sub1">
+            <li><a href="/fr/pc/intro/ceo">CEO인사말</a></li>
+            <li><a href="/fr/pc/intro/vision">비전/CI</a></li>
+            <li><a href="/fr/pc/intro/history">주요 연혁</a></li>
+            <li><a href="/fr/pc/intro/stockholder">주요고객사</a></li>
+            <li><a href="/fr/pc/intro/map">찾아오시는길</a></li>
+            <li><a href="/fr/pc/intro/recruit">인재채용</a></li>
+        </ul>
+        <!-- //회사소개 -->
+    </nav>
+</div>
+<!-- //Local Navigation -->
+
+<!-- Contents -->
+<div class="area-contents">
+    <div class="area-inner">
+        <!-- Page Location -->
+        <div class="location-current">
+            <a href="/"><span class="home">HOME</span></a>
+            <span>회사소개</span>
+            <span>비전/CI</span>
+        </div>
+        <!-- //Page Location -->
+
+        <!-- Contents Area -->
+		<div class="cont_100p">
+		<h2 class="h2_tit">비전/CI</h2>
+             
+             <div class="box-vision" style="padding-bottom: 30px;">
+                 <p class="box-sub vision-top">“The different, The only”</p>
+                 <span class="text-center">새로운 평가사로서 차별화된 서비스와 맞춤식 정보를 제공하여<br />전문인력의 양성과 금융시장 발전에 이바지 합니다.</span>
+                 <img src="/fr/images/img_vision_02.gif" alt="
+                 차별성 distinction : Front-Middle-Back Office One-stop Total Solution 제공,
+                 신뢰성 reliability : 자산가치 평가의 Market Guide,
+                 정확성 accuracy : 정제된 데이터 서비스 제공,
+                 신속성 speed : 적기 서비스 제공" />
+             </div>
+             <div class="box-ci" style="background: #f4f4f4; margin-top: 0; padding-top: 50px; text-align: center">
+             	<div style="height: 40px; display: inline-block; align-items: center;">
+             		<div style="background: #2584c8; display: inline-block; margin: 0px 15px; width: 5px; height: 80%; vertical-align:middle;">&nbsp&nbsp</div><h3 style="display: inline; vertical-align:middle;">회사소개 자료 다운로드</h3>
+             	</div>
+				<div style="display: block; margin: 40px;"><img src="/fr/images/company_introduction_img.jpg"></div>
+           		<div align='center' style="cursor:pointer; padding: 10px 10px 10px 10px; display: inline-block; background: #2584c8; width: 20%; margin: auto; ">
+					<a href="/common/fileDownload?biz1=introduction&biz2=FnP_회사소개서.pdf&biz3=FnP_회사소개서.pdf" style=" color: white; display: inline-block; font-size: 20px; height:100%; width:100%;">회사소개 자료(PDF)</a>
+					 <!-- 
+					<a href='/fr/down/FnP_회사소개서.pdf' style=" color: white; display: inline-block; font-size: 20px;">
+						회사소개 자료(PDF)
+					</a>
+					-->
+				</div>
+        	 </div>
+             <div class="box-ci" style="margin-top: 0;">
+                    <h3>Corporate Identity</h3>
+                    <p class="text-type1 center">FnPricing의 CI는 금융시장을 바라보는 새로운 창이라는 컨셉으로 디자인하였습니다.</p>
+                    <div class="ci-download">
+                        <span class="ci-logo"><img src="/fr/images/img_ci_logo.png" alt="FnPricing 로고"></span>
+                        <p class="ci-btn">
+                            <a href="/fr/down/fnp_logo_png.zip">PNG 다운로드</a>
+                            <a href="/fr/down/fnp_logo_ai.zip">AI 다운로드</a>
+                        </p>
+                    </div>
+                </div>
+             
+         </div>
+         <!-- //Contents Area -->
+
+    </div>
+</div>
+<!-- //Contents -->
+		
+
+<!-- Asidebar -->
+    <div class="area-sidebar">
+      <div class="area-inner">
+          <span class="ancher-top"><button>TOP</button></span>  
+      </div>
+    </div>
+<!-- //Asidebar --> 
+     
+<!-- Footer -->
+<footer class="area-footer">
+    <div class="area-inner">
+        <div class="box-footer-link">
+            <ul>
+                <li><a href="/fr/pc/util/policy">개인정보취급방침</a></li><li><a href="/fr/pc/util/email">이메일 무단수집거부</a></li><li><a href="http://fine.fss.or.kr/main/fin_comp/fincomp_inqui/comsearch01list.jsp" title="새창열림" target="_blank">제도권금융회사조회</a></li>
+            </ul>
+        </div>
+        <div class="box-footer-copyright">
+            <div class="address"><address>서울특별시 강서구 마곡 중앙2로 61 2층, 3층</address><span>대표번호 02-721-5300</span><span>팩스 02-721-5353</span></div>
+            <span>COPYRIGHT© 2020 FnPricing Inc. ALL REGHT RESERVED</span>
+        </div>
+    </div>
+</footer>
+<!-- //Footer -->
+		
+<!-- run -->
+<script src="/common/js/common.js"></script>
+<script src="/common/js/common/jquery.common.js"></script>
+<script src="/common/js/common/jquery.validate.js"></script>
+<script src="/common/js/common/jquery.ajax.js"></script>
+<script>
+$(function(){
+});
+//-->
+</script>
+	</body>
+</html>
