@@ -172,16 +172,32 @@
 
   /* 서체 */
   .font-panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-  .specimen { padding: 36px 32px; min-height: 220px; display: flex; align-items: center; transition: background .2s, color .2s; border-bottom: 1px solid var(--line); }
-  .specimen div { font-family: var(--brand); font-kerning: normal; font-size: 88px; line-height: 1.1; word-break: break-word; outline: none; width: 100%; }
+  /* 미리보기 칸은 최대 크기(150px 한 줄 = 150 × 줄 간격 1.1)에 맞춘 고정 높이: 크기를 바꿔도 화면이 흔들리지 않게. 긴 문구는 줄을 바꾸지 않고 옆으로 넘겨 봄.
+     가로 스크롤 막대는 늘 자리를 잡아 두어(scroll) 막대가 생기고 없어질 때 글자가 움직이지 않게 */
+  .specimen { box-sizing: content-box; height: 165px; padding: 36px 32px; display: flex; align-items: center; overflow-x: scroll; overflow-y: hidden; scrollbar-width: thin; transition: background .2s, color .2s; border-bottom: 1px solid var(--line); }
+  .specimen div { font-family: var(--brand); font-kerning: normal; font-size: 88px; line-height: 1.1; white-space: nowrap; outline: none; min-width: 100%; }
   .controls { display: flex; flex-wrap: wrap; gap: 16px 28px; padding: 16px 20px; align-items: center; }
-  .controls label { font-size: 13px; color: var(--ink-3); font-weight: 600; display: flex; align-items: center; gap: 10px; }
+  .controls label, .controls .lbl { font-size: 13px; color: var(--ink-3); font-weight: 600; display: flex; align-items: center; gap: 10px; }
   .controls input[type=text] { font: 500 14px var(--text); padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; width: 220px; color: var(--ink); }
   .controls input[type=range] { accent-color: var(--red); width: 140px; }
-  .swatches { display: flex; gap: 6px; }
+  /* 크기 게이지: 막대는 연한 회색 고정, 손잡이만 고른 색(--thumb) */
+  .controls #specSize { -webkit-appearance: none; appearance: none; height: 6px; border-radius: 3px; background: #E3E5E8; outline-offset: 4px; }
+  .controls #specSize::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--thumb, var(--red)); border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.15); cursor: pointer; }
+  .controls #specSize::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--thumb, var(--red)); border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.15); cursor: pointer; }
+  /* 컬러칩은 같은 폭의 칸에 하나씩 놓아 간격을 고르게 (이름 길이와 상관없이) */
+  .swatches { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px 2px; }
+  .sw-item { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 50px; }
+  .sw-item small { font-size: 11px; font-weight: 500; color: var(--ink-3); white-space: nowrap; }
+  .controls .lbl { white-space: nowrap; }
+  .size-num { display: inline-flex; align-items: center; gap: 4px; font-weight: 500; }
+  .size-num input { width: 56px; font: 500 14px var(--text); padding: 5px 6px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); text-align: right; }
+  .controls input.sw-hex[type=text] { width: 96px; padding: 5px 8px; font: 500 14px var(--text); margin-left: -2px; align-self: center; }
+  .controls input.sw-hex.bad { border-color: var(--red); color: var(--red); }
   .sw { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--line); cursor: pointer; padding: 0; }
   .sw[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--ink); }
-  .glyphs { font-family: var(--brand); font-size: 26px; line-height: 1.6; padding: 18px 20px; border-top: 1px solid var(--line); word-break: break-word; }
+  .sw-custom { position: relative; display: inline-block; box-sizing: border-box; overflow: hidden; background: conic-gradient(#E5484D, #F5D90A, #46A758, #0091FF, #8E4EC6, #E5484D); }
+  .sw-custom input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; border: 0; padding: 0; cursor: pointer; }
+  .glyphs { font-family: var(--brand); font-size: 36px; letter-spacing: 6px; line-height: 1.6; padding: 18px 20px; border-top: 1px solid var(--line); word-break: break-word; }
   .file { display: flex; flex-direction: column; gap: 6px; }
   .file b { font-family: var(--brand); font-weight: 400; font-size: 26px; color: var(--red); line-height: 1; }
   .file span { color: var(--ink-2); font-size: 13.5px; flex: 1; }
@@ -389,8 +405,8 @@
         <div class="specimen" id="specimen"><div contenteditable="true" spellcheck="false" id="specText">FnGuide Brand</div></div>
         <div class="controls">
           <label>문구 <input type="text" id="specInput" value="FnGuide Brand" maxlength="40"></label>
-          <label>크기 <input type="range" id="specSize" min="32" max="140" value="88"></label>
-          <label>색상 <span class="swatches" id="swatches"></span></label>
+          <div class="lbl">크기 <input type="range" id="specSize" min="32" max="150" value="88" aria-label="글자 크기"><span class="size-num"><input type="number" id="specSizeNum" min="32" max="150" step="1" value="88" aria-label="글자 크기 직접 입력">px</span></div>
+          <div class="lbl">색상 <span class="swatches" id="swatches"></span></div>
           <span class="btns" id="specDl" style="margin-left:auto"><button class="btn" data-type="svg">SVG 받기</button><button class="btn" data-type="png">PNG 받기</button></span>
         </div>
         <div class="glyphs">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 &amp;@#%$!?()[]{}</div>
@@ -521,7 +537,7 @@
     ci: { menu: "회사 CI", title: "회사 CI", mood: "고급스러움, 신뢰, 무게감, 헤리티지", ratio: 8.16,
       desc: "FnGuide의 CI는 금융시장을 바라보는 새로운 창이라는 컨셉으로 디자인하였습니다." },
   };
-  const ORDER = ["b2b", "index", "fund", "contract", "b2c", "ci"];
+  const ORDER = ["b2b", "contract", "fund", "index", "b2c", "ci"];
   const B2C_COLORS = { retamin: "#1C1C3A", fnapi: "#2457C5" }; // 리타민: 주 #1C1C3A, 보조 #26C0D2
   const bgOf = l => l.group === "b2c" ? B2C_COLORS[l.id] : l.kind === "improved" ? "#B9023D" : G[l.group].color;
 
@@ -579,7 +595,7 @@
   const dl = (id, v = "color", label = "") => `<span class="btns"><button class="btn" data-dl="svg" data-v="${v}" data-id="${id}">${icon}${label}SVG</button><button class="btn" data-dl="png" data-v="${v}" data-id="${id}">${icon}${label}PNG</button></span>`;
 
   // 홈 — 컬러 카드
-  $("#colorCards").innerHTML = ["ci", "b2b", "index", "fund", "contract", "b2c"].map(id => {
+  $("#colorCards").innerHTML = ["ci", "b2b", "contract", "fund", "index", "b2c"].map(id => {
     const g = G[id], i = INFO[id];
     const targets = logos.filter(l => l.group === id).map(l => l.name).join(", ");
     // 색 이름은 그 색으로 쓴다 ([이름, 색] 묶음)
@@ -600,30 +616,74 @@
 
   // 서체 미리보기
   const spec = $("#specText"), input = $("#specInput");
-  input.addEventListener("input", () => { spec.textContent = input.value || " "; });
-  spec.addEventListener("input", () => { input.value = spec.textContent; });
-  $("#specSize").addEventListener("input", e => { spec.style.fontSize = e.target.value + "px"; });
+  // 사용자가 문구를 입력했으면 색을 바꿔도 문구를 그대로 둔다 (지우면 다시 예시 문구로 바뀜)
+  let typed = false;
+  input.addEventListener("input", () => { spec.textContent = input.value || " "; typed = input.value.trim() !== ""; });
+  spec.addEventListener("keydown", e => { if (e.key === "Enter") e.preventDefault(); }); // 한 줄 문구만
+  spec.addEventListener("input", () => { input.value = spec.textContent; typed = input.value.trim() !== ""; });
+  // 글자 크기: 게이지와 숫자 칸이 서로 맞춰 움직인다. 숫자 칸은 32~150 밖이면 입력을 마칠 때 범위 안으로 맞춤
+  const size = $("#specSize"), sizeNum = $("#specSizeNum");
+  const setSize = v => { spec.style.fontSize = v + "px"; size.value = v; sizeNum.value = v; };
+  // 좁은 화면은 처음 크기가 작음. 직접 바꾸기 전에는 창 크기가 바뀌어도 실제 크기를 따라 표시
+  const syncSize = () => { if (!spec.style.fontSize) size.value = sizeNum.value = Math.round(parseFloat(getComputedStyle(spec).fontSize)); };
+  syncSize(); addEventListener("resize", syncSize);
+  size.addEventListener("input", () => setSize(size.value));
+  sizeNum.addEventListener("input", () => {
+    const v = Number(sizeNum.value);
+    if (v >= 32 && v <= 150) { spec.style.fontSize = v + "px"; size.value = v; }
+  });
+  sizeNum.addEventListener("change", () => setSize(Math.min(150, Math.max(32, Math.round(Number(sizeNum.value)) || 88))));
   // 투명 배경 표시용 회색 격자 (받는 파일은 그대로 투명)
   const CHECKER = "repeating-conic-gradient(#C4C4C4 0 25%, #E2E2E2 0 50%) 0 0 / 20px 20px";
+  // 비즈니스별 컬러 (단추 아래에 이름 표기). 처음 고른 색은 FnRed
   const SW = [
-    { c: "#1C1C3A", bg: "#FFFFFF", word: null },
-    { c: "#B9023D", bg: "#FFFFFF", word: "FnGuide" },
-    { c: "#45B792", bg: "#FFFFFF", word: "FnIndex" },
-    { c: "#0C3178", bg: "#FFFFFF", word: "FundGuide" },
-    { c: "#1C1C3A", bg: "#FFFFFF", word: "ETF Global" },
-    { c: "#2457C5", bg: "#FFFFFF", word: "FnAPI" },
-    { c: "#FFFFFF", bg: CHECKER, word: "FnGuide" },
+    { c: "#B9023D", bg: "#FFFFFF", word: "FnGuide", name: "B2B 대표" },
+    { c: "#1C1C3A", bg: "#FFFFFF", word: "ETF Global", name: "B2B 계약" },
+    { c: "#0C3178", bg: "#FFFFFF", word: "FundGuide", name: "펀드" },
+    { c: "#45B792", bg: "#FFFFFF", word: "FnIndex", name: "지수" },
+    { c: "#2457C5", bg: "#FFFFFF", word: "FnAPI", name: "B2C 독립" },
+    { c: "#FFFFFF", bg: CHECKER, word: "FnGuide", name: "흰색" },
   ];
   $("#swatches").innerHTML = SW.map((s, i) =>
-    `<button class="sw" aria-label="색상 ${s.c}" aria-pressed="${i === 0}" data-i="${i}" style="background:${s.bg === CHECKER ? CHECKER.replace("20px 20px", "8px 8px") : s.c}"></button>`).join("");
+    `<span class="sw-item"><button class="sw" aria-label="${s.name} ${s.c}" aria-pressed="${i === 0}" data-i="${i}" style="background:${s.bg === CHECKER ? CHECKER.replace("20px 20px", "8px 8px") : s.c}"></button><small>${s.name}</small></span>`).join("")
+    + `<span class="sw-item"><span class="sw sw-custom" aria-pressed="false" title="사용자 지정 색상"><input type="color" value="#1C1C3A" aria-label="사용자 지정 색상"></span><small>사용자</small></span>`
+    + `<input type="text" class="sw-hex" maxlength="7" placeholder="#RRGGBB" title="웹 컬러 코드를 입력하세요" aria-label="사용자 지정 색상 웹 컬러 코드">`;
   $("#swatches").addEventListener("click", e => {
-    const b = e.target.closest(".sw"); if (!b) return;
+    const b = e.target.closest(".sw"); if (!b || b.classList.contains("sw-custom")) return;
     const s = SW[b.dataset.i];
     document.querySelectorAll(".sw").forEach(x => x.setAttribute("aria-pressed", x === b));
-    $("#specimen").style.background = s.bg; spec.style.color = s.c; specColor = s.c;
-    if (s.word) { spec.textContent = s.word; input.value = s.word; }
+    $("#specimen").style.background = s.bg; paint(s.c);
+    if (s.word && !typed) { spec.textContent = s.word; input.value = s.word; }
   });
-  let specColor = SW[0].c;
+  // 고른 색을 문구와 크기 게이지 손잡이에 함께 칠한다. 아주 밝은 색은 손잡이가 안 보이므로 회색으로
+  const light = c => { const [r, g, b] = [1, 3, 5].map(k => parseInt(c.slice(k, k + 2), 16)); return 0.299 * r + 0.587 * g + 0.114 * b > 230; };
+  let specColor;
+  function paint(c) {
+    spec.style.color = c; specColor = c;
+    $("#specSize").style.setProperty("--thumb", light(c) ? "#9AA0A6" : c);
+  }
+  paint(SW[0].c);
+  // 사용자 지정 색상: 웹 컬러 코드(#RRGGBB)를 입력하거나 색 고르기 창에서 고른다.
+  // 아주 밝은 색이면 흰 배경에서 안 보이므로 투명 배경(격자)으로
+  const custom = $(".sw-custom"), picker = custom.querySelector("input"), hex = $(".sw-hex");
+  function applyCustom(c) {
+    document.querySelectorAll(".sw").forEach(x => x.setAttribute("aria-pressed", x === custom));
+    custom.style.background = c;
+    $("#specimen").style.background = light(c) ? CHECKER : "#FFFFFF";
+    paint(c);
+  }
+  picker.addEventListener("input", () => {
+    const c = picker.value.toUpperCase();
+    hex.value = c; hex.classList.remove("bad"); applyCustom(c);
+  });
+  hex.addEventListener("input", () => {
+    // # 은 없어도 되고, 3자리 줄임(#F60)도 받는다
+    let v = hex.value.trim().replace(/^#?/, "#").toUpperCase();
+    if (/^#[0-9A-F]{3}$/.test(v)) v = "#" + [...v.slice(1)].map(x => x + x).join("");
+    const ok = /^#[0-9A-F]{6}$/.test(v);
+    hex.classList.toggle("bad", !ok && hex.value.trim() !== "");
+    if (ok) { picker.value = v.toLowerCase(); applyCustom(v); }
+  });
 
   // 미리보기 문구를 SVG·PNG로 저장: 서체 안의 합자·글자 간격 규칙을 그대로 적용해 글자 윤곽선으로 그린다 (font-data.js)
   function shape(text) {
@@ -759,7 +819,7 @@
   // 다운로드 표에서만: FnGuide Inc. 빼기, 한글 로고타입은 크게, FnAPI를 Retamin 앞으로
   const DL_FIT = { "fnguide-kr": 0.8 };
   const dlFit = l => DL_FIT[l.id] || fit(l);
-  const dlList = ["ci", "b2b", "index", "fund", "contract", "b2c"].flatMap(gid => logos.filter(l => l.group === gid))
+  const dlList = ["ci", "b2b", "contract", "fund", "index", "b2c"].flatMap(gid => logos.filter(l => l.group === gid))
     .filter(l => l.id !== "fnguide-inc");
   const ri = dlList.findIndex(l => l.id === "retamin"), ai = dlList.findIndex(l => l.id === "fnapi");
   [dlList[ri], dlList[ai]] = [dlList[ai], dlList[ri]];
