@@ -21,9 +21,11 @@ fi · fl · fb · fh · fk · ff · ffi · ffl
 3. 단어 안에서 읽을 때 어색한 곳이 없는지 (예: Soft Staff, Office Fly)
 
 ## 자료
-- 비교 그림: `out/font-update/v1.200/preview/zoom-lig.png`
-- 서체 파일: `out/FnGuideLogotype-v1.200.zip` (OTF·TTF·WOFF)
-- 글자 원본 그림: `data/FnGuide-Logotype-Font/source-svg/8_v1.200/` (f_b, f_f, f_f_i, f_f_l, f_h, f_i, f_k, f_l)
+- 비교 그림: [zoom-lig.png](v1.200/preview/zoom-lig.png)
+
+  ![f 이어 쓰기 비교 그림](v1.200/preview/zoom-lig.png)
+- 서체 파일: [FnGuideLogotype-v1.200.zip](../FnGuideLogotype-v1.200.zip) (OTF·TTF·WOFF)
+- 글자 원본 그림 ([폴더 열기](../../data/FnGuide-Logotype-Font/source-svg/8_v1.200/)): [f_b](../../data/FnGuide-Logotype-Font/source-svg/8_v1.200/f_b.svg) · [f_f](../../data/FnGuide-Logotype-Font/source-svg/8_v1.200/f_f.svg) · [f_f_i](../../data/FnGuide-Logotype-Font/source-svg/8_v1.200/f_f_i.svg) · [f_f_l](../../data/FnGuide-Logotype-Font/source-svg/8_v1.200/f_f_l.svg) · [f_h](../../data/FnGuide-Logotype-Font/source-svg/8_v1.200/f_h.svg) · [f_i](../../data/FnGuide-Logotype-Font/source-svg/8_v1.200/f_i.svg) · [f_k](../../data/FnGuide-Logotype-Font/source-svg/8_v1.200/f_k.svg) · [f_l](../../data/FnGuide-Logotype-Font/source-svg/8_v1.200/f_l.svg)
 
 ## 회신 받을 내용
 - 그대로 괜찮음 / 고칠 글자와 고칠 점

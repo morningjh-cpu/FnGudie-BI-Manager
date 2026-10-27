@@ -29,6 +29,6 @@
 - f·m·r 기둥 0.15(≈4%) 가늘게 조정 완료(plan/phase-1/08 추가분). 사이트 다운로드 파일·업데이트 글·규칙 수(1,203)·로고타입 모두 반영(plan/phase-1/09·10)
 - 공유 문서(전용서체 결과 공유) = out/FnGuide-Logotype-share.md (v1.200). 서체·사이트가 바뀌면 이 문서도 함께 갱신(사용자 요청). data/ 의 v1.0 copy.md 는 받은 원본 그대로
 - 결정 대기 4건 정리 완료(plan/phase-1/10): 로고타입 조정본으로 다시 만듦, data/FnGuide-Logotype-Font 의 fonts·spacing 을 v1.200 으로 교체(source-svg 는 8_v1.200/ 추가; README·proof·preview·build 는 아직 v1.100 기준으로 섞여 있음; 옛 파일 _trash/data-font-v1.100/)
-- 남은 것: f 이어 쓰기 8종 디자이너 확인(사람이 할 일, 보낼 글 out/font-update/f-이어쓰기-디자이너확인요청.md, 회신 대기)
+- 남은 것: f 이어 쓰기 8종 확인 — 사용자가 2026-10-28 회사에서 직접 확인·정리 예정(보낼 글 out/font-update/f-이어쓰기-디자이너확인요청.md, 그림·파일 링크 포함)
 - 서체를 또 고치면: work 에서 다시 만들기 → v1.200 폴더 갱신 → out/brand-site/fonts 복사 → py scripts/build_logotypes.py(또는 --font-data) → index.html 의 ?v= 숫자 올리기(서체·logos.js·font-data.js)
 - 서체 다시 만드는 법: out/font-update/work 에서 sh run_all.sh (numpy·matplotlib·scipy·scikit-image 설치 필요). 새 글자 SVG 는 py scripts/font_prepare_update.py 로 정리해 all/ 에 넣음
