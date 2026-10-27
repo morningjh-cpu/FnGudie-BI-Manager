@@ -104,6 +104,11 @@
   .color-card .chip-top { padding: 28px 28px 4px; display: flex; align-items: center; gap: 14px; }
   .color-card .chips { display: flex; gap: 4px; flex: none; margin-left: auto; }
   .color-card .chips i { width: 40px; height: 40px; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
+  /* 색이 여러 개인 카드(회사 CI·B2C): 이름은 한 줄에 하나씩, 칩은 작게 해서 첫 줄 높이에 맞춤 (겹침 방지) */
+  .color-card .chips.many { align-self: flex-start; }
+  .color-card .chips.many i { width: 24px; height: 24px; border-radius: 6px; }
+  .color-card .chip-top b span.nm { display: block; }
+  .color-card .chip-top b span.nm + span.nm { margin-top: 4px; }
   .color-card .chip-name { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
   .color-card .chip-top b { font-family: var(--brand); font-weight: 400; font-size: 24px; line-height: 1; }
   .color-card .chip-top span { font: 500 12.5px ui-monospace, Consolas, monospace; color: var(--ink-3); }
@@ -602,8 +607,8 @@
     const [names, hexes] = id === "b2c" ? [[["Retamin", "#1C1C3A"], ["API", "#2457C5"]], ["#1C1C3A", "#26C0D2", "#2457C5"]]
       : id === "ci" ? [[["FnWine", "#94243A"], ["FnDarkGray", "#778288"]], ["#94243A", "#778288"]]
       : [[[g.colorName, g.color]], [g.color]];
-    const label = names.map(([n, c]) => `<span style="color:${c};font:inherit">${n}</span>`).join(`<span style="color:var(--ink-3);font:inherit"> · </span>`);
-    const top = `<div class="chip-top"><div class="chip-name"><b>${label}</b></div><div class="chips">${hexes.map(h => `<i style="background:${h}"></i>`).join("")}</div></div>`;
+    const label = names.map(([n, c]) => `<span class="nm" style="color:${c};font:inherit">${n}</span>`).join("");
+    const top = `<div class="chip-top"><div class="chip-name"><b>${label}</b></div><div class="chips${hexes.length > 1 ? " many" : ""}">${hexes.map(h => `<i style="background:${h}"></i>`).join("")}</div></div>`;
     return `<a class="box color-card go" href="#logo/${id}" style="gap:0;--main:${id === "b2c" ? G.b2c.color : hexes[0]}">${top}<div class="body"><h3>${i.title}</h3><p>${i.mood}</p><div class="targets">${esc(targets)}</div><div class="ratio">${hexes.map(h => `<span style="color:${h}">${h}</span>`).join(`<span style="color:var(--ink-3)"> · </span>`)}</div></div></a>`;
   }).join("");
   $("#colorCards").insertAdjacentHTML("afterend",
