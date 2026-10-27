@@ -8,7 +8,7 @@
 <style>
   @font-face {
     font-family: "FnGuide Logotype";
-    src: url("fonts/FnGuideLogotype-Regular.woff?v=1.200s") format("woff");
+    src: url("out/brand-site/fonts/FnGuideLogotype-Regular.woff?v=1.200s") format("woff");
     font-display: block;
   }
   :root {
@@ -468,8 +468,8 @@
 </main>
 <div class="toast" id="toast"></div>
 
-<script src="logos.js?v=1.200r"></script>
-<script src="font-data.js?v=1.200s"></script>
+<script src="out/brand-site/logos.js?v=1.200r"></script>
+<script src="out/brand-site/font-data.js?v=1.200s"></script>
 <script>
 (() => {
   const { groups, logos, archive } = window.BRAND;
@@ -561,7 +561,7 @@
   // 서체 파일
   document.querySelectorAll(".font-files").forEach(el => el.innerHTML = [
     ["OTF", "디자인 툴용 (Figma, Illustrator 등)"], ["TTF", "오피스용 (Word, PowerPoint)"], ["WOFF", "사내 웹 서비스용"],
-  ].map(([f, d]) => `<div class="box file"><b>${f}</b><span>${d}</span><a class="btn primary" href="fonts/FnGuideLogotype-Regular.${f.toLowerCase()}" download>${icon}${f} 받기</a></div>`).join(""));
+  ].map(([f, d]) => `<div class="box file"><b>${f}</b><span>${d}</span><a class="btn primary" href="out/brand-site/fonts/FnGuideLogotype-Regular.${f.toLowerCase()}" download>${icon}${f} 받기</a></div>`).join(""));
 
   // 서체 미리보기
   const spec = $("#specText"), input = $("#specInput");
@@ -680,7 +680,7 @@
           <div class="logo-row">
             <div class="stages"><div class="stage" style="background:#fff;height:190px"><small>흰 배경</small>${big(ci.svg, ci)}</div><div class="stage" style="background:#94243A;color:#fff;height:190px"><small>Fn Wine 배경 · 흰색</small>${big(ci.white, ci)}</div></div>
             <div class="row-meta"><strong>${esc(ci.name)}</strong><span class="note"></span>${dl(ci.id)}${dl(ci.id, "white", "흰색 ")}</div>
-            <div class="row-meta"><span class="note">원본 파일 (<a href="https://corp.fnguide.com/Company/CIP" target="_blank" rel="noopener">회사 홈페이지 브랜드 리소스 ↗</a> 제공)</span><span class="btns"><a class="btn primary" href="files/fnguide-logo-AI.zip" download>${icon}AI 파일</a><a class="btn primary" href="files/fnguide-logo-PNG.zip" download>${icon}PNG 파일</a></span></div>
+            <div class="row-meta"><span class="note">원본 파일 (<a href="https://corp.fnguide.com/Company/CIP" target="_blank" rel="noopener">회사 홈페이지 브랜드 리소스 ↗</a> 제공)</span><span class="btns"><a class="btn primary" href="out/brand-site/files/fnguide-logo-AI.zip" download>${icon}AI 파일</a><a class="btn primary" href="out/brand-site/files/fnguide-logo-PNG.zip" download>${icon}PNG 파일</a></span></div>
           </div>
         </div>
         <div class="sec"><div class="sec-head"><h2>로고타입 (Logotype)</h2></div>
