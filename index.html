@@ -254,10 +254,17 @@
   .art-icons figcaption { font: 600 12px ui-monospace, Consolas, monospace; color: var(--ink-3); }
   .art-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
   .art-row .note { color: var(--ink-3); font-size: 13px; margin-right: auto; }
-  .art-og { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .art-og, .art-panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
   .art-og canvas { display: block; width: 100%; max-width: 720px; height: auto; margin: 24px auto; box-shadow: 0 0 0 1px rgba(0,0,0,.06); }
-  .art-og .controls { border-top: 1px solid var(--line); }
-  .controls input#artText { width: 380px; max-width: 100%; }
+  .art-og .controls, .art-panel .controls { border-top: 1px solid var(--line); }
+  .art-apple { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 24px 56px; padding: 28px 24px; }
+  .art-apple figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .art-apple svg { display: block; box-shadow: 0 0 0 1px rgba(0,0,0,.08); } /* 흰 바탕 아이콘(CryptoGuide)도 테두리가 보이게 */
+  .art-apple .ios svg { border-radius: 22.5%; } /* 아이폰은 모서리를 자동으로 둥글게 깎음 */
+  .art-apple figcaption { font-size: 12.5px; color: var(--ink-3); font-weight: 600; }
+  .controls input#appleText { width: 120px; }
+  .art-panel .controls :disabled { opacity: .4; cursor: not-allowed; } /* 심볼을 고르면 이니셜·크기는 쓰지 않음 */
+  .controls textarea#artText { width: 380px; max-width: 100%; font: 500 14px/1.5 var(--text); padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); resize: vertical; }
   .toast { position: fixed; left: calc(50% + var(--side-w) / 2); bottom: 28px; transform: translateX(-50%) translateY(20px); background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 14px; opacity: 0; pointer-events: none; transition: .25s; z-index: 30; }
   .toast.on { opacity: 1; transform: translateX(-50%); }
 
@@ -677,7 +684,7 @@
     </div>
     <div class="box art-pick">
       <label>서비스 <select id="artSel" aria-label="서비스 고르기"></select></label>
-      <span class="seg" id="artKind" hidden><button type="button" data-k="symbol">심볼</button><button type="button" data-k="fn">Fn</button></span>
+      <span class="seg" id="artKind" hidden><button type="button" data-k="symbol">심볼</button><button type="button" data-k="fn">이니셜 Fn</button></span>
       <span class="note" id="artNote"></span>
     </div>
     <div class="sec">
@@ -686,10 +693,25 @@
       <div class="art-row"><span class="note">파비콘(favicon.ico)에는 16 · 32 · 48px, 아이콘(icon.ico)에는 16 · 24 · 32 · 48 · 64 · 128 · 256px이 함께 들어 있습니다.</span><span class="btns" id="artIconDl"><button class="btn" data-a="ico">favicon.ico</button><button class="btn" data-a="icon">icon.ico</button><button class="btn" data-a="svg">SVG</button><button class="btn" data-a="png">PNG-512px</button></span></div>
     </div>
     <div class="sec">
+      <div class="sec-head"><h2>애플 터치 아이콘</h2><p>180 × 180px · 아이폰·아이패드 홈 화면에 추가할 때 보이는 아이콘</p></div>
+      <div class="art-panel">
+        <div class="art-apple" id="artApple"></div>
+        <div class="controls">
+          <span class="seg" id="appleKind" hidden><button type="button" data-k="text">이니셜</button><button type="button" data-k="symbol">심볼</button></span>
+          <label>이니셜 <input type="text" id="appleText" value="Fn" maxlength="4" spellcheck="false"></label>
+          <div class="lbl">크기 <input type="range" id="appleSize" min="50" max="150" value="100" aria-label="이니셜 크기"><span class="size-num"><input type="number" id="appleSizeNum" min="50" max="150" step="1" value="100" aria-label="이니셜 크기 직접 입력">%</span></div>
+          <span class="btns" style="margin-left:auto"><button class="btn" id="appleDl" type="button">PNG-180px</button></span>
+        </div>
+      </div>
+      <div class="art-row"><span class="note">채널톡 아이콘 사이즈와 동일합니다.</span></div>
+    </div>
+    <div class="sec">
       <div class="sec-head"><h2>오픈그래프</h2><p>1200 × 630px · 카카오톡·슬랙·메신저에 링크를 붙이면 뜨는 그림</p></div>
       <div class="art-og">
         <canvas id="artOg" width="1200" height="630" aria-label="오픈그래프 미리보기"></canvas>
-        <div class="controls"><label>소개 문구 <input type="text" id="artText" maxlength="40" placeholder="한 줄 소개 (비워 두면 로고만)"></label><span class="btns" style="margin-left:auto"><button class="btn" id="artOgDl" type="button">PNG 받기</button></span></div>
+        <div class="controls"><label>소개 문구 <textarea id="artText" rows="2" maxlength="80" placeholder="소개 문구 (비워 두면 로고만 · Enter 로 줄 바꿈)"></textarea></label>
+          <div class="lbl">크기 <input type="range" id="ogSize" min="28" max="72" value="44" aria-label="소개 문구 크기"><span class="size-num"><input type="number" id="ogSizeNum" min="28" max="72" step="1" value="44" aria-label="소개 문구 크기 직접 입력">px</span></div>
+          <span class="btns" style="margin-left:auto"><button class="btn" id="artOgDl" type="button">PNG 받기</button></span></div>
       </div>
     </div>
     <div class="sec">
@@ -743,7 +765,7 @@
 
 <script src="out/brand-site/logos.js?v=1.31"></script>
 <script src="out/brand-site/font-data.js?v=1.31"></script>
-<script src="out/brand-site/symbols.js?v=1"></script>
+<script src="out/brand-site/symbols.js?v=2"></script>
 <script>
 (() => {
   const { groups, logos, archive } = window.BRAND;
@@ -1108,10 +1130,11 @@
   const artList = dlList.filter(l => l.white); // 오픈그래프에 흰색 로고가 필요하므로 흰색 판이 있는 로고만
   const ci = artList.findIndex(l => l.id === "fnguide-ci"), im = artList.findIndex(l => l.id === "fnguide");
   [artList[ci], artList[im]] = [artList[im], artList[ci]]; // 여기서만: 개선 로고를 FnGuide CI 앞으로
+  const OG_DEFAULT = "Your Best Financial Guide";
   // 오픈그래프 소개 문구 (사용자 제공 2026-10-29). 서비스 → 그룹 → 기본 문구 순으로 찾음
   const OG_TEXT = {
     "fnguide-com": "따라가기 힘든 금융 정보, 에프앤가이드로 한 발 앞서가세요!",
-    "fnguide-ci": "데이터로 세상을 바꾸는 사람들", fnguide: "데이터로 세상을 바꾸는 사람들",
+    "fnguide-ci": OG_DEFAULT, fnguide: "데이터로 세상을 바꾸는 사람들", // 회사 CI 는 기본 문구(사용자 요청)
     quantiwise: "기업/주식투자 분석 시스템",
     wisereport: "흩어져 있는 투자 정보는 와이즈리포트에서",
     retamin: "하루 한 번, 건강한 투자 습관 리타민",
@@ -1121,22 +1144,33 @@
     companyguide: "데일리 업데이트되는 온라인 상장기업분석", companywise: "데일리 업데이트되는 온라인 상장기업분석",
   };
   const OG_GROUP = { index: "국내 민간 최초 실시간 지수 서비스 구현", fund: "데이터 기반의 고객 맞춤형 펀드평가 서비스" };
-  const OG_DEFAULT = "Your Best Financial Guide";
   const ICON_SIZES = [16, 24, 32, 64, 128, 256, 512];
-  const APPLE_FILL = { dataguide: "#BF2645" }; // 모서리가 둥근 심볼: 아이폰 아이콘은 투명 모서리를 심볼 색으로 채움
-  const art = { l: artList[0], kind: "fn", text: {} };
+  const APPLE_FILL = { dataguide: "#B9023D" }; // 모서리가 둥근 심볼: 아이폰 아이콘은 투명 모서리를 심볼 색으로 채움
+  const art = { l: artList[0], kind: "fn", text: {}, ogSize: 44 };
   const sizedTo = (svg, n) => svg.replace(/width="[^"]*" height="[^"]*"/, `width="${n}" height="${n}"`);
   // "Fn" 아이콘: 사업 색 네모 + 전용서체 흰 Fn. 512 기준 글자 폭 377, 글자 가운데 (252.6, 256.2), 그림자 아래로 4·흐림 2·검정 25% (피그마 Icon 시안)
-  function fnIcon(color) {
+  // 애플 터치 아이콘은 이니셜(text)과 크기(size, 기본 100%)를 바꿀 수 있다. 크기 기준은 Fn 의 시안 크기
+  function fnIcon(color, text = "Fn", size = 100) {
     // 피그마 원본처럼 n 의 왼쪽 세리프를 F 윗팔 끝에 붙인다(서체 기본 간격보다 좁음, 겹침 1 단위)
     const g = c => window.FONT_DATA.glyphs[window.FONT_DATA.cmap[c]][1], bF = pathBox(g("F")), bN = pathBox(g("n"));
-    const d = g("F") + shift(g("n"), bF.x + bF.width - 1 - bN.x);
-    const bb = pathBox(d), k = 377 / bb.width, r = v => Math.round(v * 1000) / 1000;
-    const tx = 252.6 - (bb.x + bb.width / 2) * k, ty = 256.2 - (bb.y + bb.height / 2) * k;
+    const fn = g("F") + shift(g("n"), bF.x + bF.width - 1 - bN.x);
+    const d = text === "Fn" ? fn : shape(text).glyphs.map(([n, x]) => shift(window.FONT_DATA.glyphs[n][1], x)).join("");
+    const bb = pathBox(d), k = 377 / pathBox(fn).width * size / 100, r = v => Math.round(v * 1000) / 1000;
+    // 가로는 가운데(Fn 은 시안 위치 252.6), 세로는 대문자 높이(700)의 가운데를 256.2 에 — 아래로 내려가는 글자가 있어도 높이가 흔들리지 않게
+    const tx = (text === "Fn" ? 252.6 : 256) - (bb.x + bb.width / 2) * k, ty = 256.2 + 350 * k;
     return `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><defs><filter id="fnShadow" x="-10%" y="-10%" width="120%" height="130%" color-interpolation-filters="sRGB"><feDropShadow dx="0" dy="4" stdDeviation="2" flood-color="#000" flood-opacity=".25"/></filter></defs>`
       + `<rect width="512" height="512" fill="${color}"/><g filter="url(#fnShadow)"><path fill="#FFFFFF" transform="translate(${r(tx)} ${r(ty)}) scale(${r(k)})" d="${d}"/></g></svg>\n`;
   }
   const artSvg = () => art.kind === "symbol" ? SYM[art.l.id].svg + "\n" : fnIcon(bgOf(art.l));
+  const apple = { kind: "text", text: "Fn", size: 100 };
+  // 서체에 없는 글자(한글 등)는 빼고, 남는 글자가 없으면 Fn
+  const appleText = () => [...apple.text.trim()].filter(c => window.FONT_DATA.cmap[c]).join("") || "Fn";
+  // 심볼: 모서리가 둥근 심볼(DataGuide)은 아이폰이 투명 모서리를 검게 채우므로 심볼 색 바탕을 깔아 둠
+  function symbolFilled(id) {
+    const { svg, size } = SYM[id], f = APPLE_FILL[id];
+    return (f ? svg.replace(/<svg\b[^>]*>/, m => m + `<rect width="${size}" height="${size}" fill="${f}"/>`) : svg) + "\n";
+  }
+  const appleSvg = () => apple.kind === "symbol" && SYM[art.l.id] ? symbolFilled(art.l.id) : fnIcon(bgOf(art.l), appleText(), apple.size);
   const loadImg = svg => new Promise(ok => { const i = new Image(); i.onload = () => ok(i); i.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg); });
   async function iconPng(svg, n, fill) {
     const c = document.createElement("canvas"); c.width = c.height = n;
@@ -1161,22 +1195,40 @@
   // 오픈그래프: 사업 색 배경 + 흰 로고타입 + 한글 소개 한 줄 (피그마 Open Graph 시안 600×315 의 2배)
   // 로고는 그림의 3배(시안의 WiseReport·CryptoGuide 폭으로 잰 값), 소개 문구는 Pretendard 600 · 44px, 로고 아래 끝에서 103px 아래가 글자 바닥
   let ogTurn = 0;
+  // 소개 문구: 크기 조절(기본 44px), 좌우 80px 여백(폭 1040)을 넘으면 띄어쓰기에서 줄을 바꿈(Enter 로 직접 바꿔도 됨), 줄간격 150%
+  // 세로 배치: 로고 아래 끝에서 59px 아래가 첫 줄 글자 윗선(44px 일 때 시안과 같은 자리), 로고와 문구 묶음 전체를 가운데에
+  function wrapLines(x, text, maxW) {
+    const fit = t => x.measureText(t).width <= maxW;
+    const lines = [];
+    for (const para of text.split("\n")) {
+      let line = "";
+      for (const word of para.trim().split(/ +/)) {
+        const t = line ? line + " " + word : word;
+        if (fit(t) || !line) line = t; else { lines.push(line); line = word; }
+      }
+      lines.push(line);
+    }
+    // 띄어쓰기 없이 긴 낱말은 글자 단위로 나눔
+    return lines.flatMap(l => {
+      if (fit(l)) return [l];
+      const out = []; let cur = "";
+      for (const c of l) { if (cur && !fit(cur + c)) { out.push(cur); cur = c; } else cur += c; }
+      return [...out, cur];
+    });
+  }
   async function drawOg(cv, l, text) {
-    const turn = cv === $("#artOg") ? ++ogTurn : 0, W = 1200, H = 630, k = 3 * fit(l), w = l.w * k, h = l.h * k, gap = 103;
+    const turn = cv === $("#artOg") ? ++ogTurn : 0, W = 1200, H = 630, k = 3 * fit(l), w = l.w * k, h = l.h * k, fs = art.ogSize, lh = fs * 1.5;
     const [img] = await Promise.all([loadImg(l.white), document.fonts.load('600 44px "Pretendard Variable"').catch(() => {})]);
     if (turn && turn !== ogTurn) return; // 빠르게 바꾸면 마지막 것만 그림
     const x = cv.getContext("2d");
     x.fillStyle = bgOf(l); x.fillRect(0, 0, W, H);
-    const top = text ? (H - h - gap) / 2 + 6 : (H - h) / 2;
+    x.font = `600 ${fs}px "Pretendard Variable", Pretendard, "Malgun Gothic", sans-serif`;
+    const lines = text ? wrapLines(x, text, 1040) : [];
+    const block = lines.length ? h + 59 + fs + (lines.length - 1) * lh : h;
+    const top = lines.length ? (H - block) / 2 + 6 : (H - h) / 2;
     x.drawImage(img, (W - w) / 2, top, w, h);
-    if (text) {
-      const font = px => `600 ${px}px "Pretendard Variable", Pretendard, "Malgun Gothic", sans-serif`;
-      x.font = font(44);
-      const tw = x.measureText(text).width;
-      if (tw > 1040) x.font = font(Math.floor(44 * 1040 / tw)); // 긴 문구는 좌우 80px 여백 안에 들도록 줄임
-      x.fillStyle = "#FFFFFF"; x.textAlign = "center"; x.textBaseline = "alphabetic";
-      x.fillText(text, W / 2, top + h + gap);
-    }
+    x.fillStyle = "#FFFFFF"; x.textAlign = "center"; x.textBaseline = "alphabetic";
+    lines.forEach((t, i) => x.fillText(t, W / 2, top + h + 59 + fs + i * lh));
   }
   async function ogBlob(l, text) {
     const c = document.createElement("canvas"); c.width = 1200; c.height = 630;
@@ -1193,7 +1245,7 @@
       `<link rel="apple-touch-icon" href="/apple-touch-icon.png">`,
       `<link rel="manifest" href="/site.webmanifest">`,
       `<meta property="og:title" content="${esc(l.name)}">`,
-      t ? `<meta property="og:description" content="${esc(t)}">` : "",
+      t ? `<meta property="og:description" content="${esc(t.replace(/\s*\n\s*/g, " "))}">` : "",
       `<meta property="og:image" content="${esc(ext("og-image.png"))}">`,
       `<meta property="og:image:width" content="1200">`,
       `<meta property="og:image:height" content="630">`,
@@ -1218,6 +1270,12 @@
       : `<i class="dot" style="background:${bgOf(l)}"></i>${INFO[l.group].title} 컬러 ${bgOf(l)} + 전용서체 Fn`;
     // 같은 그림을 여러 번 넣으므로 그림자·그러데이션 이름이 겹치지 않게 크기별로 바꿔 붙임
     $("#artIcons").innerHTML = ICON_SIZES.filter(n => n < 512).map(n => `<figure>${sizedTo(svg, n).replace(/(id="|url\(#)([\w-]+)/g, `$1$2-${n}`)}<figcaption>${n}px</figcaption></figure>`).join("");
+    $("#appleKind").hidden = !SYM[l.id];
+    $("#appleKind").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === apple.kind));
+    ["#appleText", "#appleSize", "#appleSizeNum"].forEach(q => $(q).disabled = apple.kind === "symbol");
+    const a = appleSvg(), uid = (svg, k) => svg.replace(/(id="|url\(#)([\w-]+)/g, `$1$2-${k}`);
+    $("#artApple").innerHTML = `<figure>${uid(sizedTo(a, 180), "a1")}<figcaption>받는 파일 · 180px</figcaption></figure>`
+      + `<figure class="ios">${uid(sizedTo(a, 120), "a2")}<figcaption>아이폰 홈 화면에서 보이는 모습</figcaption></figure>`;
     const input = $("#artText");
     if (document.activeElement !== input) input.value = ogText();
     drawOg($("#artOg"), l, ogText());
@@ -1225,13 +1283,36 @@
     $("#artAll").innerHTML = `${icon}${esc(l.name)} 전체 받기 (ZIP)`;
   }
   $("#artSel").addEventListener("change", e => {
-    art.l = L[e.target.value]; art.kind = SYM[art.l.id] ? "symbol" : "fn"; renderArt();
+    art.l = L[e.target.value]; art.kind = SYM[art.l.id] ? "symbol" : "fn";
+    // 서비스를 바꾸면 기본값으로: 오픈그래프 글자 크기 44px, 애플 터치 아이콘 이니셜 Fn·크기 100%
+    art.ogSize = $("#ogSize").value = $("#ogSizeNum").value = 44;
+    apple.kind = "text"; apple.text = $("#appleText").value = "Fn";
+    apple.size = $("#appleSize").value = $("#appleSizeNum").value = 100;
+    renderArt();
   });
   $("#artKind").addEventListener("click", e => {
     const b = e.target.closest("button"); if (!b) return;
     art.kind = b.dataset.k; renderArt();
   });
   $("#artText").addEventListener("input", e => { art.text[art.l.id] = e.target.value; renderArt(); });
+  $("#appleKind").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    apple.kind = b.dataset.k; renderArt();
+  });
+  $("#appleText").addEventListener("input", e => {
+    apple.text = e.target.value; renderArt();
+    const miss = [...e.target.value.trim()].filter(c => !window.FONT_DATA.cmap[c]);
+    if (miss.length) toast("서체에 없는 글자는 빠집니다: " + miss.join(" "));
+  });
+  const oSize = $("#ogSize"), oSizeNum = $("#ogSizeNum");
+  oSize.addEventListener("input", () => { art.ogSize = oSizeNum.value = Number(oSize.value); renderArt(); });
+  oSizeNum.addEventListener("input", () => { const v = Number(oSizeNum.value); if (v >= 28 && v <= 72) { art.ogSize = oSize.value = v; renderArt(); } });
+  oSizeNum.addEventListener("change", () => { art.ogSize = oSize.value = oSizeNum.value = Math.min(72, Math.max(28, Math.round(Number(oSizeNum.value)) || 44)); renderArt(); });
+  const aSize = $("#appleSize"), aSizeNum = $("#appleSizeNum");
+  aSize.addEventListener("input", () => { apple.size = aSizeNum.value = Number(aSize.value); renderArt(); });
+  aSizeNum.addEventListener("input", () => { const v = Number(aSizeNum.value); if (v >= 50 && v <= 150) { apple.size = aSize.value = v; renderArt(); } });
+  aSizeNum.addEventListener("change", () => { apple.size = aSize.value = aSizeNum.value = Math.min(150, Math.max(50, Math.round(Number(aSizeNum.value)) || 100)); renderArt(); });
+  $("#appleDl").addEventListener("click", async () => save(await iconPng(appleSvg(), 180), `${art.l.id}-apple-touch-icon.png`));
   const artBase = () => art.l.id + (art.kind === "symbol" ? "-symbol" : "-fn");
   $("#artIconDl").addEventListener("click", async e => {
     const b = e.target.closest("button"); if (!b) return;
@@ -1246,12 +1327,12 @@
     const btn = $("#artAll"); if (btn.disabled) return;
     btn.disabled = true; btn.textContent = "파일을 묶는 중…";
     try {
-      const svg = artSvg(), dir = `${art.l.id}-web-icons/`, fill = art.kind === "symbol" ? APPLE_FILL[art.l.id] : "";
+      const svg = artSvg(), dir = `${art.l.id}-web-icons/`;
       const text = (s, type) => new Blob([s], { type });
       const files = [
         { name: dir + "favicon.ico", blob: await icoBlob(svg) },
         { name: dir + "favicon.svg", blob: text(svg, "image/svg+xml") },
-        { name: dir + "apple-touch-icon.png", blob: await iconPng(svg, 180, fill) },
+        { name: dir + "apple-touch-icon.png", blob: await iconPng(appleSvg(), 180) }, // 애플 터치 아이콘 칸에서 고른 이니셜·크기
         { name: dir + "icon-192.png", blob: await iconPng(svg, 192) },
         { name: dir + "icon-512.png", blob: await iconPng(svg, 512) },
         { name: dir + "og-image.png", blob: await ogBlob(art.l, ogText()) },

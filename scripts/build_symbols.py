@@ -24,6 +24,8 @@ KEEP = {
     "cryptoguide": ("cryptoguide/cryptoguide-icon-512.svg", "CryptoGuide", "Crypto·Guide 이니셜의 큐브"),
 }
 
+# 바탕색 바꾸기 (원본 파일은 그대로 두고 사이트용만): DataGuide 는 피그마 #BF2645 대신 FnRed 2025 (사용자 요청 2026-10-29)
+RECOLOR = {"dataguide": {"#BF2645": "#B9023D"}}
 
 def clean(path, keep_id):
     root = ET.parse(SRC / path).getroot()
@@ -46,6 +48,8 @@ def main():
         svg = clean(path, keep_id)
         # 서비스마다 그러데이션 id 가 같으므로(paint0_linear_4_5306) 한 화면에 함께 그려도 섞이지 않게 바꾼다
         svg = svg.replace("paint", f"{sid}-paint")
+        for a, b in RECOLOR.get(sid, {}).items():
+            svg = svg.replace(a, b)
         data[sid] = {"svg": svg, "desc": desc, "size": int(re.search(r'width="(\d+)', svg).group(1))}
     OUT.write_text("window.SYMBOLS = " + json.dumps(data, ensure_ascii=False) + ";\n", encoding="utf-8")
     print("symbols:", ", ".join(data))
