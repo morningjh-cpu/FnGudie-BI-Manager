@@ -704,7 +704,7 @@
           <span class="seg" id="appleKind" hidden><button type="button" data-k="text">이니셜</button><button type="button" data-k="symbol">심볼</button></span>
           <label>이니셜 <input type="text" id="appleText" value="Fn" maxlength="4" spellcheck="false"></label>
           <div class="lbl">크기 <input type="range" id="appleSize" min="50" max="150" value="100" aria-label="이니셜 크기"><span class="size-num"><input type="number" id="appleSizeNum" min="50" max="150" step="1" value="100" aria-label="이니셜 크기 직접 입력">%</span></div>
-          <span class="btns" style="margin-left:auto"><button class="btn" id="appleDl" type="button">PNG-180px</button></span>
+          <span class="btns" style="margin-left:auto"><button class="btn" id="appleDl" type="button">PNG-180px</button><button class="btn" id="appleZip" type="button" title="180 · 167 · 152 · 120px">기기별 PNG ZIP</button></span>
         </div>
       </div>
       <div class="art-row"><span class="note">채널톡 아이콘 사이즈와 동일합니다.</span></div>
@@ -714,7 +714,7 @@
       <div class="art-og">
         <canvas id="artOg" width="1200" height="630" aria-label="오픈그래프 미리보기"></canvas>
         <div class="controls"><label>소개 문구 <textarea id="artText" rows="2" maxlength="80" placeholder="소개 문구 (비워 두면 로고만 · Enter 로 줄 바꿈)"></textarea></label>
-          <div class="lbl">크기 <input type="range" id="ogSize" min="28" max="72" value="44" aria-label="소개 문구 크기"><span class="size-num"><input type="number" id="ogSizeNum" min="28" max="72" step="1" value="44" aria-label="소개 문구 크기 직접 입력">px</span></div>
+          <div class="lbl">크기 <input type="range" id="ogSize" min="28" max="72" value="48" aria-label="소개 문구 크기"><span class="size-num"><input type="number" id="ogSizeNum" min="28" max="72" step="1" value="48" aria-label="소개 문구 크기 직접 입력">px</span></div>
           <span class="btns" style="margin-left:auto"><button class="btn" id="artOgDl" type="button">PNG 받기</button></span></div>
       </div>
     </div>
@@ -1150,7 +1150,7 @@
   const OG_GROUP = { index: "국내 민간 최초 실시간 지수 서비스 구현", fund: "데이터 기반의 고객 맞춤형 펀드평가 서비스" };
   const ICON_SIZES = [16, 24, 32, 64, 128, 256, 512];
   const APPLE_FILL = { dataguide: "#B9023D" }; // 모서리가 둥근 심볼: 아이폰 아이콘은 투명 모서리를 심볼 색으로 채움
-  const art = { l: artList[0], kind: "fn", text: {}, ogSize: 44 };
+  const art = { l: artList[0], kind: "fn", text: {}, ogSize: 48 };
   const sizedTo = (svg, n) => svg.replace(/width="[^"]*" height="[^"]*"/, `width="${n}" height="${n}"`);
   // "Fn" 아이콘: 사업 색 네모 + 전용서체 흰 Fn. 512 기준 글자 폭 377, 글자 가운데 (252.6, 256.2), 그림자 아래로 4·흐림 2·검정 25% (피그마 Icon 시안)
   // 애플 터치 아이콘은 이니셜(text)과 크기(size, 기본 100%)를 바꿀 수 있다. 크기 기준은 Fn 의 시안 크기
@@ -1199,7 +1199,7 @@
   // 오픈그래프: 사업 색 배경 + 흰 로고타입 + 한글 소개 한 줄 (피그마 Open Graph 시안 600×315 의 2배)
   // 로고는 그림의 3배(시안의 WiseReport·CryptoGuide 폭으로 잰 값), 소개 문구는 Pretendard 600 · 44px, 로고 아래 끝에서 103px 아래가 글자 바닥
   let ogTurn = 0;
-  // 소개 문구: 크기 조절(기본 44px), 좌우 80px 여백(폭 1040)을 넘으면 띄어쓰기에서 줄을 바꿈(Enter 로 직접 바꿔도 됨), 줄간격 150%
+  // 소개 문구: 크기 조절(기본 48px), 좌우 80px 여백(폭 1040)을 넘으면 띄어쓰기에서 줄을 바꿈(Enter 로 직접 바꿔도 됨), 줄간격 150%
   // 세로 배치: 로고 아래 끝에서 59px 아래가 첫 줄 글자 윗선(44px 일 때 시안과 같은 자리), 로고와 문구 묶음 전체를 가운데에
   function wrapLines(x, text, maxW) {
     const fit = t => x.measureText(t).width <= maxW;
@@ -1288,8 +1288,8 @@
   }
   $("#artSel").addEventListener("change", e => {
     art.l = L[e.target.value]; art.kind = SYM[art.l.id] ? "symbol" : "fn";
-    // 서비스를 바꾸면 기본값으로: 오픈그래프 글자 크기 44px, 애플 터치 아이콘 이니셜 Fn·크기 100%
-    art.ogSize = $("#ogSize").value = $("#ogSizeNum").value = 44;
+    // 서비스를 바꾸면 기본값으로: 오픈그래프 글자 크기 48px, 애플 터치 아이콘 이니셜 Fn·크기 100%
+    art.ogSize = $("#ogSize").value = $("#ogSizeNum").value = 48;
     apple.kind = "text"; apple.text = $("#appleText").value = "Fn";
     apple.size = $("#appleSize").value = $("#appleSizeNum").value = 100;
     renderArt();
@@ -1311,12 +1311,18 @@
   const oSize = $("#ogSize"), oSizeNum = $("#ogSizeNum");
   oSize.addEventListener("input", () => { art.ogSize = oSizeNum.value = Number(oSize.value); renderArt(); });
   oSizeNum.addEventListener("input", () => { const v = Number(oSizeNum.value); if (v >= 28 && v <= 72) { art.ogSize = oSize.value = v; renderArt(); } });
-  oSizeNum.addEventListener("change", () => { art.ogSize = oSize.value = oSizeNum.value = Math.min(72, Math.max(28, Math.round(Number(oSizeNum.value)) || 44)); renderArt(); });
+  oSizeNum.addEventListener("change", () => { art.ogSize = oSize.value = oSizeNum.value = Math.min(72, Math.max(28, Math.round(Number(oSizeNum.value)) || 48)); renderArt(); });
   const aSize = $("#appleSize"), aSizeNum = $("#appleSizeNum");
   aSize.addEventListener("input", () => { apple.size = aSizeNum.value = Number(aSize.value); renderArt(); });
   aSizeNum.addEventListener("input", () => { const v = Number(aSizeNum.value); if (v >= 50 && v <= 150) { apple.size = aSize.value = v; renderArt(); } });
   aSizeNum.addEventListener("change", () => { apple.size = aSize.value = aSizeNum.value = Math.min(150, Math.max(50, Math.round(Number(aSizeNum.value)) || 100)); renderArt(); });
   $("#appleDl").addEventListener("click", async () => save(await iconPng(appleSvg(), 180), `${art.l.id}-apple-touch-icon.png`));
+  // 기기별 크기: 180 아이폰 · 167 아이패드 프로 · 152 아이패드 · 120 옛 아이폰
+  $("#appleZip").addEventListener("click", async () => {
+    const svg = appleSvg(), files = [];
+    for (const n of [180, 167, 152, 120]) files.push({ name: `apple-touch-icon-${n}x${n}.png`, blob: await iconPng(svg, n) });
+    save(await makeZip(files), "touch-icon.zip");
+  });
   const artBase = () => art.l.id + (art.kind === "symbol" ? "-symbol" : "-fn");
   $("#artIconDl").addEventListener("click", async e => {
     const b = e.target.closest("button"); if (!b) return;
