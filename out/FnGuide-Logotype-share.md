@@ -131,6 +131,7 @@
 | BI | 서비스별 로고타입 (FnGuide.com, DataGuide, FundGuide, PFGuide, FnIndex, ETF Global, FnAPI 등) |
 | 컬러 | BI 그룹별 컬러 코드와 배경별 사용 예시 |
 | 서체 | FnGuide Logotype 미리보기(커닝·합자·브랜드 컬러 적용)와 OTF·TTF·WOFF 다운로드 |
+| 웹 아이콘 | 서비스별 파비콘·아이콘(16~512px)·오픈그래프 그림(1200×630) 만들기와 한 번에 받기, 심볼이 있는 서비스(DataGuide·CryptoGuide·Retamin)는 심볼로 |
 | 가이드 | 브랜드 매뉴얼(BI별 톤·컬러·서체 규정)과 활용 예시 |
 
 - **사내 전용:** 사내 계정으로 로그인해 이용하며, 자산별로 다운로드 권한을 관리합니다.
