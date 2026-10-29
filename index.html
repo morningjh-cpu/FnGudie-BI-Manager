@@ -323,9 +323,8 @@
       <a href="#font/update">폰트 업데이트</a>
       <a href="#font/critique">디자인 크리틱</a>
     </div>
-    <a href="#logo/b2b" data-parent="logo">브랜드 로고타입 소개</a>
+    <a href="#logo/b2b" data-parent="logo download">브랜드 로고타입 소개</a>
     <div class="sub" id="subMenu"></div>
-    <a href="#download">로고타입 다운로드</a>
     <a href="#article">디자인 아티클</a>
     <a href="#rules">사용 규칙</a>
   </nav>
@@ -341,10 +340,9 @@
       <p><b>로고·서체·컬러, 이제 여기서 받으세요.</b><br>이곳 파일이 항상 최신 공식본이니, 메일로 받은 옛 파일 대신 이곳 파일을 쓰면 됩니다.</p>
     </div>
 
-    <div class="cols c4">
+    <div class="cols c3">
       <a class="box go" href="#font"><b>Typeface</b><span>로고타입을 옮긴 사내 전용서체 FnGuide Logotype</span><i>서체 보기·받기 →</i></a>
       <a class="box go" href="#logo/b2b"><b>Brand Logotype</b><span>회사 CI와 사업별 서비스 로고타입</span><i>로고 보기 →</i></a>
-      <a class="box go" href="#download"><b>Download</b><span>로고 SVG·PNG</span><i>로고 받기 →</i></a>
       <a class="box go" href="#rules"><b>Guidelines</b><span>사용 원칙과 배경 조합 규칙</span><i>사용 규칙 →</i></a>
     </div>
 
@@ -662,8 +660,8 @@
   <!-- 3. 다운로드 -->
   <section class="page" id="page-download">
     <div class="hero">
-      <div class="eyebrow">Download · 로고 받기</div>
-      <h1>Assets</h1>
+      <div class="eyebrow">Logotype · 로고 받기</div>
+      <h1>Assets <em>Download</em></h1>
       <p>로고는 SVG(크기를 바꿔도 깨지지 않는 그림)와 PNG(투명 배경 이미지, 원본의 4배 크기)로 받을 수 있습니다. 흰색 버전은 그룹 컬러나 어두운 배경 위에 씁니다. 서체 파일은 <a href="#font">서체 소개</a> 맨 아래에서 받을 수 있습니다.</p>
     </div>
     <div class="note-box">모든 자산은 사내 전용입니다. 외부에 전달하지 말고, 협력사 제작물에 필요하면 웹&amp;모바일팀 디자인 파트를 통해 요청하세요.</div>
@@ -805,7 +803,8 @@
 
   // 하위 메뉴
   $("#subMenu").innerHTML = ORDER.map(id =>
-    `<a href="#logo/${id}"><i class="dot" style="background:${id === "b2c" ? "#2457C5" : G[id].color}"></i>${INFO[id].menu}</a>`).join("");
+    `<a href="#logo/${id}"><i class="dot" style="background:${id === "b2c" ? "#2457C5" : G[id].color}"></i>${INFO[id].menu}</a>`).join("")
+    + `<a href="#download">로고타입 다운로드</a>`; // 맨 아래 하위 메뉴(주소는 #download 그대로)
 
   // 내려받기
   function save(blob, name) {
@@ -1395,7 +1394,7 @@
     document.querySelectorAll("section.page").forEach(s => s.classList.toggle("on", s.id === "page-" + shown));
     document.querySelectorAll("#menu a").forEach(a => {
       const t = a.getAttribute("href").slice(1);
-      const on = a.dataset.parent ? page === a.dataset.parent : (sub ? t === page + "/" + sub : t === page);
+      const on = a.dataset.parent ? a.dataset.parent.split(" ").includes(page) : (sub ? t === page + "/" + sub : t === page);
       on ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current");
     });
     document.body.classList.remove("menu-open");
