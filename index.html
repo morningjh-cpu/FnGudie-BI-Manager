@@ -8,7 +8,7 @@
 <style>
   @font-face {
     font-family: "FnGuide Logotype";
-    src: url("out/brand-site/fonts/FnGuideLogotype-Regular.woff?v=1.3b") format("woff");
+    src: url("out/brand-site/fonts/FnGuideLogotype-Regular.woff?v=1.31") format("woff");
     font-display: block;
   }
   :root {
@@ -141,6 +141,7 @@
   th { font-size: 12.5px; color: var(--ink-3); font-weight: 600; background: #FCF6F3; white-space: nowrap; }
   tr:last-child td { border-bottom: 0; }
   td.logo-cell { width: 280px; }
+  #dlRows td { padding-top: 20px; padding-bottom: 20px; } /* 로고 다운로드 표: 줄 높이 130% (54→70px) */
   td.logo-cell svg { display: block; } /* 크기는 스크립트가 같은 배율로 지정 */
   td.actions { text-align: right; white-space: nowrap; }
   .pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; background: var(--red); color: #fff; }
@@ -156,6 +157,9 @@
   /* 로고타입 */
   .group-hero { padding: 56px 0 8px; }
   .group-hero h1 { font-size: 34px; margin: 8px 0 12px; letter-spacing: -.02em; }
+  .group-hero h1.brand-h1 { font-family: var(--brand); font-weight: 400; font-size: 60px; line-height: 1.04; letter-spacing: 0; margin: 8px 0 16px; } /* 다른 페이지 제목과 같은 전용서체 */
+  .group-hero h1.brand-h1 em { font-style: normal; color: var(--red); }
+  .group-hero h1.brand-h1 .ko { font-family: var(--text); font-weight: 700; font-size: 34px; color: #778288; letter-spacing: -.02em; } /* 전용서체에 한글이 없어 한글은 본문 글꼴 */
   .facts { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 14px; font-size: 13.5px; color: var(--ink-2); }
   .facts b { color: var(--ink); margin-right: 6px; }
   .logo-list { display: grid; gap: 36px; }
@@ -226,6 +230,9 @@
   .crit-sum .box span { color: var(--ink-2); font-size: 13.5px; }
   .crit-fig { margin: 0; }
   .crit-fig img { width: 100%; display: block; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); }
+  .crit-fig.fit { display: flex; flex-direction: column; } /* 폰트 업데이트 그림: 원래 크기로 보여 글자 크기를 맞춤 */
+  .crit-fig.fit .pic { flex: 1; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 24px 28px; overflow: hidden; }
+  .crit-fig.fit img { width: auto; max-width: 100%; height: auto; border: 0; border-radius: 0; background: none; }
   .crit-fig figcaption { color: var(--ink-3); font-size: 13px; margin-top: 6px; }
   .ver-line { margin: 28px 0 0; color: var(--ink-2); font-size: 14.5px; }
   .dl-all { display: flex; align-items: center; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
@@ -304,7 +311,7 @@
 
     <div class="cols c4">
       <a class="box go" href="#font"><b>Typeface</b><span>로고타입을 옮긴 사내 전용서체 FnGuide Logotype</span><i>서체 보기·받기 →</i></a>
-      <a class="box go" href="#logo/b2b"><b>Logotype</b><span>회사 CI와 사업별 서비스 로고타입</span><i>로고 보기 →</i></a>
+      <a class="box go" href="#logo/b2b"><b>Brand Logotype</b><span>회사 CI와 사업별 서비스 로고타입</span><i>로고 보기 →</i></a>
       <a class="box go" href="#download"><b>Download</b><span>로고 SVG·PNG</span><i>로고 받기 →</i></a>
       <a class="box go" href="#rules"><b>Guidelines</b><span>사용 원칙과 배경 조합 규칙</span><i>사용 규칙 →</i></a>
     </div>
@@ -325,9 +332,9 @@
       <div class="split" style="margin-top:24px">
         <div class="box"><h3><span class="tag">B2B</span>사업별 컬러 통일</h3>
           <ul class="plain">
-            <li>B2B 대표상품군 — Flagship 브랜드 (FnGuide.com, DataGuide, QuantiWise…)</li>
+            <li>B2B 대표상품 — Flagship 브랜드 (FnGuide.com, DataGuide, QuantiWise…)</li>
             <li>지수상품, 펀드·운용</li>
-            <li>B2B 계약상품군 — 고객사 맞춤형 서비스 (ETF Global, Market Monitor, CompanyGlobal)</li>
+            <li>B2B 계약상품 — 고객사 맞춤형 서비스 (ETF Global, Market Monitor, CompanyGlobal)</li>
           </ul>
         </div>
         <div class="box"><h3><span class="tag">B2C</span>독립 체계</h3>
@@ -356,9 +363,10 @@
       <div class="sec-head"><h2>최근 업데이트</h2></div>
       <div class="box" style="padding:4px 22px">
         <ul class="news">
+          <li><time>2026.10.29</time><div><b>전용서체 FnGuide Logotype v1.31 공개</b><span>FY2025·T4·7A처럼 대문자와 숫자가 붙을 때의 간격을 고르게 맞췄습니다. 글자 모양은 v1.3과 같습니다. 이미 설치했다면 새 파일로 다시 설치하세요. <a href="#font/update">자세히 보기</a></span></div></li>
           <li><time>2026.10.29</time><div><b>전용서체 FnGuide Logotype v1.3 공개</b><span>숫자 1과 소문자 l을 알아보기 쉽게 바꾸고, − ± × · 같은 금융 기호와 표에 맞는 숫자를 더했습니다. 로고타입도 새 서체로 다시 만들었습니다. 이미 설치했다면 새 파일로 다시 설치하세요. <a href="#font/update">자세히 보기</a></span></div></li>
           <li><time>2026.10.27</time><div><b>전용서체 FnGuide Logotype v1.200 공개</b><span>일부 영문 글자(f m M s S y r)의 모양을 다듬었습니다. 해당 글자가 들어간 로고타입도 새 서체로 다시 만들었습니다.</span></div></li>
-          <li><time>2026.10.27</time><div><b>서비스 로고타입 17종을 전용서체로 새로 제작</b><span>B2B 대표·지수·펀드·B2B 계약상품군과 FnAPI 로고타입을 FnGuide Logotype으로 다시 만들었습니다.</span></div></li>
+          <li><time>2026.10.27</time><div><b>서비스 로고타입 17종을 전용서체로 새로 제작</b><span>B2B 대표·지수·펀드·B2B 계약상품과 FnAPI 로고타입을 FnGuide Logotype으로 다시 만들었습니다.</span></div></li>
           <li><time>2026.10.26</time><div><b>전용서체 FnGuide Logotype v1.100 공개</b><span>대문자끼리의 간격을 로고 밀도에 맞춰 조정했습니다.</span></div></li>
           <li><time>2025.06</time><div><b>FnGuide CI / BI 사용방안 · BI 컬러 가이드라인</b><span>사업별 컬러 체계와 FnRed 2025를 정했습니다.</span></div></li>
         </ul>
@@ -384,14 +392,14 @@
     </div>
 
 
-    <p class="ver-line">현재 버전 <span class="pill">v1.3</span> · 2026.10.29 · <a href="#font/update">업데이트 내역 보기 →</a></p>
+    <p class="ver-line">현재 버전 <span class="pill">v1.31</span> · 2026.10.29 · <a href="#font/update">업데이트 내역 보기 →</a></p>
 
     <div class="sec">
       <div class="sec-head"><h2>서체 사양</h2></div>
       <div class="table-wrap">
         <table>
           <tbody>
-            <tr><th>서체명</th><td>FnGuide Logotype Regular (v1.3)</td></tr>
+            <tr><th>서체명</th><td>FnGuide Logotype Regular (v1.31)</td></tr>
             <tr><th>수록 글자</th><td>114자 — 영문 대문자 26 · 소문자 26 · 숫자 10 · 특수문자(키보드 입력 문자 32종 + – ‘ ’ “ ”) · 금융 기호 5(₩ − ± × ·) · f 합자 10</td></tr>
             <tr><th>숫자</th><td>0–9. 표에서 숫자 자리를 맞추려면 '고정폭 숫자' 기능을 켜세요. <span style="color:var(--ink-3)">(웹 개발용: <code>font-variant-numeric: tabular-nums</code>)</span></td></tr>
             <tr><th>합자</th><td>fi fl ff ffi ffl fb fh fk ft fj — 입력하면 자동으로 이어진 글자로 바뀜</td></tr>
@@ -407,8 +415,8 @@
       <div class="cols c4">
         <div class="box"><span class="big-no">0.33%</span><h3>로고와 똑같이</h3><p>폰트로 입력한 "FnGuide"와 공식 로고의 글자 위치 차이가 최대 0.33%입니다.</p></div>
         <div class="box"><span class="big-no">11</span><h3>구조의 일관성</h3><p>기둥·가로획·세리프 등 11개 요소를 원본 기준값과 비교해 어긋난 글자를 보정했습니다.</p></div>
-        <div class="box"><span class="big-no">1,268</span><h3>고른 간격</h3><p>글자 가장자리의 흰 공간을 측정해 여백을 정하고, 1,268개 간격 보정 규칙을 넣었습니다(v1.3 기준).</p></div>
-        <div class="box"><span class="big-no">0</span><h3>충돌 없음</h3><p>가능한 글자 쌍 9,793개를 검사해 글자끼리 닿는 경우가 없음을 확인했습니다(v1.3 기준).</p></div>
+        <div class="box"><span class="big-no">1,787</span><h3>고른 간격</h3><p>글자 가장자리의 흰 공간을 측정해 여백을 정하고, 1,787개 간격 보정 규칙을 넣었습니다(v1.31 기준).</p></div>
+        <div class="box"><span class="big-no">0</span><h3>충돌 없음</h3><p>가능한 글자 쌍 10,808개를 검사해 글자끼리 닿는 경우가 없음을 확인했습니다(v1.31 기준).</p></div>
       </div>
     </div>
 
@@ -538,6 +546,17 @@
     </div>
 
     <div class="sec" style="margin-top:28px">
+      <div class="sec-head"><h2>v1.31 · 대문자–숫자 간격</h2><p>2026.10.29</p></div>
+      <p>v1.3까지는 대문자와 숫자 사이에 간격 보정이 없었습니다. 대문자끼리는 로고 리듬에 맞춰 조여 두었기 때문에, FY2025·Q4처럼 대문자 옆에 숫자가 오면 그 자리만 벌어져 보였습니다. 대문자와 숫자 사이 519쌍에 간격 보정을 넣어 고르게 맞췄습니다. 글자 모양은 바뀌지 않았고, 숫자가 없는 로고타입도 그대로입니다.</p>
+      <div class="cols c2" style="margin-top:16px">
+        <div class="box"><h3>기본: 중간 리듬</h3><p>대문자끼리(−55 조임)와 숫자끼리(조임 없음)의 중간으로, 대문자–숫자 쌍을 모두 25 조였습니다.</p></div>
+        <div class="box"><h3>모양에 따라 더 조임</h3><p>T4·7A·Y4·V4처럼 사이에 빈 공간이 큰 쌍은 기존 간격 계산 방식으로 더 조였습니다(최대 90). 해외 서체 12종 중 이 쌍들을 조이는 Inter와 같은 방향이며, 고친 쌍끼리 닿는 곳은 없습니다.</p></div>
+      </div>
+      <figure class="crit-fig fit" style="margin-top:16px"><div class="pic"><img src="out/font-critique/img/update/kern-uc-digit.svg" alt="대문자–숫자 간격" loading="lazy"></div><figcaption>같은 글자의 수정 전(위)과 수정 후(아래). 대문자와 숫자 사이가 대문자끼리처럼 고르게 붙습니다.</figcaption></figure>
+      <p class="ver-line" style="margin-top:8px">표에서 숫자 자리를 맞추는 고정폭 숫자 기능을 켜면 이 간격 보정은 적용되지 않습니다.</p>
+    </div>
+
+    <div class="sec" style="margin-top:28px">
       <div class="sec-head"><h2>v1.3 · 디자인 크리틱 반영</h2><p>2026.10.29 · 근거: <a href="#font/critique">1차 디자인 크리틱</a> · <a href="out/font-critique/FnGuide-Logotype-v1.200-proposal.html?v=1.3" target="_blank" rel="noopener">개선안 보고서 ↗</a></p></div>
       <div class="table-wrap">
         <table>
@@ -553,18 +572,18 @@
           </tbody>
         </table>
       </div>
-      <figure class="crit-fig"><img src="out/font-critique/img/39-site-before-after.png" alt="수정 전후 종합" loading="lazy"><figcaption>같은 문장의 수정 전(위)과 수정 후(아래). 수정 전에는 금융 기호가 없어 빈 네모로 나옵니다.</figcaption></figure>
+      <figure class="crit-fig fit"><div class="pic"><img src="out/font-critique/img/update/overview.svg" alt="수정 전후 종합" loading="lazy"></div><figcaption>같은 문장의 수정 전(위)과 수정 후(아래). 수정 전에는 금융 기호가 없어 빈 네모로 나옵니다.</figcaption></figure>
       <div class="alert">ⓘ 로고타입 17종을 v1.3으로 다시 만들었습니다. C·G·e·o·c 높이가 바뀐 글자가 들어간 로고는 아주 조금, l이 들어간 CompanyGlobal·ETF Global은 눈에 띄게 바뀝니다.</div>
 
       <h3 style="margin:32px 0 12px">글자 높이 맞춤</h3>
       <div class="cols c3">
-        <figure class="crit-fig"><img src="out/font-critique/img/33-fix-1-CG.png" alt="C·G 높이" loading="lazy"><figcaption>C·G 윗부분을 O 높이로 (빨간 부분이 올라간 곳)</figcaption></figure>
-        <figure class="crit-fig"><img src="out/font-critique/img/34-fix-2-vwxy.png" alt="v·w·x·y 높이" loading="lazy"><figcaption>v·w·x·y를 다른 소문자 높이로</figcaption></figure>
-        <figure class="crit-fig"><img src="out/font-critique/img/35-fix-3-oce.png" alt="o·c·e 넘침" loading="lazy"><figcaption>o·c·e 위쪽도 아래쪽만큼 넘치게</figcaption></figure>
+        <figure class="crit-fig fit"><div class="pic"><img src="out/font-critique/img/update/height-CG.svg" alt="C·G 높이" loading="lazy"></div><figcaption>C·G 윗부분을 O 높이로 (빨간 부분이 올라간 곳)</figcaption></figure>
+        <figure class="crit-fig fit"><div class="pic"><img src="out/font-critique/img/update/height-vwxy.svg" alt="v·w·x·y 높이" loading="lazy"></div><figcaption>v·w·x·y를 다른 소문자 높이로</figcaption></figure>
+        <figure class="crit-fig fit"><div class="pic"><img src="out/font-critique/img/update/height-oce.svg" alt="o·c·e 넘침" loading="lazy"></div><figcaption>o·c·e 위쪽도 아래쪽만큼 넘치게</figcaption></figure>
       </div>
 
       <h3 style="margin:32px 0 12px">ft · fj 합자</h3>
-      <figure class="crit-fig"><img src="out/font-critique/img/36-fix-4-ft-fj.png" alt="ft·fj 합자" loading="lazy"><figcaption>f 가로획이 t·j까지 이어져 soft·lift의 구멍이 사라집니다.</figcaption></figure>
+      <figure class="crit-fig fit"><div class="pic"><img src="out/font-critique/img/update/lig-ft-fj.svg" alt="ft·fj 합자" loading="lazy"></div><figcaption>f 가로획이 t·j까지 이어져 soft·lift의 구멍이 사라집니다.</figcaption></figure>
 
       <h3 style="margin:32px 0 12px">숫자 1 · 소문자 l 구분</h3>
       <p>v1.200에서는 대문자 I, 소문자 l, 숫자 1이 모두 깃발만 있는 막대라 "Il1"이 "111"처럼 읽혔습니다. 1에는 받침을, l에는 꼬리를 붙여 셋을 구분했습니다. 대문자 I는 그대로입니다. 두 글자 모두 새 모양을 만들지 않고 이 서체 안의 다른 글자에서 가져와, 서체 전체의 인상을 지켰습니다.</p>
@@ -572,14 +591,14 @@
         <div class="box"><h3>숫자 1 — F의 세리프로 만든 받침</h3><p>위 깃발은 그대로 두고, F의 왼쪽 위 세리프를 위아래로 뒤집어 기둥 양쪽에 같은 모양으로 붙였습니다. 받침 너비는 1에 받침이 있는 해외 서체(Verdana·Tahoma·Calibri·Cambria·Times·Palatino·Book Antiqua)의 비율에 맞춰 420으로 정했습니다. 해외 서체는 받침이 기둥 굵기의 약 2.7배, 숫자 0 너비의 약 0.8배입니다.</p></div>
         <div class="box"><h3>소문자 l — t의 꼬리로 만든 꼬리</h3><p>위 깃발은 그대로 두고, t의 아래 꼬리를 가져와 끝으로 갈수록 얇아지게 붙였습니다. 위 깃발이 기둥 왼쪽으로 88 나가므로, 꼬리도 기둥 오른쪽으로 비슷하게 나가야 위아래가 대각선으로 균형을 이룹니다. 끝이 얇아 실제보다 짧아 보이는 만큼 6을 더해 94로 정했습니다.</p></div>
       </div>
-      <figure class="crit-fig" style="margin-top:16px"><img src="out/font-critique/img/40-final-1.png" alt="숫자 1 받침" loading="lazy"><figcaption>숫자 1 — v1.200 / v1.3 / 참고한 F 왼쪽 위 세리프(점선) / 해외 서체의 1 받침</figcaption></figure>
-      <figure class="crit-fig" style="margin-top:16px"><img src="out/font-critique/img/41-final-l.png" alt="소문자 l 꼬리" loading="lazy"><figcaption>소문자 l — v1.200 / v1.3(깃발 88 · 꼬리 94) / 참고한 t 아래 꼬리(점선) / 문장 속</figcaption></figure>
+      <figure class="crit-fig fit" style="margin-top:16px"><div class="pic"><img src="out/font-critique/img/update/final-1.svg" alt="숫자 1 받침" loading="lazy"></div><figcaption>숫자 1 — v1.200 / v1.3 / 참고한 F 왼쪽 위 세리프(점선) / 해외 서체의 1 받침</figcaption></figure>
+      <figure class="crit-fig fit" style="margin-top:16px"><div class="pic"><img src="out/font-critique/img/update/final-l.svg" alt="소문자 l 꼬리" loading="lazy"></div><figcaption>소문자 l — v1.200 / v1.3(깃발 88 · 꼬리 94) / 참고한 t 아래 꼬리(점선) / 문장 속</figcaption></figure>
       <p class="ver-line" style="margin-top:8px">l이 들어간 CompanyGlobal·ETF Global 로고타입도 새 l로 다시 만들었습니다.</p>
 
       <h3 style="margin:32px 0 12px">고정폭 숫자 · 금융 기호</h3>
       <p>기본 숫자는 지금처럼 글자마다 폭이 다릅니다. 표에서는 고정폭 숫자 기능을 켜면 자리가 맞습니다. 웹은 <code>font-variant-numeric: tabular-nums</code> 한 줄로 켭니다.</p>
-      <figure class="crit-fig"><img src="out/font-critique/img/29-site-figures.png" alt="고정폭 숫자" loading="lazy"><figcaption>왼쪽: 기본 숫자 / 오른쪽: 고정폭 숫자 기능을 켠 표</figcaption></figure>
-        <figure class="crit-fig"><img src="out/font-critique/img/30-site-symbols.png" alt="금융 기호" loading="lazy"><figcaption>새로 넣은 금융 기호 − ± × ·</figcaption></figure>
+      <figure class="crit-fig fit"><div class="pic"><img src="out/font-critique/img/update/tabular.svg" alt="고정폭 숫자" loading="lazy"></div><figcaption>왼쪽: 기본 숫자 / 오른쪽: 고정폭 숫자 기능을 켠 표</figcaption></figure>
+      <figure class="crit-fig fit" style="margin-top:16px"><div class="pic"><img src="out/font-critique/img/update/symbols.svg" alt="금융 기호" loading="lazy"></div><figcaption>새로 넣은 금융 기호 − ± × ·</figcaption></figure>
     </div>
 
     <div class="sec">
@@ -588,6 +607,7 @@
         <table>
           <thead><tr><th>버전</th><th>단계</th><th>주요 내용</th></tr></thead>
           <tbody>
+            <tr><td><b>v1.31</b></td><td>대문자–숫자 간격</td><td>대문자와 숫자 사이 519쌍의 간격 보정 추가(대문자끼리와 숫자끼리의 중간 리듬, 빈 공간이 큰 T4·7A·Y4 등은 더 조임). 글자 모양은 v1.3과 같음</td></tr>
             <tr><td><b>v1.3</b></td><td>디자인 크리틱 반영</td><td>C·G·v·w·x·y·o·c·e 높이 정렬, ft·fj 합자 추가, 숫자 1 받침·소문자 l 꼬리, 금융 기호 − ± × · 추가, 고정폭 숫자 선택 기능, 파일 설정 보정</td></tr>
             <tr><td><b>v1.200</b></td><td>글자 디자인 수정</td><td>f m M s S y r 새 디자인 반영, f 합자 8종을 새 f에 맞춰 다시 제작, I·f·m·r 기둥을 4% 가늘게 보정</td></tr>
             <tr><td><b>v1.100</b></td><td>대문자 리듬</td><td>B2C API 로고를 참고해 대문자끼리의 간격을 로고 밀도에 맞춤</td></tr>
@@ -667,8 +687,8 @@
 </main>
 <div class="toast" id="toast"></div>
 
-<script src="out/brand-site/logos.js?v=1.3b"></script>
-<script src="out/brand-site/font-data.js?v=1.3b"></script>
+<script src="out/brand-site/logos.js?v=1.31"></script>
+<script src="out/brand-site/font-data.js?v=1.31"></script>
 <script>
 (() => {
   const { groups, logos, archive } = window.BRAND;
@@ -680,18 +700,18 @@
 
   // 그룹 정보 — 출처: 서체 문서 4장, BI 컬러 가이드라인(2025.06), CI/BI 사용방안
   const INFO = {
-    b2b: { menu: "B2B 대표상품", title: "B2B 대표상품군", mood: "열정, 자신감, 역동성, 현대적", ratio: 6.69,
+    b2b: { menu: "B2B 대표상품", title: "B2B 대표상품", h1: 'B2B <span class="ko">대표상품</span>', mood: "열정, 자신감, 역동성, 현대적", ratio: 6.69,
       desc: "대표 주력 상품으로 FnRed 2025 컬러를 단독으로 사용합니다.", extra: "Flagship 브랜드" },
-    index: { menu: "지수 상품", title: "지수", mood: "성장, 투명성, 중립성", ratio: 2.49,
+    index: { menu: "지수 상품", title: "지수", h1: 'Index <span class="ko">상품</span>', mood: "성장, 투명성, 중립성", ratio: 2.49,
       desc: "FnIndex·WiseIndex·CryptoGuide 같은 지수 서비스 그룹입니다. Index 컬러를 함께 씁니다.", extra: "지수 산출의 중립성과 투명한 처리과정",
       darkBg: true },
-    fund: { menu: "펀드 상품", title: "펀드", mood: "신뢰, 정확성, 전문성", ratio: 12.17,
+    fund: { menu: "펀드 상품", title: "펀드", h1: 'Fund <span class="ko">상품</span>', mood: "신뢰, 정확성, 전문성", ratio: 12.17,
       desc: "FundGuide·FnSpectrum 같은 펀드·평가 서비스 그룹입니다. Fund 컬러를 함께 씁니다." },
-    contract: { menu: "B2B 계약상품", title: "B2B 계약상품군", mood: "고객사 맞춤형 서비스", ratio: 16.45,
+    contract: { menu: "B2B 계약상품", title: "B2B 계약상품", h1: 'B2B <span class="ko">계약상품</span>', mood: "고객사 맞춤형 서비스", ratio: 16.45,
       desc: "고객사에 맞춰 제공하는 계약형 서비스 그룹입니다(고객사 전용 화면·웹 서비스). Contract 컬러를 함께 씁니다." },
-    b2c: { menu: "B2C 독립 체계", title: "B2C 독립 체계", mood: "사용자 친화적, 서비스별 독립 컬러",
+    b2c: { menu: "B2C 독립 체계", title: "B2C 독립 체계", h1: 'B2C <span class="ko">독립 체계</span>', mood: "사용자 친화적, 서비스별 독립 컬러",
       desc: "개인 고객에게 특화된 서비스로, 사용자 트렌드에 맞게 독립적인 컬러를 사용합니다. 폰트도 서비스 성격에 맞게 사용합니다." },
-    ci: { menu: "회사 CI", title: "회사 CI", mood: "고급스러움, 신뢰, 무게감, 헤리티지", ratio: 8.16,
+    ci: { menu: "FnGuide CI", title: "FnGuide CI", h1: "FnGuide <em>CI</em>", mood: "고급스러움, 신뢰, 무게감, 헤리티지", ratio: 8.16,
       desc: "FnGuide의 CI는 금융시장을 바라보는 새로운 창이라는 컨셉으로 디자인하였습니다." },
   };
   const ORDER = ["b2b", "contract", "fund", "index", "b2c", "ci"];
@@ -912,7 +932,7 @@
   const big = (svg, l) => sized(svg, l.w * STAGE_SCALE * fit(l), l.h * STAGE_SCALE * fit(l));
   // 서비스 웹사이트 링크 (있는 로고만, 서비스명 아래)
   const site = l => l.url ? `<a class="note" href="${l.url}" target="_blank" rel="noopener">서비스 바로가기 ↗</a>` : "";
-  // B2B 계약상품군과 FnSpectrum은 로고가 바뀔 예정이라 이름 옆에 안내
+  // B2B 계약상품과 FnSpectrum은 로고가 바뀔 예정이라 이름 옆에 안내
   const pending = l => l.group === "contract" || l.id === "fnspectrum" ? '<small class="pending">(로고 변경 예정 · 바뀌기 전까지 지금 파일 사용)</small>' : "";
   function logoRow(l, info) {
     if (!l.white) return `<div class="logo-row">
@@ -933,7 +953,7 @@
     const color = id === "b2c" ? "리타민 주 #1C1C3A · 보조 #26C0D2 · API #2457C5" : `${g.colorName} ${g.color}`;
     let html = `<div class="group-hero"><div>
         <div class="eyebrow">Logotype · ${i.menu}</div>
-        <h1>${i.title}</h1>
+        <h1${i.h1 ? ' class="brand-h1"' : ""}>${i.h1 || i.title}</h1>
         <p class="lead" style="margin:0">${i.desc}</p>
         <div class="facts"><span><b>컬러</b>${color}</span><span><b>성격</b>${i.mood}</span>${i.extra ? `<span><b>의미</b>${i.extra}</span>` : ""}${i.ratio ? `<span><b>흰 배경 대비</b>${i.ratio} — ${i.ratio >= 4.5 ? "작은 글자도 잘 보임(4.5 이상)" : "큰 글자·그래픽용(4.5 미만)"}</span>` : ""}</div>
       </div></div>`;
@@ -1027,10 +1047,10 @@
   // 사용 규칙 — 배경 조합
   const bgRows = [
     ["회사 CI", "#94243A", "FnWine", "8.16", true, "흰 배경 / FnWine·FnDarkGray 배경에 흰색 버전"],
-    ["B2B 대표상품군 · 개선 로고", "#B9023D", "FnRed 2025", "6.69", true, "흰 배경 / FnRed 배경에 흰색 버전"],
+    ["B2B 대표상품 · 개선 로고", "#B9023D", "FnRed 2025", "6.69", true, "흰 배경 / FnRed 배경에 흰색 버전"],
     ["지수", "#45B792", "Index", "2.49", false, "어두운 배경(#1C1C3A)과 조합"],
     ["펀드", "#0C3178", "Fund", "12.17", true, "흰 배경 / Fund 배경에 흰색 버전"],
-    ["B2B 계약상품군", "#1C1C3A", "Contract", "16.45", true, "흰 배경 / 어두운 배경에 흰색 버전"],
+    ["B2B 계약상품", "#1C1C3A", "Contract", "16.45", true, "흰 배경 / 어두운 배경에 흰색 버전"],
   ];
   $("#bgRows").innerHTML = bgRows.map(([n, c, cn, r, ok, rec]) => `<tr><td><b>${n}</b></td>
     <td><span style="display:inline-flex;align-items:center;gap:10px"><span class="sample" style="background:${c}">Fn</span><span><b>${cn}</b><br><span class="code">${c}</span></span></span></td>

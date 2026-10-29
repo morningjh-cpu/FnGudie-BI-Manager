@@ -15,10 +15,10 @@ OUT = ROOT / "out" / "brand-site"
 # 그룹: 피그마 「FnGuide Brand Color」 페이지 / 색상: 서체 문서 4장 표
 GROUPS = [
     {"id": "ci", "name": "회사 CI", "color": "#94243A", "colorName": "FnWine"},
-    {"id": "b2b", "name": "B2B 대표상품군", "color": "#B9023D", "colorName": "FnRed"},
+    {"id": "b2b", "name": "B2B 대표상품", "color": "#B9023D", "colorName": "FnRed"},
     {"id": "index", "name": "지수", "color": "#45B792", "colorName": "Index"},
     {"id": "fund", "name": "펀드", "color": "#0C3178", "colorName": "Fund"},
-    {"id": "contract", "name": "B2B 계약상품군", "color": "#1C1C3A", "colorName": "Contract"},
+    {"id": "contract", "name": "B2B 계약상품", "color": "#1C1C3A", "colorName": "Contract"},
     {"id": "b2c", "name": "B2C 독립 체계", "color": "#2457C5", "colorName": "API · 리타민"},
 ]
 

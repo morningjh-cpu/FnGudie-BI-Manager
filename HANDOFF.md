@@ -14,9 +14,11 @@
   - 브랜드 로고타입 소개(하위: B2B 대표/지수/펀드/B2B 계약/B2C/회사 CI — 흰 배경+컬러 배경 흰색 판, 웹사이트 링크(서비스 이력 메모는 삭제), CI 화면에 로고타입 개선·이전 CI 2종 전시용)
   - 로고타입 다운로드(로고 컬러·흰색 SVG/PNG. 서체 파일은 전용서체 소개에만), 사용 규칙(원칙·배경 조합·협력사·매뉴얼 빈칸)
 - **사이트 콘텐츠 크리틱 완료(2026-10-29)**: 브랜드 전략가·카피라이터·UX 콘텐츠 3인, 수정 필요 6·개선 권장 18·유지 6, 문장 수정안(지금→수정안). 보고서 out/content-critique/brand-site-content-critique.html, 기록 plan/phase-1/15. 결정 필요 없는 수정안 45곳 반영 완료(plan/phase-1/15 반영 단락). 품질 수치 v1.3 으로 다시 잼(1,268 규칙·9,793쌍 충돌 0), 그 과정에서 CV·CW·CY 닿음 발견 → 서체 커닝 고침(plan/phase-1/14). 폰트 업데이트 화면은 ₩ 숨김·받기 항목 삭제. 결정 완료(2026-10-29): 헤더 안내문 유지(이후 사용자 요청으로 삭제), 연락처 넣지 않음, 한글 지정 서체 없음(규칙 04 문장 삭제), 메뉴 이름·기대 효과는 제외(현행 유지), 사양의 ₩ 유지
+- **전용서체 v1.31 완성·사이트 반영(2026-10-29)**: v1.3 + 대문자–숫자 커닝 519쌍(공통 −25 + 모양 보정, 해외 서체 중 Inter 만 같은 쌍을 조임). 서체 out/font-update/v1.31/fonts, 압축 out/FnGuideLogotype-v1.31.zip(v1.3 zip 은 font-backup), 만들기 py scripts/build_v13.py --v131, 값 계산 scripts/font_critique/kern_ucdigit.py. 규칙 1,787·충돌 검사 10,808쌍 0. 로고는 숫자가 없어 그대로. 불러오기 ?v=1.31. 기록 plan/phase-1/16
+- 사이트 이름 정리(2026-10-29): 홈 카드 Brand Logotype, 회사 CI → FnGuide CI, 로고타입 페이지 제목 전용서체(영문 60px + 한글 34px #778288), 상품군 → 상품, 다운로드 표 줄 높이 70px, 폰트 업데이트 그림은 같은 배율 SVG(scripts/font_critique/update_figs.py)
 - **전용서체 v1.3 완성·사이트 반영(2026-10-29)**: 크리틱 수정 필요 5건 + ⑥ 1 받침·l 꼬리 + ⑨ 금융 기호 5개·고정폭 숫자(tnum). 서체 out/font-update/v1.3/fonts, 압축 out/FnGuideLogotype-v1.3.zip(옛 v1.200 zip 은 out/font-backup/), 만드는 도구 py scripts/build_v13.py(v1.200 서체 + 개선안 윤곽, --control 로 v1.200 그대로 다시 만들어 비교 가능). 로고타입 17종도 v1.3 으로 다시 만듦(사용자 결정). 기록 plan/phase-1/14. 디자이너 확인은 아직
 - (이전) 사이트 v1.200 반영 기록: plan/phase-1/09. 옛 v1.100 서체·로고는 _trash/
-- 로고 만들기: py scripts/build_logotypes.py (fonttools·uharfbuzz 설치됨). 서체는 최신 out/font-update/v1.3/fonts 를 씀(v1.200·조정 전 서체는 out/font-update/v1.200, logo-font). 불러오기 번호 ?v=1.3
+- 로고 만들기: py scripts/build_logotypes.py (fonttools·uharfbuzz 설치됨). 서체는 최신 out/font-update/v1.31/fonts 를 씀(v1.200·조정 전 서체는 out/font-update/v1.200, logo-font). 불러오기 번호 ?v=1.3
   - 펀드에 FnSpectrum·FnARES 추가(2026-10-27). 서비스 웹사이트 링크는 스크립트의 SERVICE_URL(서비스 18종 입력됨. FnARES 는 개발 서버(devares) 주소. 없는 것: MarketMonitor·FnAPI·회사 CI)
   - 서비스 17종 전용서체 조판 / 회사 CI 공식 원본 / 리타민 피그마 원래 로고 / 흰색 판 logos/white / 이전 CI는 data/figma-logo-parts 조각으로 합침
   - 미리보기용 글자 정보만 다시 만들 땐 py scripts/build_logotypes.py --font-data (사이트 fonts/ 의 OTF 를 읽음)
@@ -39,7 +41,7 @@
 - 전용서체 v1.200 완성(새 글자 f m M s S y r 반영 + I 기둥 -4% 시안 A 반영 + f 이어 쓰기 8종 다시 만듦): out/font-update/v1.200/ (fonts, preview, 만든 과정). 기록: plan/phase-1/07
 - r 까지 사이트 반영 완료(plan/phase-1/09 추가분). 불러오기 주소 ?v=1.200r
 - f·m·r 기둥 0.15(≈4%) 가늘게 조정 완료(plan/phase-1/08 추가분). 사이트 다운로드 파일·업데이트 글·규칙 수(1,203)·로고타입 모두 반영(plan/phase-1/09·10)
-- 공유 문서(전용서체 결과 공유) = out/FnGuide-Logotype-share.md · .html (v1.3). 서체·사이트가 바뀌면 이 문서도 함께 갱신(사용자 요청). data/ 의 v1.0 copy.md 는 받은 원본 그대로
+- 공유 문서(전용서체 결과 공유) = out/FnGuide-Logotype-share.md · .html (v1.31). 서체·사이트가 바뀌면 이 문서도 함께 갱신(사용자 요청). data/ 의 v1.0 copy.md 는 받은 원본 그대로
 - 결정 대기 4건 정리 완료(plan/phase-1/10): 로고타입 조정본으로 다시 만듦, data/FnGuide-Logotype-Font 의 fonts·spacing 을 v1.200 으로 교체(source-svg 는 8_v1.200/ 추가; README·proof·preview·build 는 아직 v1.100 기준으로 섞여 있음; 옛 파일 _trash/data-font-v1.100/)
 - 남은 것: f 이어 쓰기 8종 확인 — 사용자가 2026-10-28 회사에서 직접 확인·정리 예정(보낼 글 out/font-update/f-이어쓰기-디자이너확인요청.md, 그림·파일 링크 포함)
 - 서체를 또 고치면(v1.3 부터): scripts/build_v13.py 처럼 앞 버전 서체를 읽어 바꿀 글자만 바꿔 새 버전 폴더에 만들기 → zip·옛 zip 은 font-backup → out/brand-site/fonts 복사 → py scripts/build_logotypes.py(또는 --font-data) → index.html 의 ?v= 숫자 올리기(서체·logos.js·font-data.js)

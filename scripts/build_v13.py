@@ -4,6 +4,7 @@ v1.200 서체(out/font-update/v1.200/fonts)의 글자·여백·커닝을 그대�
   ⑤ Windows 위쪽 높이 870, Regular 표시  ⑥ 1 받침·l 꼬리  ⑨ 금융 기호 5개 + 고정폭 숫자 선택 기능(tnum)
 글자 모양은 scripts/font_critique/after.py·symbols.py 에서 가져온다(보고서 그림과 같은 윤곽).
 실행: py scripts/build_v13.py  [--control : 아무것도 안 바꾸고 다시 만들어 v1.200 과 같은지 확인]
+      py scripts/build_v13.py --v131 : v1.3 + 대문자–숫자 커닝(out/font-update/work/kern_uc_digit.json, font_critique/kern_ucdigit.py 가 계산)
 """
 import os, sys, re
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "font_critique"))
@@ -22,8 +23,9 @@ ROOT = os.path.join(os.path.dirname(__file__), "..")
 SRC = os.path.join(ROOT, "out/font-update/v1.200/fonts/FnGuideLogotype-Regular.otf")
 FEA = os.path.join(ROOT, "out/font-update/work/kerning.fea")
 CONTROL = "--control" in sys.argv
-VERSION = "1.200" if CONTROL else "1.3"
-OUTDIR = os.path.join(ROOT, "out/font-update", "control" if CONTROL else "v1.3", "fonts")
+V131 = "--v131" in sys.argv
+VERSION = "1.200" if CONTROL else ("1.31" if V131 else "1.3")
+OUTDIR = os.path.join(ROOT, "out/font-update", "control" if CONTROL else "v" + VERSION, "fonts")
 FAMILY, STYLE, PS = "FnGuide Logotype", "Regular", "FnGuideLogotype-Regular"
 
 src = TTFont(SRC)
@@ -136,6 +138,11 @@ if not CONTROL:
     fea = re.sub(r"(@R_symbols = \[[^\]]*)\]", r"\1 minus plusminus multiply]", fea, count=1)
     fea = re.sub(r"(@L_symbols = \[[^\]]*)\]", r"\1 minus plusminus multiply]", fea, count=1)
     i = fea.rindex("} kern;")
+    if V131:   # v1.31: 대문자–숫자 쌍 (기존 규칙에 없던 쌍. 고정폭 숫자 .tf 는 다른 글자라 적용되지 않음)
+        import json
+        KUD = json.load(open(os.path.join(ROOT, "out/font-update/work/kern_uc_digit.json"), encoding="utf-8"))
+        assert not any(re.search(r"\n\s*pos " + k + " ", fea) for k in KUD)
+        extra += ["    # v1.31: 대문자–숫자"] + [f"    pos {k} {v};" for k, v in KUD.items()]
     fea = fea[:i] + "\n    # v1.3: 이어 쓰기 글자 f_t f_j\n" + "\n".join(extra) + "\n" + fea[i:]
     fea = fea.replace("    sub f i by f_i;", "    sub f i by f_i;\n    sub f t by f_t;\n    sub f j by f_j;")
     digits = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "plus", "minus", "plusminus"]

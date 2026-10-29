@@ -26,7 +26,7 @@ from fontTools.ttLib import TTFont
 ROOT = Path(__file__).resolve().parent.parent
 FONT_DIR = ROOT / "data" / "FnGuide-Logotype-Font"
 # 로고타입은 최신 서체 v1.3 으로 만든다 (v1.200: out/font-update/v1.200, 기둥 조정 전 서체: out/font-update/logo-font)
-FONT = ROOT / "out" / "font-update" / "v1.3" / "fonts" / "FnGuideLogotype-Regular.otf"
+FONT = ROOT / "out" / "font-update" / "v1.31" / "fonts" / "FnGuideLogotype-Regular.otf"
 CI_SVG = FONT_DIR / "source-svg" / "0_logo" / "FnGuide.svg"
 FIGMA = ROOT / "data" / "figma-logo-parts"
 RETAMIN_SVG = FIGMA / "retamin.svg"
@@ -38,10 +38,10 @@ HEIGHT_PX = 40  # 대문자 높이 700 단위가 28px 정도로 보이는 크기
 # 그룹·색상: 서체 문서 4장 표. 회사 CI 주색상 FnWine #94243A (홈페이지 표의 #962E45는 잘못된 값, 사용자 확인). 개선 로고 FnRed와 구분해 FnWine으로 부름
 GROUPS = [
     {"id": "ci", "name": "회사 CI", "color": "#94243A", "colorName": "FnWine"},
-    {"id": "b2b", "name": "B2B 대표상품군", "color": "#B9023D", "colorName": "FnRed"},
+    {"id": "b2b", "name": "B2B 대표상품", "color": "#B9023D", "colorName": "FnRed"},
     {"id": "index", "name": "지수", "color": "#45B792", "colorName": "Index"},
     {"id": "fund", "name": "펀드", "color": "#0C3178", "colorName": "Fund"},
-    {"id": "contract", "name": "B2B 계약상품군", "color": "#1C1C3A", "colorName": "Contract"},
+    {"id": "contract", "name": "B2B 계약상품", "color": "#1C1C3A", "colorName": "Contract"},
     {"id": "b2c", "name": "B2C 독립 체계", "color": "#2457C5", "colorName": "API · 리타민"},
 ]
 COLOR = {g["id"]: g["color"] for g in GROUPS}
