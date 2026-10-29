@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>전용서체 개선 전후</title>
+<style>
+  @font-face { font-family: "FnGuide Logotype"; src: url("../font-update/v1.200/fonts/FnGuideLogotype-Regular.woff") format("woff"); }
+  :root {
+    --bg: #ffffff; --soft: #f5f6f7; --line: #e3e5e8; --ink: #17181a; --ink-2: #4a4f55; --ink-3: #80868d;
+    --red: #B9023D; --must: #B9023D; --rec: #c77700; --keep: #2f7d4f;
+    --text: "Pretendard", "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--text); line-height: 1.7; font-size: 15.5px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 56px 24px 96px; }
+  header .kicker { color: var(--red); font-weight: 700; letter-spacing: .04em; font-size: 13px; }
+  header h1 { font-family: "FnGuide Logotype", var(--text); font-weight: 400; font-size: 46px; line-height: 1.15; margin: 8px 0 6px; }
+  header h1 small { display: block; font-family: var(--text); font-size: 22px; font-weight: 700; margin-top: 8px; }
+  header .meta { color: var(--ink-3); font-size: 13.5px; }
+  h2 { font-size: 22px; margin: 64px 0 16px; padding-top: 20px; border-top: 2px solid var(--ink); }
+  h3 { font-size: 17px; margin: 28px 0 8px; }
+  p { margin: 8px 0; }
+  .note { background: var(--soft); border-radius: 10px; padding: 14px 18px; color: var(--ink-2); font-size: 14px; }
+  .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+  .stat { border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; }
+  .stat b { font-size: 30px; display: block; line-height: 1.2; }
+  .stat.must b { color: var(--must); } .stat.rec b { color: var(--rec); } .stat.keep b { color: var(--keep); }
+  .stat span { color: var(--ink-2); font-size: 14px; }
+  .badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 99px; color: #fff; vertical-align: 2px; white-space: nowrap; }
+  .badge.must { background: var(--must); } .badge.rec { background: var(--rec); } .badge.keep { background: var(--keep); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 12px 0; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--soft); font-weight: 700; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.hl { color: var(--red); font-weight: 700; }
+  .experts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .expert { border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; }
+  .expert h4 { margin: 0 0 6px; font-size: 15px; }
+  .expert p { font-size: 14px; color: var(--ink-2); }
+  .issue { border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; margin: 18px 0; }
+  .issue h3 { margin-top: 0; }
+  .voice { margin: 10px 0; padding-left: 14px; border-left: 3px solid var(--line); font-size: 14.5px; }
+  .voice b { color: var(--ink); }
+  .agree { margin-top: 12px; padding: 10px 14px; background: var(--soft); border-radius: 8px; font-size: 14.5px; }
+  figure { margin: 14px 0; }
+  figure img { width: 100%; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+  figcaption { color: var(--ink-3); font-size: 13px; margin-top: 4px; }
+  ol.final li { margin: 6px 0; }
+  .toc { columns: 2; font-size: 14px; padding-left: 18px; }
+  a { color: var(--red); }
+  @media (max-width: 760px) {
+    .summary, .experts { grid-template-columns: 1fr; }
+    header h1 { font-size: 34px; }
+    .toc { columns: 1; }
+    table { display: block; overflow-x: auto; }
+    .wrap { padding: 36px 16px 72px; }
+  }
+  .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 14px 0; }
+  .opt { border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; }
+  .opt-head { display: flex; align-items: center; gap: 10px; }
+  .opt-head h4 { margin: 0; font-size: 16px; }
+  .opt .ref { color: var(--ink-3); font-size: 13px; margin: 4px 0 8px; }
+  .opt p { font-size: 14.5px; }
+  .pc { margin-top: 10px; font-size: 14px; }
+  .pc ul { margin: 4px 0 0; padding-left: 18px; }
+  .pro { color: var(--keep); } .con { color: var(--must); }
+  .opt .var { margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--line); color: var(--ink-2); font-size: 13.5px; }
+  .sub { color: var(--ink-3); font-size: 12.5px; }
+  code { background: var(--soft); padding: 1px 6px; border-radius: 4px; font-size: 13px; }
+  @media (max-width: 760px) { .opts { grid-template-columns: 1fr; } }
+  .ba { display: grid; grid-template-columns: 110px 1fr 1fr; gap: 0; }
+  .chg td:first-child { white-space: nowrap; font-weight: 700; }
+  td.before { color: var(--ink-2); } td.after { color: var(--red); font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">BEFORE · AFTER · 2026-10-29</div>
+  <h1>FnGuide Logotype v1.200<small>크리틱 개선안 보고서 — 수정 전과 수정 후</small></h1>
+  <div class="meta">근거: <a href="FnGuide-Logotype-v1.200-critique.html">1차 디자인 크리틱 보고서</a> · 대상: out/font-update/v1.200 · 반영하기로 정한 항목만 실었습니다.</div>
+</header>
+
+<p class="note" style="margin-top:24px">"수정 후"는 서체 파일을 고치지 않고 그림 위에서만 글자 윤곽을 바꿔 그린 시안입니다. 실제 서체에 넣기 전에 디자이너가 곡선과 획 굵기를 다듬어야 합니다. 서체가 사내 전용이므로 이 문서는 내부에서만 봐 주세요.</p>
+
+<h2>1. 한눈에 보기</h2>
+<table class="chg">
+  <tr><th style="width:150px">항목</th><th>수정 전</th><th>수정 후</th></tr>
+  <tr><td>① C·G 높이</td><td class="before">윗부분 688 (O 711보다 23 낮음)</td><td class="after">711 — O와 같게</td></tr>
+  <tr><td>② v·w·x·y 높이</td><td class="before">v·w 485, x 484, y 491</td><td class="after">500 — n과 같게</td></tr>
+  <tr><td>③ o·c·e 위쪽 넘침</td><td class="before">0 (위 498)</td><td class="after">+12 (위 512) — 아래 −12와 같게</td></tr>
+  <tr><td>④ f 다음 간격</td><td class="before">ft +43, fj +71, ty +29, rv +29 벌림</td><td class="after">ft·fj 이어 쓰기 글자, ty·rv 0</td></tr>
+  <tr><td>⑤ 파일 설정</td><td class="before">Windows 위쪽 높이 850, Regular 표시 없음</td><td class="after">870, Regular 표시</td></tr>
+  <tr><td>⑥ 1·I·l 구분</td><td class="before">1·l 모두 깃발만 있는 막대</td><td class="after">1에 받침, l에 꼬리</td></tr>
+  <tr><td>⑨ 숫자·기호</td><td class="before">비례 숫자만, 금융 기호 없음</td><td class="after">고정폭 숫자 선택 기능, ₩ − ± × · 추가</td></tr>
+</table>
+<figure><img src="img/39-before-after.png" alt="수정 전후 종합"><figcaption>그림 39 · 같은 문장의 수정 전과 수정 후. 수정 전에는 금융 기호가 서체에 없어 빈 네모로 나옵니다.</figcaption></figure>
+
+<h2>2. 수정 필요 ①~⑤</h2>
+
+<h3>① C·G 윗부분을 O 높이로</h3>
+<p>둥근 대문자 O는 윗부분이 711인데, 같은 둥근 글자인 C·G는 688이라 네모 글자 H(700)보다도 낮았습니다. 윗부분만 23 올려 O와 맞췄습니다. 맨 위 곡선은 통째로 올려 획 굵기는 그대로입니다.</p>
+<figure><img src="img/33-fix-1-CG.png" alt="C·G 높이"><figcaption>그림 33 · 수정 후 줄의 빨간 부분이 올라간 곳입니다.</figcaption></figure>
+
+<h3>② v·w·x·y를 소문자 높이로</h3>
+<p>v·w는 485, x는 484, y는 491로 다른 소문자(n 500)보다 낮았습니다. 모두 500으로 올렸습니다. y의 아래 꼬리는 그대로입니다.</p>
+<figure><img src="img/34-fix-2-vwxy.png" alt="v·w·x·y 높이"><figcaption>그림 34 · 수정 후 줄의 빨간 부분이 올라간 곳입니다.</figcaption></figure>
+
+<h3>③ o·c·e 위쪽 넘침</h3>
+<p>둥근 소문자는 아래로만 12 넘치고 위쪽은 넘치지 않아(위 498) 네모 글자보다 작아 보였습니다. 위쪽도 512까지 넘치게 해 아래와 같은 만큼 맞췄습니다.</p>
+<figure><img src="img/35-fix-3-oce.png" alt="o·c·e 넘침"><figcaption>그림 35 · 수정 후 줄의 빨간 부분이 늘어난 곳입니다.</figcaption></figure>
+
+<h3>④ f 다음 간격 — 이어 쓰기 글자와 간격 보정</h3>
+<ul>
+  <li><b>ft</b>: f 가로획을 t 가로획까지 이어 한 글자로 만들었습니다. t 가로획 높이를 f 가로획(435~491)에 맞췄고, t 머리는 f 머리 끝과 25 띄웠습니다.</li>
+  <li><b>fj</b>: 기존 fi처럼 j의 점과 왼쪽 깃발을 빼고, j 기둥을 f 가로획 끝에 붙였습니다.</li>
+  <li><b>ty·rv</b>: 간격을 오히려 벌리던 +29 보정을 0으로 바꿨습니다.</li>
+</ul>
+<figure><img src="img/36-fix-4-ft-fj.png" alt="ft·fj 이어 쓰기"><figcaption>그림 36 · soft·lift의 f와 t 사이 구멍이 사라지고, fjord의 f와 j가 붙습니다.</figcaption></figure>
+
+<h3>⑤ 파일 설정</h3>
+<p>그림에는 보이지 않는 서체 파일 안의 값입니다.</p>
+<table>
+  <tr><th>항목</th><th>수정 전</th><th>수정 후</th><th>이유</th></tr>
+  <tr><td>Windows용 위쪽 높이 값</td><td class="before">850</td><td class="after">870</td><td>가장 큰 글자 '|'가 863이라, 850이면 Windows에서 위끝이 잘릴 수 있습니다.</td></tr>
+  <tr><td>Regular 표시 값</td><td class="before">비어 있음</td><td class="after">Regular</td><td>일부 프로그램의 굵기 목록에서 생기는 오류를 막습니다.</td></tr>
+</table>
+
+<h2>3. ⑥ 숫자 1 · 대문자 I · 소문자 l 구분</h2>
+<p>수정 전에는 I, l, 1이 모두 깃발만 있는 막대라 "Il1"이 "111"처럼 읽혔습니다. 1에는 받침을, l에는 꼬리를 붙여 셋이 모두 구분됩니다. I는 그대로입니다.</p>
+<ul>
+  <li><b>숫자 1</b>: 위 깃발은 그대로 두고, 이 서체 F의 왼쪽 위 세리프를 위아래로 뒤집어 기둥 양쪽에 대칭으로 붙였습니다. 받침 너비는 1에 받침이 있는 해외 서체(Verdana·Tahoma·Calibri·Cambria·Times·Palatino·Book Antiqua)의 비율에 맞춰 420입니다. 글자 폭 376 → 474.</li>
+  <li><b>소문자 l</b>: 위 깃발은 그대로 두고, 이 서체 t의 아래 꼬리를 가져와 끝이 얇아지게 붙였습니다. 꼬리는 기둥 오른쪽 밖으로 94 나갑니다. 위 깃발이 왼쪽으로 88 나가는 것과 대각선으로 균형을 맞추고, 끝이 얇아 짧아 보이는 만큼 6을 더했습니다. 글자 폭 260 → 328.</li>
+  <li><b>로고 영향</b>: 로고타입 27종에 숫자 1은 없습니다. l이 들어간 CompanyGlobal, ETF Global 2종은 모양이 바뀝니다.</li>
+</ul>
+<figure><img src="img/37-fix-6-zoom.png" alt="Il1 크게"><figcaption>그림 37 · Il1 크게</figcaption></figure>
+<figure><img src="img/38-fix-6-text.png" alt="Il1 문장 속"><figcaption>그림 38 · 문장 속 모습</figcaption></figure>
+
+<h2>4. ⑨ 고정폭 숫자 · 금융 기호</h2>
+<h3>숫자</h3>
+<p>기본 숫자는 지금처럼 글자마다 폭이 다른 비례 숫자로 둡니다. 표에서만 고정폭 숫자를 선택 기능으로 켭니다. 웹은 <code>font-variant-numeric: tabular-nums</code> 한 줄로 켭니다. 기능을 켜면 숫자 0~9와 + − ±가 모두 같은 폭(600)이 되어 자리가 맞습니다.</p>
+<figure><img src="img/29-draft-figures-B.png" alt="비례 숫자와 고정폭 숫자"><figcaption>그림 29 · 왼쪽: 기본(비례 숫자) / 오른쪽: 선택 기능을 켠 고정폭 숫자. 새 1과 새 기호가 들어 있습니다.</figcaption></figure>
+
+<h3>금융 기호 5개 추가</h3>
+<table>
+  <tr><th style="width:110px">기호</th><th>모양</th></tr>
+  <tr><td>₩ 원화</td><td>W 가운데에 가로획 한 줄 (Pretendard 방식). 가로획 굵기는 이 서체 대문자 가로획과 같은 65. 사선 밖으로 왼쪽 184, 오른쪽 150 나감</td></tr>
+  <tr><td>− 빼기</td><td>+ 너비의 0.98배(536). 해외 서체 5종의 비율(0.97~1.00) 가운데값. 굵기·높이는 + 가로획과 같음. 붙임표(-)보다 길어 날짜와 구분됨</td></tr>
+  <tr><td>± 플러스마이너스</td><td>+ 를 조금 올리고 아래에 같은 두께의 가로줄</td></tr>
+  <tr><td>× 곱하기</td><td>+ 크기의 약 0.95배(492 네모). 획 굵기는 + 가로획(81)과 세로획(108) 사이인 94</td></tr>
+  <tr><td>· 가운뎃점</td><td>마침표를 + 가운데 높이로 올림</td></tr>
+</table>
+<figure><img src="img/30-draft-symbols.png" alt="금융 기호"><figcaption>그림 30 · 금융 기호 시안. 맨 위 줄의 +는 기준이 되는 지금 서체 글자이고, 가운데 줄은 참고한 Pretendard입니다.</figcaption></figure>
+
+<h2>5. 방법과 한계</h2>
+<ul>
+  <li>"수정 후"는 비교용 시안입니다. 높이 수정은 글자의 윗부분만 부드럽게 끌어올린 것이라, 곡선의 흐름은 디자이너가 다시 다듬어야 합니다.</li>
+  <li>ft·fj 이어 쓰기 글자, 1 받침, l 꼬리, 새 기호는 기존 글자의 윤곽과 수치를 가져와 만들었습니다. 실제 서체에 넣을 때 디자이너 확인이 필요합니다.</li>
+  <li>해외 서체 비율은 이 컴퓨터에 설치된 서체 파일을 직접 열어 쟀습니다.</li>
+  <li>기록: plan/phase-1/13-크리틱-개선-전후-보고서.md · 도구: scripts/font_critique/after.py, one_base.py, tail_l.py, symbols.py</li>
+</ul>
+
+</div>
+</body>
+</html>

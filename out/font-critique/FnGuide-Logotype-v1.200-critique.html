@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>전용서체 v1.200 디자인 크리틱</title>
+<style>
+  @font-face { font-family: "FnGuide Logotype"; src: url("../font-update/v1.200/fonts/FnGuideLogotype-Regular.woff") format("woff"); }
+  :root {
+    --bg: #ffffff; --soft: #f5f6f7; --line: #e3e5e8; --ink: #17181a; --ink-2: #4a4f55; --ink-3: #80868d;
+    --red: #B9023D; --must: #B9023D; --rec: #c77700; --keep: #2f7d4f;
+    --text: "Pretendard", "Noto Sans KR", "Malgun Gothic", system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--text); line-height: 1.7; font-size: 15.5px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 56px 24px 96px; }
+  header .kicker { color: var(--red); font-weight: 700; letter-spacing: .04em; font-size: 13px; }
+  header h1 { font-family: "FnGuide Logotype", var(--text); font-weight: 400; font-size: 46px; line-height: 1.15; margin: 8px 0 6px; }
+  header h1 small { display: block; font-family: var(--text); font-size: 22px; font-weight: 700; margin-top: 8px; }
+  header .meta { color: var(--ink-3); font-size: 13.5px; }
+  h2 { font-size: 22px; margin: 64px 0 16px; padding-top: 20px; border-top: 2px solid var(--ink); }
+  h3 { font-size: 17px; margin: 28px 0 8px; }
+  p { margin: 8px 0; }
+  .note { background: var(--soft); border-radius: 10px; padding: 14px 18px; color: var(--ink-2); font-size: 14px; }
+  .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px; }
+  .stat { border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; }
+  .stat b { font-size: 30px; display: block; line-height: 1.2; }
+  .stat.must b { color: var(--must); } .stat.rec b { color: var(--rec); } .stat.keep b { color: var(--keep); }
+  .stat span { color: var(--ink-2); font-size: 14px; }
+  .badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 99px; color: #fff; vertical-align: 2px; white-space: nowrap; }
+  .badge.must { background: var(--must); } .badge.rec { background: var(--rec); } .badge.keep { background: var(--keep); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; margin: 12px 0; }
+  th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--soft); font-weight: 700; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.hl { color: var(--red); font-weight: 700; }
+  .experts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .expert { border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; }
+  .expert h4 { margin: 0 0 6px; font-size: 15px; }
+  .expert p { font-size: 14px; color: var(--ink-2); }
+  .issue { border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; margin: 18px 0; }
+  .issue h3 { margin-top: 0; }
+  .voice { margin: 10px 0; padding-left: 14px; border-left: 3px solid var(--line); font-size: 14.5px; }
+  .voice b { color: var(--ink); }
+  .agree { margin-top: 12px; padding: 10px 14px; background: var(--soft); border-radius: 8px; font-size: 14.5px; }
+  figure { margin: 14px 0; }
+  figure img { width: 100%; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+  figcaption { color: var(--ink-3); font-size: 13px; margin-top: 4px; }
+  ol.final li { margin: 6px 0; }
+  .toc { columns: 2; font-size: 14px; padding-left: 18px; }
+  a { color: var(--red); }
+  @media (max-width: 760px) {
+    .summary, .experts { grid-template-columns: 1fr; }
+    header h1 { font-size: 34px; }
+    .toc { columns: 1; }
+    table { display: block; overflow-x: auto; }
+    .wrap { padding: 36px 16px 72px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">DESIGN CRITIQUE · 2026-10-27</div>
+  <h1>FnGuide Logotype v1.200<small>전용서체 디자인 크리틱 보고서</small></h1>
+  <div class="meta">참여: 타이포그래픽 디자이너 · CI/BI 그래픽디자이너 · 웹 디자이너 (각 10년 이상 경력 관점) · 대상: out/font-update/v1.200 (기둥 조정 반영본)</div>
+</header>
+
+<p class="note" style="margin-top:24px">이 보고서의 전문가 3인은 AI가 각 분야의 관점을 나눠 맡아 쓴 것입니다. 실제 디자이너의 검수를 대신하지 않습니다. 그래서 모든 의견에 실측 수치와 그림을 근거로 붙였습니다. 서체가 사내 전용이므로 이 문서는 내부에서만 봐 주세요.</p>
+
+<h2>1. 한눈에 보기</h2>
+<p>기본 비례와 굵기 균형은 같은 계열의 해외 서체(Rotis Semi Sans, Optima 계열)와 <b>같은 수준</b>입니다. 다만 사람이 마지막으로 손보는 단계가 덜 끝났습니다. 높이 정렬, f 주변 간격, 비슷한 글자 구분이 그 예입니다. 이것만 고치면 완성도가 한 단계 올라간다는 데 세 명 모두 동의했습니다.</p>
+<div class="summary">
+  <div class="stat must"><b>5건</b><span>수정 필요 — 높이 정렬 3, f 간격 1, 파일 설정 1</span></div>
+  <div class="stat rec"><b>6건</b><span>개선 권장 — 숫자 1, 얇은 가로획, 대각선 간격, 숫자·기호, woff2, 사용 규칙</span></div>
+  <div class="stat keep"><b>5건</b><span>유지 — 비례, 기둥 굵기, 깃발 세리프, 굵기 차이 성격, 폭 비례</span></div>
+</div>
+
+<h3>전문가 총평</h3>
+<div class="experts">
+  <div class="expert"><h4>타이포그래픽 디자이너</h4><p>장르 안에서 비례는 교과서 범위입니다. 소문자 높이 0.69, 기둥 비율 0.93이 그렇습니다. 남은 일은 높이 정렬, f 간격, 혼동 글자처럼 손으로 다듬는 마지막 단계입니다.</p></div>
+  <div class="expert"><h4>CI/BI 그래픽디자이너</h4><p>흔한 산세리프와 바로 구별되는 개성이 있습니다. 고칠 때도 깃발 세리프와 굵기 차이라는 정체성은 지켜야 합니다. 공식 로고는 사람이 한 번 더 간격을 보고 고정하는 것이 좋습니다.</p></div>
+  <div class="expert"><h4>웹 디자이너</h4><p>로고와 제목(16px 이상)으로는 훌륭합니다. 본문, 표, 숫자에 쓰려면 고정폭 숫자, ₩ 같은 기호, 최소 크기 규칙이 먼저 필요합니다.</p></div>
+</div>
+
+<h2>2. 결론과 개선안</h2>
+<table>
+  <tr><th style="width:110px">등급</th><th>무엇을</th><th>근거</th></tr>
+  <tr><td><span class="badge must">수정 필요</span></td><td>① C·G 윗부분을 O 수준(약 711)으로 올림</td><td>C·G 688 / H 700 / O 711 → C·G가 O보다 23 낮아 내려앉아 보임</td></tr>
+  <tr><td><span class="badge must">수정 필요</span></td><td>② v·w·x·y 를 소문자 높이에 맞춤</td><td>v·w·x 485, y 491 / n 500, z 498</td></tr>
+  <tr><td><span class="badge must">수정 필요</span></td><td>③ o·c·e 위쪽에 넘침 주기</td><td>위쪽 넘침 0, 아래쪽만 −12</td></tr>
+  <tr><td><span class="badge must">수정 필요</span></td><td>④ ft·fj 이어 쓰기 글자 추가, +보정(ft·fj·ty·rv) 재검토</td><td>ft +43, fj +71 → soft·lift가 "sof t"로 보임</td></tr>
+  <tr><td><span class="badge must">수정 필요</span></td><td>⑤ 파일 설정: Windows 위쪽 높이 값 850 → 870 이상, Regular 표시 값 넣기</td><td>가장 큰 글자 '|' 863 → Windows에서 잘릴 수 있음</td></tr>
+  <tr><td><span class="badge rec">개선 권장</span></td><td>⑥ 숫자 1 을 I·l 과 구분되게 (깃발을 길게)</td><td>Il1 이 "111"처럼 읽힘</td></tr>
+  <tr><td><span class="badge rec">개선 권장</span></td><td>⑦ o·e·c·a 위쪽 가로획을 조금 두껍게 (0.36 → 0.42 정도)</td><td>대문자 O 0.46보다 소문자 대비가 셈, 11~13px에서 흐려짐</td></tr>
+  <tr><td><span class="badge rec">개선 권장</span></td><td>⑧ LY·LV 등 대각선 쌍의 간격 보정을 눈으로 확인하며 조정</td><td>여러 쌍이 똑같이 −257: 계산 최대치에 걸린 것으로 추측</td></tr>
+  <tr><td><span class="badge rec">개선 권장</span></td><td>⑨ 고정폭 숫자와 금융 기호(₩ · — … × °) 추가</td><td>숫자 폭 376~657로 제각각, ₩ 없음</td></tr>
+  <tr><td><span class="badge rec">개선 권장</span></td><td>⑩ woff2 파일 추가</td><td>지금은 woff(11.8KB)만 있음</td></tr>
+  <tr><td><span class="badge rec">개선 권장</span></td><td>⑪ 사용 규칙에 최소 크기와 한글 짝 서체 명시</td><td>서체에 한글 없음, 작은 크기에서 가로획이 흐려짐</td></tr>
+  <tr><td><span class="badge keep">유지</span></td><td>소문자 높이 비율, 기둥 굵기 비율, 깃발 세리프, 굵기 차이 성격, O/H 폭 비례</td><td>같은 계열 해외 서체와 같은 범위</td></tr>
+</table>
+
+<h2>3. 해외 서체와의 균형 비교</h2>
+<p>모든 서체의 대문자 높이를 똑같이 맞추고 비교했습니다. 같은 계열(획 끝이 벌어지고 굵기 차이가 있는 산세리프)인 Rotis Semi Sans가 가장 가까운 비교 대상입니다. 같은 계열의 대표격인 Optima는 이 컴퓨터에 없어 빠졌습니다.</p>
+<figure><img src="img/10-compare-handgloves.png" alt="Handgloves HOHOH nonon 비교"><figcaption>그림 10 · 같은 대문자 높이로 맞춘 비교</figcaption></figure>
+<figure><img src="img/11-compare-brand.png" alt="FnGuide DataGuide 2026 비교"><figcaption>그림 11 · 회사 이름으로 본 개성: FnGuide 줄만 성격이 뚜렷함</figcaption></figure>
+<figure><img src="img/12-compare-contrast.png" alt="Ho 굵기 차이 비교"><figcaption>그림 12 · 가로획과 세로획의 굵기 차이</figcaption></figure>
+
+<table>
+  <tr><th>항목 (대문자 높이 = 1000)</th><th class="num">FnGuide</th><th class="num">Rotis Semi Sans</th><th class="num">Helvetica Neue</th><th class="num">Avenir Next</th><th class="num">DIN</th><th>판단</th></tr>
+  <tr><td>소문자 높이 ÷ 대문자 높이</td><td class="num">0.69</td><td class="num">0.69</td><td class="num">0.72</td><td class="num">0.68</td><td class="num">0.71</td><td>양호</td></tr>
+  <tr><td>내려간 획 ÷ 대문자 높이</td><td class="num">0.30</td><td class="num">0.31</td><td class="num">0.27</td><td class="num">0.34</td><td class="num">0.29</td><td>양호</td></tr>
+  <tr><td>소문자 기둥 ÷ 대문자 기둥</td><td class="num">0.93</td><td class="num">0.92</td><td class="num">0.91</td><td class="num">0.95</td><td class="num">0.95</td><td>양호</td></tr>
+  <tr><td>H 가로획 ÷ 세로 기둥</td><td class="num hl">0.50</td><td class="num">0.60</td><td class="num">0.86</td><td class="num">0.85</td><td class="num">0.89</td><td>성격 (유지)</td></tr>
+  <tr><td>O 위쪽 ÷ 옆 두께</td><td class="num">0.46</td><td class="num">0.51</td><td class="num">0.81</td><td class="num">0.81</td><td class="num">0.89</td><td>성격 (유지)</td></tr>
+  <tr><td>o 위쪽 ÷ 옆 두께</td><td class="num hl">0.36</td><td class="num">0.38</td><td class="num">0.79</td><td class="num">0.80</td><td class="num">0.89</td><td>개선 권장 ⑦</td></tr>
+  <tr><td>O 폭 ÷ H 폭</td><td class="num">0.97</td><td class="num">1.00</td><td class="num">1.05</td><td class="num">1.15</td><td class="num">0.93</td><td>유지</td></tr>
+  <tr><td>O 넘침 (위 / 아래)</td><td class="num">16 / 17</td><td class="num">16 / 16</td><td class="num">24 / 24</td><td class="num">25 / 25</td><td class="num">8 / 8</td><td>양호</td></tr>
+</table>
+<p class="note">"넘침": O처럼 둥근 글자를 기준선보다 살짝 크게 그리는 보정입니다. 이렇게 해야 눈으로 볼 때 네모 글자(H)와 같은 크기로 느껴집니다. 해외 서체는 보통 대문자 높이의 1.5~2.5%를 넘칩니다.</p>
+
+<h2>4. 쟁점별 토론</h2>
+
+<div class="issue">
+  <h3>A. 높이 정렬 — C·G, v·w·x·y, 둥근 소문자 <span class="badge must">수정 필요</span></h3>
+  <figure><img src="img/06-alignment.png" alt="높이 정렬"><figcaption>그림 06 · 위: H 700 / O 711 선. C·G 윗부분이 O보다 낮음. 아래: n 500 선. v·w·x가 그보다 낮음(485)</figcaption></figure>
+  <div class="voice"><b>타이포</b> — C·G 윗부분이 O보다 23 낮습니다. 크게 쓰면 C·G가 내려앉아 보입니다. 대각선 글자(v·w·x)도 소문자 높이에 맞추는 것이 원칙입니다. o·c·e는 아래쪽만 넘치고 위쪽은 넘치지 않습니다.</div>
+  <div class="voice"><b>CI</b> — 로고는 크게 쓰니 그대로 드러납니다. "FnGuide"의 G, "Company"의 C가 바로 해당되니 가장 먼저 고칩시다.</div>
+  <div class="voice"><b>웹</b> — 본문 크기에서는 1px도 안 되지만, 32px 이상 제목에서는 보입니다.</div>
+  <div class="agree"><b>합의</b>: C·G → 약 711, v·w·x·y → 약 498~500, o·c·e 위쪽 넘침 약 +12.</div>
+</div>
+
+<div class="issue">
+  <h3>B. f 다음 글자 간격 <span class="badge must">수정 필요</span></h3>
+  <figure><img src="img/14-pairs-lower.png" alt="소문자 쌍 간격"><figcaption>그림 14 · soft, lift, rift, after 에서 f와 t 사이에 구멍이 보임 (Helvetica·Rotis와 비교)</figcaption></figure>
+  <figure><img src="img/04-zoom-spacing.png" alt="f 간격 확대"><figcaption>그림 04 · fifty, ft, fj, fy 확대</figcaption></figure>
+  <div class="voice"><b>타이포</b> — ft +43, fj +71, ty +29, rv +29처럼 간격을 오히려 벌린 보정이 있습니다. 자동 계산이 "부딪히지 마라"는 규칙만 지킨 결과로 보입니다. 해외 서체는 f 가로획을 다음 글자와 이어 붙인 이어 쓰기 글자를 만들거나, 가로획을 짧게 해서 풉니다.</div>
+  <div class="voice"><b>CI</b> — 지금 서비스 이름에는 ft·fj가 없어 로고는 괜찮습니다. 하지만 "Portfolio" 같은 이름이 생기면 바로 문제가 됩니다.</div>
+  <div class="voice"><b>웹</b> — 영어 문장에서는 자주 보이는 조합입니다.</div>
+  <div class="agree"><b>합의</b>: 기존 fi·fl 방식으로 ft·fj 이어 쓰기 글자를 추가합니다. ty·rv의 +보정은 0으로 바꿔 보고 눈으로 확인합니다. 단, 새 이어 쓰기 글자는 디자이너가 확인해야 합니다.</div>
+</div>
+
+<div class="issue">
+  <h3>C. I · l · 1 구분 <span class="badge rec">개선 권장</span></h3>
+  <figure><img src="img/03-zoom-confusable.png" alt="혼동 글자"><figcaption>그림 03 · 위: "Il1| Ill1 IlI" 가 "111"처럼 보임. 아래: O·0, B·8, S·5, Z·2는 구분됨</figcaption></figure>
+  <div class="voice"><b>타이포</b> — 세 글자가 모두 "기둥 + 왼쪽 위 깃발"입니다. 해외 서체는 보통 셋 중 하나를 바꿔 구분합니다.</div>
+  <div class="voice"><b>CI</b> — 깃발이 이 서체의 정체성이니 셋 다 바꾸면 성격이 흐려집니다. 숫자 1만 깃발을 더 길고 아래로 처지게 하는 것을 제안합니다.</div>
+  <div class="voice"><b>웹</b> — 표, 계좌번호, 코드에 쓰면 실제로 잘못 읽힙니다. 로고로만 쓰면 큰 문제는 아닙니다.</div>
+  <div class="agree"><b>합의</b>: 1만 고치는 것을 권장합니다. 본문용으로 쓸 계획이면 수정 필요로 올립니다.</div>
+</div>
+
+<div class="issue">
+  <h3>D. 얇은 가로획과 작은 크기 <span class="badge rec">개선 권장</span></h3>
+  <figure><img src="img/15-small-sizes.png" alt="작은 크기"><figcaption>그림 15 · 11·13·16·20px로 화면 픽셀에 찍어 본 모습. 11~13px에서 o·e·a 위쪽이 흐려짐 (Rotis도 비슷)</figcaption></figure>
+  <div class="voice"><b>타이포</b> — 굵기 차이 자체는 결함이 아니라 성격입니다. 다만 소문자 o(0.36)가 대문자 O(0.46)보다 훨씬 얇습니다. 조금 두껍게 하면 대소문자 균형도 맞습니다.</div>
+  <div class="voice"><b>웹</b> — 14px 미만에서는 서체 대신 로고 그림(SVG)을 쓰고, 서체는 16px 이상에만 쓰는 규칙이 현실적입니다.</div>
+  <div class="voice"><b>CI</b> — 사이트 "사용 규칙"에 최소 크기를 적어 둡시다.</div>
+  <div class="agree"><b>합의</b>: o·e·c·a 위쪽 두께 0.36 → 약 0.42. 최소 크기 규칙은 사용자가 정합니다.</div>
+</div>
+
+<div class="issue">
+  <h3>E. 대문자 대각선 쌍 간격 <span class="badge rec">개선 권장</span></h3>
+  <figure><img src="img/13-pairs-caps.png" alt="대문자 쌍 간격"><figcaption>그림 13 · LY, LT, LV, AVA, AWA, TA 와 To, Te, Ty, P., F. 비교</figcaption></figure>
+  <div class="voice"><b>타이포</b> — AV, AY, LT, LV, LY, LW, Ty가 모두 똑같이 −257(대문자 1000 기준)입니다. 추측인데 자동 계산의 최대치에 걸린 것 같습니다. LY·LV는 눈으로 봐도 조금 넓습니다.</div>
+  <div class="voice"><b>웹</b> — "LTV", "FLY"처럼 대문자만 쓰는 제목에서 보입니다.</div>
+  <div class="agree"><b>합의</b>: 최대치를 풀고 LY·LV를 조금 더 붙여 본 뒤 눈으로 확인합니다.</div>
+</div>
+
+<div class="issue">
+  <h3>F. 숫자와 금융 기호 <span class="badge rec">개선 권장</span></h3>
+  <div class="voice"><b>웹</b> — 숫자마다 폭이 달라(1은 376, 0은 657) 표, 주가, 지수에서 자리가 흔들립니다. 해외 서체는 "고정폭 숫자"를 따로 넣어 두고 필요할 때 켜 씁니다. ₩, ·, —, …, ×, °, ©, ®, ™도 없습니다.</div>
+  <div class="voice"><b>타이포</b> — 숫자 높이(대문자의 0.94)는 좋습니다. 4·5·7(644)과 나머지(655)의 차이는 둥근 숫자의 넘침이라 문제없습니다.</div>
+  <div class="voice"><b>CI</b> — 로고 전용이면 우선순위가 낮습니다. 제목이나 보고서 표지에 쓰기 시작하면 바로 필요합니다.</div>
+  <div class="agree"><b>합의</b>: 서체를 어디까지 쓸지(로고·제목 전용 / 본문·표까지)에 따라 우선순위를 정합니다.</div>
+</div>
+
+<div class="issue">
+  <h3>G. 파일 기술 설정 <span class="badge must">수정 필요</span> <span class="badge rec">개선 권장</span></h3>
+  <table>
+    <tr><th>항목</th><th>지금</th><th>제안</th></tr>
+    <tr><td>Windows용 위쪽 높이 값</td><td>850 (가장 큰 글자 '|' 863)</td><td>870 이상 — 위끝 잘림 방지 <span class="badge must">수정 필요</span></td></tr>
+    <tr><td>Regular 표시 값</td><td>비어 있음</td><td>Regular로 표시 — 일부 프로그램의 굵기 목록 오류 방지 <span class="badge must">수정 필요</span></td></tr>
+    <tr><td>기본 줄 간격</td><td>1.05 (줄 사이 여백 0)</td><td>그대로 두고, 웹에서는 줄 높이를 따로 지정</td></tr>
+    <tr><td>웹 파일</td><td>woff 11.8KB</td><td>woff2 추가 — 추측인데 20~30% 더 작아질 것 <span class="badge rec">개선 권장</span></td></tr>
+  </table>
+</div>
+
+<div class="issue">
+  <h3>H. 폭 비례 · 한글 짝 · 굵기 확장</h3>
+  <figure><img src="img/05-zoom-round.png" alt="HOHOH"><figcaption>그림 05 · HOHOH nonon — O가 H보다 조금 좁지만(0.97) 눈으로는 어색하지 않음</figcaption></figure>
+  <div class="voice"><b>타이포</b> — 해외 산세리프는 대부분 O가 H보다 넓습니다. 그래도 같은 계열인 Rotis가 1.00이고, H의 깃발이 폭을 더 차지하는 구조라 받아들일 만합니다.</div>
+  <div class="voice"><b>CI</b> — 로고 인상이 바뀌니 폭은 건드리지 맙시다. 이 서체에는 한글이 없습니다. 회사 문서는 대부분 한글이니, 한글 짝 서체를 정해 사용 규칙에 적어야 브랜드가 일관됩니다. 굵기를 늘리는 것은 A~C를 정리한 다음 일입니다.</div>
+  <div class="agree"><b>합의</b>: 폭 비례는 <span class="badge keep">유지</span>. 한글 짝 서체 명시는 <span class="badge rec">개선 권장</span>(사용자 결정).</div>
+</div>
+
+<h2>5. 참고 자료</h2>
+<figure><img src="img/01-glyph-set.png" alt="전체 글자표"><figcaption>그림 01 · 전체 글자표 (빨강 기준선 · 파랑 소문자 높이 · 초록 대문자 높이)</figcaption></figure>
+<figure><img src="img/02-text-specimen.png" alt="문장 견본"><figcaption>그림 02 · 문장 견본 (hijk 의 i–j, fifty 의 f–t 간격 확인)</figcaption></figure>
+
+<h2>6. 결정해 주실 것</h2>
+<ol class="final">
+  <li>"수정 필요" ①~⑤를 서체에 반영할지. 반영하면 v1.300이 되고, 로고타입을 다시 만들고 디자이너 확인을 받아야 합니다.</li>
+  <li>서체 사용 범위를 로고·제목 전용으로 둘지, 본문·숫자·표까지 넓힐지. 이에 따라 ⑥·⑨의 우선순위가 달라집니다.</li>
+  <li>사이트 "사용 규칙"에 최소 크기와 한글 짝 서체를 넣을지</li>
+</ol>
+
+<h2>7. 방법과 한계</h2>
+<ul>
+  <li>수치는 서체 파일의 글자 윤곽을 직접 재어 얻었습니다. 대문자 높이 1000 기준이고, 높이 정렬은 서체 단위(1000 = 글자 한 칸)입니다.</li>
+  <li>간격은 글자 조판 엔진(하르프버즈)으로 실제로 조판한 결과입니다. 커닝(쌍별 간격 보정)과 이어 쓰기 글자가 모두 적용되어 있습니다.</li>
+  <li>작은 크기 그림은 힌팅(작은 크기용 픽셀 맞춤) 없이 회색 단계로 찍은 것입니다. 실제 화면은 운영체제·브라우저에 따라 조금 다릅니다.</li>
+  <li>비교 서체는 이 컴퓨터에 설치된 것으로 한정했습니다. Optima, Friz Quadrata는 빠졌습니다.</li>
+  <li>전문가 3인은 AI가 관점을 나눠 맡은 것이므로, 최종 판단은 실제 디자이너의 확인을 권합니다.</li>
+  <li>토론 전문: plan/phase-1/11-서체-v1.200-디자인-크리틱.md · 도구: scripts/font_critique/ · 수치: out/font-critique/metrics.json</li>
+</ul>
+
+</div>
+</body>
+</html>
