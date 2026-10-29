@@ -701,7 +701,7 @@
       <div class="art-panel">
         <div class="art-apple" id="artApple"></div>
         <div class="controls">
-          <span class="seg" id="appleKind" hidden><button type="button" data-k="text">이니셜</button><button type="button" data-k="symbol">심볼</button></span>
+          <span class="seg" id="appleKind" hidden><button type="button" data-k="symbol">심볼</button><button type="button" data-k="text">이니셜</button></span>
           <label>이니셜 <input type="text" id="appleText" value="Fn" maxlength="4" spellcheck="false"></label>
           <div class="lbl">크기 <input type="range" id="appleSize" min="50" max="150" value="100" aria-label="이니셜 크기"><span class="size-num"><input type="number" id="appleSizeNum" min="50" max="150" step="1" value="100" aria-label="이니셜 크기 직접 입력">%</span></div>
           <span class="btns" style="margin-left:auto"><button class="btn" id="appleDl" type="button">PNG-180px</button><button class="btn" id="appleZip" type="button" title="180 · 167 · 152 · 120px">기기별 PNG ZIP</button></span>
@@ -714,7 +714,7 @@
       <div class="art-og">
         <canvas id="artOg" width="1200" height="630" aria-label="오픈그래프 미리보기"></canvas>
         <div class="controls"><label>소개 문구 <textarea id="artText" rows="2" maxlength="80" placeholder="소개 문구 (비워 두면 로고만 · Enter 로 줄 바꿈)"></textarea></label>
-          <div class="lbl">크기 <input type="range" id="ogSize" min="28" max="72" value="48" aria-label="소개 문구 크기"><span class="size-num"><input type="number" id="ogSizeNum" min="28" max="72" step="1" value="48" aria-label="소개 문구 크기 직접 입력">px</span></div>
+          <div class="lbl">크기 <input type="range" id="ogSize" min="28" max="72" value="50" aria-label="소개 문구 크기"><span class="size-num"><input type="number" id="ogSizeNum" min="28" max="72" step="1" value="50" aria-label="소개 문구 크기 직접 입력">px</span></div>
           <span class="btns" style="margin-left:auto"><button class="btn" id="artOgDl" type="button">PNG 받기</button></span></div>
       </div>
     </div>
@@ -1150,7 +1150,7 @@
   const OG_GROUP = { index: "국내 민간 최초 실시간 지수 서비스 구현", fund: "데이터 기반의 고객 맞춤형 펀드평가 서비스" };
   const ICON_SIZES = [16, 24, 32, 64, 128, 256, 512];
   const APPLE_FILL = { dataguide: "#B9023D" }; // 모서리가 둥근 심볼: 아이폰 아이콘은 투명 모서리를 심볼 색으로 채움
-  const art = { l: artList[0], kind: "fn", text: {}, ogSize: 48 };
+  const art = { l: artList[0], kind: "fn", text: {}, ogSize: 50 };
   const sizedTo = (svg, n) => svg.replace(/width="[^"]*" height="[^"]*"/, `width="${n}" height="${n}"`);
   // "Fn" 아이콘: 사업 색 네모 + 전용서체 흰 Fn. 512 기준 글자 폭 377, 글자 가운데 (252.6, 256.2), 그림자 아래로 4·흐림 2·검정 25% (피그마 Icon 시안)
   // 애플 터치 아이콘은 이니셜(text)과 크기(size, 기본 100%)를 바꿀 수 있다. 크기 기준은 Fn 의 시안 크기
@@ -1197,10 +1197,13 @@
     return new Blob([head, ...pngs], { type: "image/x-icon" });
   }
   // 오픈그래프: 사업 색 배경 + 흰 로고타입 + 한글 소개 한 줄 (피그마 Open Graph 시안 600×315 의 2배)
-  // 로고는 그림의 3배(시안의 WiseReport·CryptoGuide 폭으로 잰 값), 소개 문구는 Pretendard 600 · 44px, 로고 아래 끝에서 103px 아래가 글자 바닥
+  // 로고는 그림의 3배(시안의 WiseReport·CryptoGuide 폭으로 잰 값), 소개 문구는 Pretendard 600
+  // 시안 data/Symbol/오픈그래프-WiseReport.svg: 로고와 문구 사이에 양 끝이 흐려지는 흰 가로선(폭 932 · 두께 2, 가운데)
+  //   로고 그림 아래 끝 → 40px(글자 기준 42px) → 가로선 → 62px → 첫 줄 글자 윗선
   let ogTurn = 0;
-  // 소개 문구: 크기 조절(기본 48px), 좌우 80px 여백(폭 1040)을 넘으면 띄어쓰기에서 줄을 바꿈(Enter 로 직접 바꿔도 됨), 줄간격 150%
-  // 세로 배치: 로고 아래 끝에서 59px 아래가 첫 줄 글자 윗선(44px 일 때 시안과 같은 자리), 로고와 문구 묶음 전체를 가운데에
+  // 소개 문구: 크기 조절(기본 50px), 좌우 80px 여백(폭 1040)을 넘으면 띄어쓰기에서 줄을 바꿈(Enter 로 직접 바꿔도 됨), 줄간격 148%
+  // 세로 배치: 로고·가로선은 늘 같은 자리 — 기본(50px 한 줄)일 때 묶음 전체가 가운데에 오는 자리. 문구는 가로선 아래로 늘어남
+  // 글자 윗선·아랫선은 글자 크기의 0.81·0.07 (Pretendard 한글 어림값)
   function wrapLines(x, text, maxW) {
     const fit = t => x.measureText(t).width <= maxW;
     const lines = [];
@@ -1221,18 +1224,22 @@
     });
   }
   async function drawOg(cv, l, text) {
-    const turn = cv === $("#artOg") ? ++ogTurn : 0, W = 1200, H = 630, k = 3 * fit(l), w = l.w * k, h = l.h * k, fs = art.ogSize, lh = fs * 1.5;
+    const turn = cv === $("#artOg") ? ++ogTurn : 0, W = 1200, H = 630, k = 3 * fit(l), w = l.w * k, h = l.h * k, fs = art.ogSize, lh = fs * 1.48;
     const [img] = await Promise.all([loadImg(l.white), document.fonts.load('600 44px "Pretendard Variable"').catch(() => {})]);
     if (turn && turn !== ogTurn) return; // 빠르게 바꾸면 마지막 것만 그림
     const x = cv.getContext("2d");
     x.fillStyle = bgOf(l); x.fillRect(0, 0, W, H);
     x.font = `600 ${fs}px "Pretendard Variable", Pretendard, "Malgun Gothic", sans-serif`;
-    const lines = text ? wrapLines(x, text, 1040) : [];
-    const block = lines.length ? h + 59 + fs + (lines.length - 1) * lh : h;
-    const top = lines.length ? (H - block) / 2 + 6 : (H - h) / 2;
+    const LW = 932, lines = text ? wrapLines(x, text, 1040) : [];
+    const gap = h + 40 + 2 + 62, first = gap + fs * 0.81; // 로고 윗선에서 첫 줄 글자 바닥선까지
+    const top = Math.round((H - (lines.length ? gap + 50 * 0.88 : h)) / 2); // 가로선이 흐려지지 않게 정수 자리
     x.drawImage(img, (W - w) / 2, top, w, h);
+    if (!lines.length) return;
+    const g = x.createLinearGradient((W - LW) / 2, 0, (W + LW) / 2, 0);
+    g.addColorStop(0, "rgba(255,255,255,.1)"); g.addColorStop(.5, "#FFFFFF"); g.addColorStop(1, "rgba(255,255,255,.1)");
+    x.fillStyle = g; x.fillRect((W - LW) / 2, Math.round(top + h + 40), LW, 2);
     x.fillStyle = "#FFFFFF"; x.textAlign = "center"; x.textBaseline = "alphabetic";
-    lines.forEach((t, i) => x.fillText(t, W / 2, top + h + 59 + fs + i * lh));
+    lines.forEach((t, i) => x.fillText(t, W / 2, top + first + i * lh));
   }
   async function ogBlob(l, text) {
     const c = document.createElement("canvas"); c.width = 1200; c.height = 630;
@@ -1288,9 +1295,9 @@
   }
   $("#artSel").addEventListener("change", e => {
     art.l = L[e.target.value]; art.kind = SYM[art.l.id] ? "symbol" : "fn";
-    // 서비스를 바꾸면 기본값으로: 오픈그래프 글자 크기 48px, 애플 터치 아이콘 이니셜 Fn·크기 100%
-    art.ogSize = $("#ogSize").value = $("#ogSizeNum").value = 48;
-    apple.kind = "text"; apple.text = $("#appleText").value = "Fn";
+    // 서비스를 바꾸면 기본값으로: 오픈그래프 글자 크기 50px, 애플 터치 아이콘 심볼(있으면)·이니셜 Fn·크기 100%
+    art.ogSize = $("#ogSize").value = $("#ogSizeNum").value = 50;
+    apple.kind = SYM[art.l.id] ? "symbol" : "text"; apple.text = $("#appleText").value = "Fn";
     apple.size = $("#appleSize").value = $("#appleSizeNum").value = 100;
     renderArt();
   });
@@ -1311,7 +1318,7 @@
   const oSize = $("#ogSize"), oSizeNum = $("#ogSizeNum");
   oSize.addEventListener("input", () => { art.ogSize = oSizeNum.value = Number(oSize.value); renderArt(); });
   oSizeNum.addEventListener("input", () => { const v = Number(oSizeNum.value); if (v >= 28 && v <= 72) { art.ogSize = oSize.value = v; renderArt(); } });
-  oSizeNum.addEventListener("change", () => { art.ogSize = oSize.value = oSizeNum.value = Math.min(72, Math.max(28, Math.round(Number(oSizeNum.value)) || 48)); renderArt(); });
+  oSizeNum.addEventListener("change", () => { art.ogSize = oSize.value = oSizeNum.value = Math.min(72, Math.max(28, Math.round(Number(oSizeNum.value)) || 50)); renderArt(); });
   const aSize = $("#appleSize"), aSizeNum = $("#appleSizeNum");
   aSize.addEventListener("input", () => { apple.size = aSizeNum.value = Number(aSize.value); renderArt(); });
   aSizeNum.addEventListener("input", () => { const v = Number(aSizeNum.value); if (v >= 50 && v <= 150) { apple.size = aSize.value = v; renderArt(); } });
@@ -1354,6 +1361,7 @@
     } finally { btn.disabled = false; renderArt(); }
   });
   art.kind = SYM[art.l.id] ? "symbol" : "fn";
+  apple.kind = SYM[art.l.id] ? "symbol" : "text";
   document.fonts.ready.then(renderArt); // 전용서체(Fn 글자)는 font-data.js 윤곽이라 바로 되지만, 소개 문구 글꼴을 기다림
 
   // 사용 규칙 — 배경 조합
