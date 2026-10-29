@@ -120,9 +120,13 @@ if not CONTROL:
     # ④ ty·rv: 간격을 벌리던 +20 을 0 으로 (기존 줄을 고침 — 같은 쌍을 다시 적으면 뒤엣것은 무시됨)
     for pr in ("t y", "r v"):
         fea, n = re.subn(r"(\n\s*pos " + pr + r") -?\d+;", r"\1 0;", fea); assert n == 1, pr
+    # ① C·G 윗부분을 올리면서 C·G 다음 키 큰 대문자와 간격이 줄어(CV·CW·CY 는 닿음) v1.200 간격으로 되돌린다
+    for pr, v in {"C Y": -100, "C V": -100, "C W": -100, "C X": -95, "C U": -80, "G Y": -115}.items():
+        fea, n = re.subn(r"(\n\s*pos " + pr + r") -?\d+;", r"\g<1> " + str(v) + ";", fea); assert n == 1, pr
+    fix_pairs = ["    pos C I -75;", "    pos C K -75;"]     # 묶음 규칙(@L_I -95)보다 먼저 적용되는 개별 쌍
     # f_t·f_j 왼쪽은 f 와 같은 묶음, 오른쪽은 t·j 의 개별 쌍을 그대로 복사
     fea = re.sub(r"(@L_f = \[[^\]]*)\]", r"\1 f_t f_j]", fea, count=1)
-    extra = []
+    extra = list(fix_pairs)
     for line in fea.splitlines():
         m = re.match(r"\s*pos (t|j) (\S+) (-?\d+);", line)
         if m: extra.append(f"    pos {'f_t' if m.group(1) == 't' else 'f_j'} {m.group(2)} {m.group(3)};")
