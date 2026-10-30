@@ -23,7 +23,7 @@ KEEP = {
     "dataguide": ("dataguide/figma/dataguide-icon-256.svg", "Icon-set", "D·G 와 ∞ — 무한한 데이터 흐름"),
     "cryptoguide": ("cryptoguide/cryptoguide-icon-512.svg", "CryptoGuide", "Crypto·Guide 이니셜의 큐브"),
     # 일러스트레이터 내보내기(사용자 디자인 2026-10-30): 그룹 id 대신 None — 파일 전체를 쓴다
-    "wisereport": ("wisereport/WR-White.svg", None, "Wise·Report 이니셜 W·R"),
+    "wisereport": ("wisereport/WR-White-modify.svg", None, "Wise·Report 이니셜 W·R"),
 }
 
 # 바탕색 바꾸기 (원본 파일은 그대로 두고 사이트용만): DataGuide 는 피그마 #BF2645 대신 FnRed 2025 (사용자 요청 2026-10-29)

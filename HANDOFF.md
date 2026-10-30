@@ -11,7 +11,7 @@
   - 오픈 그래프(1200×630): 사업 색 바탕 + 흰 로고 + 가로선(가운데 흰색→양 끝 흐림, 폭 932) + 소개 문구. 시안 data/Symbol/오픈그래프-WiseReport.svg. 문구 Pretendard 600 기본 50px(28~72 조절)·줄간격 148%·폭 1040 넘으면 줄 바꿈. 로고·가로선은 글자 크기와 상관없이 같은 자리(50px 한 줄 기준 가운데), 문구는 아래로 늘어남. 서비스별 기본 문구는 OG_TEXT·OG_GROUP, 없으면 Your Best Financial Guide
   - 서비스를 바꾸면 문구 크기·애플 아이콘 이니셜·크기가 기본값으로 돌아감
   - 한 번에 받기 ZIP <id>-web-icons/ 15개(icon.ico 는 넣지 않음 — 사용자 결정)
-  - 심볼 4종(Retamin·DataGuide·CryptoGuide·WiseReport)은 data/Symbol → py scripts/build_symbols.py → out/brand-site/symbols.js(불러오기 ?v=4). WiseReport 는 사용자가 디자인한 일러스트레이터 파일(data/Symbol/wisereport/WR-White.svg, 2026-10-30) — 도구가 클래스 색·한글 그러데이션 이름을 정리해 넣음. DataGuide 바탕은 FnRed #B9023D(피그마 #BF2645 대신, 결정 완료). 오픈 그래프 바탕도 시안의 #BF2645 대신 사이트 색
+  - 심볼 4종(Retamin·DataGuide·CryptoGuide·WiseReport)은 data/Symbol → py scripts/build_symbols.py → out/brand-site/symbols.js(불러오기 ?v=5). WiseReport 는 사용자가 디자인한 일러스트레이터 파일(data/Symbol/wisereport/WR-White-modify.svg, 2026-10-30 11:26 수정본) — 도구가 클래스 색·한글 그러데이션 이름을 정리해 넣음. DataGuide 바탕은 FnRed #B9023D(피그마 #BF2645 대신, 결정 완료). 오픈 그래프 바탕도 시안의 #BF2645 대신 사이트 색
 - 사이트 파비콘(2026-10-29): FnGuide 개선 로고 Fn 아이콘(FnRed), out/brand-site/favicon/. 내 컴퓨터 파일로 열면 크롬이 탭 아이콘을 안 보여 줌(웹 주소로 열 때만 보임, 확인 완료)
 - 깃: origin = 깃허브(비공개), gitlab = 사내 깃랩 igit.fnguide.com/design/brand-design-management. `! git push` 한 번에 둘 다 올라감. 깃허브 무료 계정의 Pages 는 저장소가 비공개여도 공개라 사내 서체가 드러날 수 있음 — 깃랩 Pages(사내 회원만) 검토 제안했고 결정 안 됨
 - 로고타입 다운로드 맨 아래 "전체 로고타입 받기 (ZIP)" 버튼(2026-10-29): 표의 로고 23종 × 컬러·흰색 × SVG·PNG(4배) = 90개 파일을 브라우저에서 바로 묶음(외부 라이브러리 없음, 개별 받기와 같은 여백·크기). 크롬에서 눌러 ZIP 정상 확인

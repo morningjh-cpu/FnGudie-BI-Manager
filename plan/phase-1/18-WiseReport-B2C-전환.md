@@ -27,3 +27,4 @@
 - scripts/build_symbols.py: 일러스트레이터 파일도 읽게 함(클래스 색 → fill, 한글 그러데이션 id → 영문. 사이트가 id 뒤에 크기를 붙일 때 영문만 알아봄). 설명 문구 "Wise·Report 이니셜 W·R"
 - 디자인 아티클에서 WiseReport · 심볼 이 기본 선택. 아이콘·애플 터치 아이콘(네모 바탕이라 모서리 채우기 필요 없음) 화면 확인. symbols.js ?v=3
 - 심볼 업데이트(2026-10-30 11:16): W 가운데가 갈라진 모양, 그림자는 검정 그러데이션 + 곱하기(multiply)·70% 투명. 도구가 fill 외 속성(opacity·mix-blend-mode·isolation)도 옮기게 고침. symbols.js ?v=4
+- 심볼 수정본(2026-10-30 11:26): R 모양 다듬음. 바탕화면 WiseReport/WR-White-modify.svg → data/Symbol/wisereport/ 에 복사(옛 WR-White.svg 는 그대로 둠), build_symbols.py 가 수정본을 읽게 바꿈. symbols.js ?v=5

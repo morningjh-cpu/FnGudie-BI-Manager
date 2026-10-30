@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512">
+  <!-- Generator: Adobe Illustrator 30.8.2, SVG Export Plug-In . SVG Version: 2.1.4 Build 7)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #594fc8;
+      }
+
+      .st1 {
+        fill: url(#_무제_그라디언트_187);
+      }
+
+      .st2 {
+        fill: #fff;
+      }
+
+      .st3 {
+        mix-blend-mode: multiply;
+        opacity: .7;
+      }
+
+      .st4 {
+        isolation: isolate;
+      }
+
+      .st5 {
+        fill: url(#_무제_그라디언트_646);
+      }
+    </style>
+    <linearGradient id="_무제_그라디언트_646" data-name="무제 그라디언트 646" x1="266.11" y1="378.42" x2="314.39" y2="312.79" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#000" stop-opacity=".5"/>
+      <stop offset=".87" stop-color="#5f5fed" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="_무제_그라디언트_187" data-name="무제 그라디언트 187" x1="230.08" y1="268.16" x2="177.95" y2="284.45" gradientUnits="userSpaceOnUse">
+      <stop offset=".12" stop-color="#000" stop-opacity=".5"/>
+      <stop offset=".75" stop-color="#5f5fed" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g class="st4">
+    <g id="_레이어_1" data-name="레이어_1">
+      <rect class="st0" width="512" height="512"/>
+      <g>
+        <path class="st2" d="M354.3,150.16h-72s0,13.6,0,13.6c24.54,1.77,34.94,9.32,30.62,35.18l-36.27,187.22h29.26l42.46-215.08c21.54.09,47.33-2.05,62.23,16.35,11.18,14.24,10.52,37.28-.97,51.53-12.6,15.04-34.24,18.33-52.55,19.35l-17.45-.04,78.73,127.9h45.36l-71.52-108.51c49.42-4.33,80.3-31.05,68.95-81.77-13.27-45.92-68.05-45.26-106.87-45.73Z"/>
+        <path class="st2" d="M225.8,150.16h-63.83v13.6c21.4,2.81,25.34,8.37,32.68,35.18l54.88,187.22h48.23l-71.97-236Z"/>
+        <g>
+          <path class="st2" d="M212.64,259.24l-24.27,126.91h-29.54l36.33-186.43,17.47,59.52Z"/>
+          <path class="st2" d="M131.74,386.16l-54.96-187.37c-7.35-26.81-11.29-32.22-32.68-35.03v-13.6h63.83l71.98,236h-48.16Z"/>
+        </g>
+        <g id="_그림자" data-name="그림자" class="st3">
+          <polygon id="_그림자1" data-name="그림자1" class="st5" points="298.73 272.21 284.85 343.86 297.77 386.16 305.92 386.16 317.01 330.01 298.73 272.21"/>
+          <polygon id="_그림자0" data-name="그림자0" class="st1" points="193.56 358.91 212.52 259.88 195.17 199.73 176.53 295.3 193.56 358.91"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
