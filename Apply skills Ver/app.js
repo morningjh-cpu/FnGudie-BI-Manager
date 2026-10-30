@@ -574,7 +574,11 @@
     if (b.dataset.a === "ico") save(await icoBlob(svg), `${art.l.id}-favicon.ico`);
     if (b.dataset.a === "icon") save(await icoBlob(svg, [16, 24, 32, 48, 64, 128, 256, 512]), `${artBase()}-icon.ico`);
     if (b.dataset.a === "svg") save(new Blob([svg], { type: "image/svg+xml" }), `${artBase()}-icon.svg`);
-    if (b.dataset.a === "png") save(await iconPng(svg, 512), `${artBase()}-icon-512.png`);
+    if (b.dataset.a === "png") { // 모든 크기 PNG 를 압축 파일 하나로 (icon.ico 와 같은 8개 크기)
+      const dir = `${artBase()}-icon-png/`, files = [];
+      for (const n of [16, 24, 32, 48, 64, 128, 256, 512]) files.push({ name: `${dir}icon-${n}.png`, blob: await iconPng(svg, n) });
+      save(await makeZip(files), `${artBase()}-icon-png.zip`);
+    }
   });
   $("#artOgDl").addEventListener("click", async () => save(await ogBlob(art.l, ogText()), `${art.l.id}-og-image.png`));
   $("#artAll").addEventListener("click", async () => {
