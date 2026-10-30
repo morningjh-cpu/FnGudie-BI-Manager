@@ -304,7 +304,7 @@
         <div class="g-sec"><h2>개선된 브랜드 로고</h2><p class="sub">리뉴얼 후 FnRed 2025(#B9023D)를 쓰는 브랜드 로고입니다.</p><div class="rows">${row(improved, i)}</div>
           <div class="story"><div><span>이전</span><h3>2000년의 클래식 세리프</h3><p>회사의 역사를 담은 클래식 세리프 로고타입으로, 2000년에 만들었습니다.</p></div>
             <div><span>개선</span><h3>볼륨 향상</h3><p>서체 고유의 개성은 유지하되, 시인성을 높이기 위해 전체 볼륨을 키웠습니다.</p></div>
-            <div><span>컬러</span><h3>FnWine에서 FnRed 2025로</h3><p>더 밝고 선명한 빨강으로 바꿔, 화면에서 힘 있게 보이도록 했습니다.</p></div></div></div>
+            <div><span>컬러</span><h3>FnWine에서 FnRed 2025로</h3><p>더 밝고 선명한 빨강으로 바꿔 화면에서 힘 있게 보이도록 했습니다.</p></div></div></div>
         <div class="g-sec"><h2>로고타입</h2><p class="sub">임의로 타이핑하거나 색을 바꾸거나 일부만 쓰는 등 변형할 수 없습니다.</p><div class="rows">${["fnguide-inc", "fnguide-kr"].map(k => row(L[k], i)).join("")}</div></div>
         <div class="g-sec"><h2>전용색상</h2><p class="sub">FnGuide의 두 가지 핵심 컬러는 FnWine과 FnDarkGray입니다.</p>
           <table class="ci-table"><thead><tr><th>컬러</th><th>HEX</th><th>Pantone</th><th>RGB</th><th>CMYK</th></tr></thead>
