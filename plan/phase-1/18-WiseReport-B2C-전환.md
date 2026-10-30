@@ -28,3 +28,7 @@
 - 디자인 아티클에서 WiseReport · 심볼 이 기본 선택. 아이콘·애플 터치 아이콘(네모 바탕이라 모서리 채우기 필요 없음) 화면 확인. symbols.js ?v=3
 - 심볼 업데이트(2026-10-30 11:16): W 가운데가 갈라진 모양, 그림자는 검정 그러데이션 + 곱하기(multiply)·70% 투명. 도구가 fill 외 속성(opacity·mix-blend-mode·isolation)도 옮기게 고침. symbols.js ?v=4
 - 심볼 수정본(2026-10-30 11:26): R 모양 다듬음. 바탕화면 WiseReport/WR-White-modify.svg → data/Symbol/wisereport/ 에 복사(옛 WR-White.svg 는 그대로 둠), build_symbols.py 가 수정본을 읽게 바꿈. symbols.js ?v=5
+- 홈 최근 업데이트(2026-10-30): "WiseReport 서비스 심볼 등록" 한 줄만 실음(B2C 변경은 여전히 싣지 않음, 사용자 요청)
+- B2C 로고타입 소개의 WiseReport 이름 옆에 "(2026년 디자인 리뉴얼 버전)" 표시(계약상품의 '로고 변경 예정' 표시와 같은 모양)
+- B2B 계약상품·FnSpectrum 표시 문구 변경(2026-10-30): "(로고 변경 예정 · 바뀌기 전까지 지금 파일 사용)" → "(로고 변경 예정 · 현재 파일 사용)"
+- B2B 계약상품만 "(로고 컬러 변경 예정 · 현재 파일 사용)"으로 바꿈, FnSpectrum 은 "(로고 변경 예정 · 현재 파일 사용)" 그대로
