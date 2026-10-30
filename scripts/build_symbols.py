@@ -22,13 +22,49 @@ KEEP = {
     "retamin": ("retamin/retamin-icon-navy.svg", "img/retamin-app-icon", "Report 의 R — 네모·세모·원"),
     "dataguide": ("dataguide/figma/dataguide-icon-256.svg", "Icon-set", "D·G 와 ∞ — 무한한 데이터 흐름"),
     "cryptoguide": ("cryptoguide/cryptoguide-icon-512.svg", "CryptoGuide", "Crypto·Guide 이니셜의 큐브"),
+    # 일러스트레이터 내보내기(사용자 디자인 2026-10-30): 그룹 id 대신 None — 파일 전체를 쓴다
+    "wisereport": ("wisereport/WR-White.svg", None, "Wise·Report 이니셜 W·R"),
 }
 
 # 바탕색 바꾸기 (원본 파일은 그대로 두고 사이트용만): DataGuide 는 피그마 #BF2645 대신 FnRed 2025 (사용자 요청 2026-10-29)
 RECOLOR = {"dataguide": {"#BF2645": "#B9023D"}}
 
+def illustrator(root):
+    """일러스트레이터 SVG: <style> 의 클래스 색을 fill 로 옮기고, 한글 그러데이션 id 를 영문으로 바꾼다
+    (사이트가 id 뒤에 크기를 붙일 때 영문·숫자만 알아봄). 크기는 viewBox 에서 가져온다."""
+    style = root.find(f"{{{NS}}}defs/{{{NS}}}style")
+    # 클래스별 속성: fill·opacity 는 그대로 속성으로, 나머지(mix-blend-mode·isolation)는 style 로
+    rules = {c: dict(re.findall(r"([\w-]+):\s*([^;]+);", body)) for c, body in re.findall(r"\.(\w+)\s*\{([^}]*)\}", style.text)}
+    style_parent = root.find(f"{{{NS}}}defs")
+    style_parent.remove(style)
+    ids = {e.get("id"): f"paint{i}" for i, e in enumerate(e for e in root.iter() if e.tag.endswith("linearGradient"))}
+    for e in root.iter():
+        if e.get("class"):
+            css = []
+            for k, v in rules[e.attrib.pop("class")].items():
+                v = re.sub(r"url\(#([^)]+)\)", lambda m: f"url(#{ids[m.group(1)]})", v.strip())
+                if k in ("fill", "opacity"):
+                    e.set(k, v)
+                else:
+                    css.append(f"{k}:{v}")
+            if css:
+                e.set("style", ";".join(css))
+        if e.tag.endswith("linearGradient"):
+            e.set("id", ids[e.get("id")])
+        elif "id" in e.attrib:
+            del e.attrib["id"]
+        e.attrib.pop("data-name", None)
+    w, h = root.get("viewBox").split()[2:]
+    out = ET.Element(f"{{{NS}}}svg", {"width": w, "height": h, "viewBox": f"0 0 {w} {h}", "fill": "none"})
+    out.extend(e for e in root if not e.tag.endswith("defs"))
+    out.extend(e for e in root if e.tag.endswith("defs"))
+    return re.sub(r">\s+<", "><", ET.tostring(out, encoding="unicode"))
+
+
 def clean(path, keep_id):
     root = ET.parse(SRC / path).getroot()
+    if keep_id is None:
+        return illustrator(root)
     w, h = root.get("width"), root.get("height")
     group = next(e for e in root.iter() if e.get("id") == keep_id)
     defs = [e for e in root if e.tag == f"{{{NS}}}defs"]

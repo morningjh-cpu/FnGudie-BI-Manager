@@ -75,11 +75,11 @@
 | 그룹 | 컬러 | 성격 | 대상 BI 예시 | 흰 배경 명도 대비 |
 | --- | --- | --- | --- | --- |
 | FnGuide CI | FnWine `#94243A` | 고급스러움, 신뢰, 무게감, 헤리티지 | FnGuide CI | 8.16 · 본문까지 가능 |
-| B2B 대표상품 | FnRed `#B9023D` | 열정, 자신감, 역동성, 현대적 | FnGuide.com, DataGuide, QuantiWise, WiseReport | 6.69 · 본문까지 가능 |
+| B2B 대표상품 | FnRed `#B9023D` | 열정, 자신감, 역동성, 현대적 | FnGuide.com, DataGuide, QuantiWise | 6.69 · 본문까지 가능 |
 | 지수 | Index `#45B792` | 성장, 투명성, 중립성 | FnIndex, WiseIndex | 2.49 · **흰 배경 비권장** |
 | 펀드 | Fund `#0C3178` | 신뢰, 정확성, 전문성 | FundGuide, PFGuide | 12.17 · 본문까지 가능 |
 | B2B 계약상품 | `#1C1C3A` | 고객사 맞춤형 서비스 | ETF Global, Market Monitor, CompanyGlobal | 16.45 · 본문까지 가능 |
-| B2C 독립 체계 | 리타민 `#26C0D2` · API `#2457C5` | 사용자 친화적, 서비스별 독립 컬러 | 리타민, FnAPI | 2.20 · 흰 배경 비권장 / 6.47 · 가능 |
+| B2C 독립 체계 | 리타민 `#26C0D2` · WiseReport `#594FC8` · API `#2457C5` | 사용자 친화적, 서비스별 독립 컬러 | 리타민, WiseReport, FnAPI | 2.20 · 흰 배경 비권장 / 6.22 · 가능 / 6.47 · 가능 |
 
 **교정지 활용.** 교정지에서 그룹 컬러를 고르면 해당 그룹의 대표 BI 단어가 함께 표시됩니다 (계약상품 → ETF Global, 펀드 → FundGuide, 지수 → FnIndex, API → FnAPI).
 
@@ -131,7 +131,7 @@
 | BI | 서비스별 로고타입 (FnGuide.com, DataGuide, FundGuide, PFGuide, FnIndex, ETF Global, FnAPI 등) |
 | 컬러 | BI 그룹별 컬러 코드와 배경별 사용 예시 |
 | 서체 | FnGuide Logotype 미리보기(커닝·합자·브랜드 컬러 적용)와 OTF·TTF·WOFF 다운로드 |
-| 웹 아이콘 | 서비스별 파비콘·아이콘(16~512px), 애플 터치 아이콘(이니셜·크기 조절, 기기별 180·167·152·120px 묶음 받기), 오픈 그래프 그림(1200×630, 로고·가로선·소개 문구, 문구 크기 조절) 만들기와 한 번에 받기, 심볼이 있는 서비스(DataGuide·CryptoGuide·Retamin)는 심볼로 |
+| 웹 아이콘 | 서비스별 파비콘·아이콘(16~512px), 애플 터치 아이콘(이니셜·크기 조절, 기기별 180·167·152·120px 묶음 받기), 오픈 그래프 그림(1200×630, 로고·가로선·소개 문구, 문구 크기 조절) 만들기와 한 번에 받기, 심볼이 있는 서비스(DataGuide·CryptoGuide·Retamin·WiseReport)는 심볼로 |
 | 가이드 | 브랜드 매뉴얼(BI별 톤·컬러·서체 규정)과 활용 예시 |
 
 - **사내 전용:** 사내 계정으로 로그인해 이용하며, 자산별로 다운로드 권한을 관리합니다.

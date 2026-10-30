@@ -42,7 +42,7 @@ GROUPS = [
     {"id": "index", "name": "지수", "color": "#45B792", "colorName": "Index"},
     {"id": "fund", "name": "펀드", "color": "#0C3178", "colorName": "Fund"},
     {"id": "contract", "name": "B2B 계약상품", "color": "#1C1C3A", "colorName": "Contract"},
-    {"id": "b2c", "name": "B2C 독립 체계", "color": "#2457C5", "colorName": "API · 리타민"},
+    {"id": "b2c", "name": "B2C 독립 체계", "color": "#2457C5", "colorName": "리타민 · WiseReport · API"},
 ]
 COLOR = {g["id"]: g["color"] for g in GROUPS}
 
@@ -51,7 +51,6 @@ BRANDS = [
     ("fnguide-com", "FnGuide.com", "b2b", None),
     ("dataguide", "DataGuide", "b2b", None),
     ("quantiwise", "QuantiWise", "b2b", None),
-    ("wisereport", "WiseReport", "b2b", None),
     ("fnindex", "FnIndex", "index", None),
     ("wiseindex", "WiseIndex", "index", None),
     ("cryptoguide", "CryptoGuide", "index", None),
@@ -66,6 +65,7 @@ BRANDS = [
     ("etfglobal", "ETF Global", "contract", None),
     ("marketmonitor", "Market Monitor", "contract", None),
     ("fnspace", "FnSpace", "contract", None),
+    ("wisereport", "WiseReport", "b2c", "#594FC8"),  # 2026-10-30 B2B 대표상품 → B2C 독립 체계
     ("fnapi", "FnAPI", "b2c", "#2457C5"),
 ]
 
@@ -271,7 +271,8 @@ def main():
     entries = [("fnguide", "FnGuide", "ci", official_ci())]
     for file, text, group, color in BRANDS:
         entries.append((file, text, group, typeset(text, color or COLOR[group], hb_font, glyph_set, upem)))
-    entries.insert(-1, ("retamin", "Retamin", "b2c", existing_logo(RETAMIN_SVG)))
+    # B2C 순서: Retamin → WiseReport → FnAPI (리타민을 B2C 맨 앞에)
+    entries.insert(next(i for i, e in enumerate(entries) if e[2] == "b2c"), ("retamin", "Retamin", "b2c", existing_logo(RETAMIN_SVG)))
     for o in official:
         (OUT / "logos" / f"{o['id']}.svg").write_text(o["svg"], encoding="utf-8")
         if o["white"]:
