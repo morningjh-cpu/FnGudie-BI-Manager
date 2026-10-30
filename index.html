@@ -4,1414 +4,487 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FnGuide Brand Identity</title>
-<!-- 파비콘: 디자인 아티클에서 FnGuide(개선 로고)로 만든 Fn 아이콘 (FnRed 2025) -->
+<!-- 브랜드 사이트 (2026-10-30 스킬 적용 리뉴얼판). 모양·동작은 Apply skills Ver/ 폴더, 서체·로고는 out/brand-site/ 를 그대로 불러온다 -->
 <link rel="icon" href="out/brand-site/favicon/favicon.ico" sizes="48x48">
 <link rel="icon" href="out/brand-site/favicon/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="out/brand-site/favicon/apple-touch-icon.png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
-<style>
-  @font-face {
-    font-family: "FnGuide Logotype";
-    src: url("out/brand-site/fonts/FnGuideLogotype-Regular.woff?v=1.31") format("woff");
-    font-display: block;
-  }
-  :root {
-    --bg: #FFFAF7;
-    --side: #FFFFFF;
-    --surface: #FFFFFF;
-    --line: #EFE4DF;
-    --soft: #F8EFEB;
-    --ink: #1C1C3A;
-    --ink-2: #5B5866;
-    --ink-3: #8E8A96;
-    --red: #B9023D;
-    --red-dark: #960231;
-    --radius: 14px;
-    --brand: "FnGuide Logotype", serif;
-    --text: "Pretendard Variable", Pretendard, -apple-system, "Malgun Gothic", sans-serif;
-    --side-w: 260px;
-    --top-h: 64px;
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--text); font-size: 15px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
-  a { color: inherit; }
-  main a:not(.btn):not(.go):hover { color: #B9023D; } /* 본문의 글자 링크는 마우스를 올리면 FnRed */
-  .brand { font-family: var(--brand); font-kerning: normal; }
-
-  /* 위쪽 메뉴 */
-  .topbar { position: fixed; top: 0; left: 0; right: 0; height: var(--top-h); display: flex; align-items: center; gap: 12px; padding: 0 24px; background: rgba(255,255,255,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); z-index: 25; }
-  .top-logo { display: flex; align-items: baseline; gap: 8px; text-decoration: none; min-width: 0; }
-  /* 로고 글자 바닥(F·n·i)은 그림 아래 끝보다 1.6% 위(G·e의 둥근 부분만 내려감) → 그만큼 내려 글자 기준선을 맞춘다 */
-  .top-logo svg { height: 18.15px; width: auto; display: block; flex: none; transform: translateY(1.6%); }
-  .top-logo span { font-family: var(--brand); font-size: 18px; color: var(--ink-2); line-height: 1; white-space: nowrap; }
-  /* 메뉴 글자 사이 간격 39px = 기존 26px(양쪽 안쪽 여백 12+12 + 틈 2)의 1.5배 */
-  .top-logo .top-note { font-family: var(--text); font-size: 12.5px; color: var(--ink-3); margin-left: 60px; }
-  .top-links { margin-left: auto; display: flex; gap: 15px; }
-  .top-links a { text-decoration: none; padding: 7px 12px; border-radius: 8px; font-weight: 600; font-size: 14px; color: var(--ink-2); white-space: nowrap; }
-  .top-links a:hover { background: var(--soft); color: #B9023D; }
-  .menu-toggle { display: none; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; width: 38px; height: 36px; font-size: 18px; cursor: pointer; color: var(--ink); flex: none; }
-
-  /* 왼쪽 메뉴 */
-  aside { position: fixed; inset: var(--top-h) auto 0 0; width: var(--side-w); background: var(--side); border-right: 1px solid var(--line); display: flex; flex-direction: column; z-index: 20; }
-  .menu { padding: 16px 12px; overflow-y: auto; flex: 1; }
-  .menu a { display: flex; align-items: center; gap: 10px; text-decoration: none; padding: 9px 12px; border-radius: 10px; font-weight: 600; color: var(--ink-2); font-size: 14.5px; }
-  .menu a:hover { background: var(--soft); color: #B9023D; }
-  .menu a[aria-current="page"] { color: #B9023D; font-weight: 700; }
-  .menu > a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; } /* 1단계 선택 메뉴: 글자와 띄운 밑줄 */
-  .menu .sub { margin: 2px 0 6px 12px; border-left: 1px solid var(--line); padding-left: 8px; }
-  .menu .sub a { font-weight: 500; font-size: 13.5px; padding: 6px 10px; }
-  .menu .sub a[aria-current="page"] { background: var(--soft); color: #B9023D; font-weight: 700; }
-  .menu .sub .dot { width: 8px; height: 8px; }
-  .side-foot { padding: 16px 24px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--ink-3); }
-  .side-foot b { color: var(--red); }
-
-  main { margin-left: var(--side-w); padding: var(--top-h) 56px 96px; max-width: calc(1180px + var(--side-w)); }
-  section.page { display: none; }
-  section.page.on { display: block; }
-
-  /* 첫머리 */
-  .hero { padding: 56px 0 28px; }
-  .eyebrow { font-weight: 700; color: var(--red); font-size: 13.5px; letter-spacing: .02em; }
-  .hero h1 { font-family: var(--brand); font-weight: 400; font-size: 60px; line-height: 1.04; margin: 8px 0 16px; }
-  .hero h1 em { font-style: normal; color: var(--red); }
-  .hero p { max-width: 680px; color: var(--ink-2); margin: 0; font-size: 16px; }
-  .hero p.one-line { max-width: none; white-space: nowrap; } /* 넓은 화면에서는 한 줄로 */
-
-  h2 { font-size: 21px; margin: 0; letter-spacing: -.01em; }
-  h3 { font-size: 16.5px; margin: 0; }
-  .sec { margin-top: 52px; }
-  .sec-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
-  .sec-head p { margin: 0; color: var(--ink-3); font-size: 14px; }
-  .lead { color: var(--ink-2); margin: 0 0 16px; max-width: 760px; }
-
-  .box { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; }
-  .box p { margin: 0; color: var(--ink-2); font-size: 14px; }
-  .box h3 + p { margin-top: 6px; }
-  .cols { display: grid; gap: 24px; }
-  .c2 { grid-template-columns: repeat(2, 1fr); }
-  .c3 { grid-template-columns: repeat(3, 1fr); }
-  .c4 { grid-template-columns: repeat(4, 1fr); }
-  .big-no { font-family: var(--brand); color: var(--red); font-size: 30px; line-height: 1; margin-bottom: 10px; display: block; }
-  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
-  .code { font: 500 12.5px ui-monospace, "Cascadia Mono", Consolas, monospace; color: var(--ink-2); background: var(--soft); padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
-  ul.plain { margin: 8px 0 0; padding-left: 18px; color: var(--ink-2); font-size: 14px; }
-  ul.plain li { margin: 2px 0; }
-
-  /* 홈: 메뉴 카드 */
-  .go { text-decoration: none; display: flex; flex-direction: column; gap: 6px; transition: border-color .15s, box-shadow .15s; }
-  .go:hover { border-color: var(--red); box-shadow: 0 4px 14px rgba(23, 24, 26, .07); } /* 움직이지 않고 약한 그림자만 */
-  .color-card.go:hover { border-color: var(--main); } /* 사업별 주색상 */
-  .go b { font-family: var(--brand); font-weight: 400; font-size: 24px; line-height: 1.1; }
-  .go span { color: var(--ink-2); font-size: 13.5px; }
-  .go i { font-style: normal; color: var(--red); font-weight: 700; font-size: 13px; margin-top: auto; padding-top: 4px; } /* 카드 맨 아래에 고정 */
-
-  /* 홈: 컬러 체계 */
-  .color-card { padding: 0; overflow: hidden; display: flex; flex-direction: column; }
-  /* 그룹 색은 배경 대신 네모 색상칩으로 */
-  .color-card .chip-top { padding: 28px 28px 4px; display: flex; align-items: center; gap: 14px; }
-  .color-card .chips { display: flex; gap: 4px; flex: none; margin-left: auto; }
-  .color-card .chips i { width: 40px; height: 40px; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
-  /* 색이 여러 개인 카드(회사 CI·B2C): 이름은 한 줄에 하나씩, 칩은 작게 해서 첫 줄 높이에 맞춤 (겹침 방지) */
-  .color-card .chips.many { align-self: flex-start; }
-  .color-card .chips.many i { width: 24px; height: 24px; border-radius: 6px; }
-  .color-card .chip-top b span.nm { display: block; }
-  .color-card .chip-top b span.nm + span.nm { margin-top: 4px; }
-  .color-card .chip-name { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
-  .color-card .chip-top b { font-family: var(--brand); font-weight: 400; font-size: 24px; line-height: 1; }
-  .color-card .chip-top span { font: 500 12.5px ui-monospace, Consolas, monospace; color: var(--ink-3); }
-  .color-card .body { padding: 22px 28px 28px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
-  .color-card .body h3 { font-size: 15px; }
-  .color-card .body p { font-size: 13.5px; }
-  .color-card .targets { font-size: 13px; color: var(--ink); }
-  .ratio { font-size: 12.5px; font-weight: 600; margin-top: auto; padding-top: 6px; }
-  .ok { color: #1E7F55; }
-  .warn { color: #B4231F; }
-  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .split .box h3 { display: flex; align-items: center; gap: 8px; }
-  .tag { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--soft); color: var(--red); }
-
-  /* 홈: 업데이트 */
-  .news { list-style: none; margin: 0; padding: 0; }
-  .news li { display: grid; grid-template-columns: 110px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
-  .news li:last-child { border-bottom: 0; }
-  .news time { font: 600 13px ui-monospace, Consolas, monospace; color: var(--ink-3); padding-top: 1px; }
-  .news b { display: block; font-size: 14.5px; }
-  .news span { color: var(--ink-2); font-size: 13.5px; }
-
-  /* 표 */
-  .table-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: 14px; }
-  th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: middle; }
-  th { font-size: 12.5px; color: var(--ink-3); font-weight: 600; background: #FCF6F3; white-space: nowrap; }
-  tr:last-child td { border-bottom: 0; }
-  td.logo-cell { width: 280px; }
-  #dlRows td { padding-top: 20px; padding-bottom: 20px; } /* 로고 다운로드 표: 줄 높이 130% (54→70px) */
-  td.logo-cell svg { display: block; } /* 크기는 스크립트가 같은 배율로 지정 */
-  td.actions { text-align: right; white-space: nowrap; }
-  .pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; background: var(--red); color: #fff; }
-
-  /* 단추 */
-  .btn { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 8px; padding: 6px 11px; font: 600 12.5px var(--text); cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
-  .btn:hover { border-color: var(--ink); }
-  .btn.primary { background: var(--red); border-color: var(--red); color: #fff; }
-  .btn.primary:hover { background: var(--red-dark); }
-  .btn svg { width: 14px; height: 14px; }
-  .btns { display: inline-flex; gap: 6px; flex-wrap: wrap; }
-
-  /* 로고타입 */
-  .group-hero { padding: 56px 0 8px; }
-  .group-hero h1 { font-size: 34px; margin: 8px 0 12px; letter-spacing: -.02em; }
-  .group-hero h1.brand-h1 { font-family: var(--brand); font-weight: 400; font-size: 60px; line-height: 1.04; letter-spacing: 0; margin: 8px 0 16px; } /* 다른 페이지 제목과 같은 전용서체 */
-  .group-hero h1.brand-h1 em { font-style: normal; color: var(--red); }
-  .group-hero h1.brand-h1 .ko { font-family: var(--text); font-weight: 400; font-size: 34px; color: #778288; letter-spacing: -.02em; } /* 전용서체에 한글이 없어 한글은 본문 글꼴 */
-  .facts { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 14px; font-size: 13.5px; color: var(--ink-2); }
-  .facts b { color: var(--ink); margin-right: 6px; }
-  .logo-list { display: grid; gap: 36px; }
-  .logo-row { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-  .stages { display: grid; grid-template-columns: 1fr 1fr; }
-  .stage { height: 260px; display: grid; place-items: center; padding: 24px; position: relative; }
-  .stage + .stage { border-left: 1px solid var(--line); }
-  .stage svg { max-width: 92%; height: auto; } /* 크기는 스크립트가 같은 배율로 지정 */
-  .stage small { position: absolute; left: 12px; top: 10px; font-size: 11.5px; font-weight: 600; opacity: .6; }
-  .row-meta { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-top: 1px solid var(--line); flex-wrap: wrap; }
-  .row-meta strong { font-size: 15px; }
-  .row-meta .name-col { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; margin-right: auto; }
-  .row-meta .pending { font-weight: 500; font-size: 12.5px; color: var(--ink-3); margin-left: 6px; }
-  .row-meta .note { color: var(--ink-3); font-size: 13px; margin-right: auto; }
-  .alert { display: flex; gap: 10px; align-items: flex-start; background: #FFF3F0; border: 1px solid #F3D2CA; border-radius: var(--radius); padding: 12px 16px; font-size: 13.5px; color: #8A2A1E; margin-top: 16px; }
-  .archive { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .archive .stage { height: 170px; background: #FFFFFF; }
-  .archive .stage svg { max-height: 64px; width: auto; }
-  .archive .row-meta { flex-direction: column; align-items: flex-start; gap: 2px; }
-  .story { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .story .box span { font-size: 12.5px; font-weight: 700; color: var(--red); }
-
-  /* 서체 */
-  .font-panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-  /* 미리보기 칸은 최대 크기(150px 한 줄 = 150 × 줄 간격 1.1)에 맞춘 고정 높이: 크기를 바꿔도 화면이 흔들리지 않게. 긴 문구는 줄을 바꾸지 않고 옆으로 넘겨 봄.
-     가로 스크롤 막대는 늘 자리를 잡아 두어(scroll) 막대가 생기고 없어질 때 글자가 움직이지 않게 */
-  .specimen { box-sizing: content-box; height: 165px; padding: 36px 32px; display: flex; align-items: center; overflow-x: scroll; overflow-y: hidden; scrollbar-width: thin; transition: background .2s, color .2s; border-bottom: 1px solid var(--line); }
-  .specimen div { font-family: var(--brand); font-kerning: normal; font-size: 88px; line-height: 1.1; white-space: nowrap; outline: none; min-width: 100%; }
-  .controls { display: flex; flex-wrap: wrap; gap: 16px 28px; padding: 16px 20px; align-items: center; }
-  .controls label, .controls .lbl { font-size: 13px; color: var(--ink-3); font-weight: 600; display: flex; align-items: center; gap: 10px; }
-  .controls input[type=text] { font: 500 14px var(--text); padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; width: 220px; color: var(--ink); }
-  .controls input[type=range] { accent-color: var(--red); width: 140px; }
-  /* 크기 게이지: 막대는 연한 회색 고정, 손잡이만 고른 색(--thumb) */
-  .controls #specSize { -webkit-appearance: none; appearance: none; height: 6px; border-radius: 3px; background: #E3E5E8; outline-offset: 4px; }
-  .controls #specSize::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--thumb, var(--red)); border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.15); cursor: pointer; }
-  .controls #specSize::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--thumb, var(--red)); border: 2px solid #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.15); cursor: pointer; }
-  /* 컬러칩은 같은 폭의 칸에 하나씩 놓아 간격을 고르게 (이름 길이와 상관없이) */
-  .swatches { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px 2px; }
-  .sw-item { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 50px; }
-  .sw-item small { font-size: 11px; font-weight: 500; color: var(--ink-3); white-space: nowrap; }
-  .controls .lbl { white-space: nowrap; }
-  .size-num { display: inline-flex; align-items: center; gap: 4px; font-weight: 500; }
-  .size-num input { width: 56px; font: 500 14px var(--text); padding: 5px 6px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); text-align: right; }
-  .controls input.sw-hex[type=text] { width: 96px; padding: 5px 8px; font: 500 14px var(--text); margin-left: -2px; align-self: center; }
-  .controls input.sw-hex.bad { border-color: var(--red); color: var(--red); }
-  .sw { width: 26px; height: 26px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 0 1px var(--line); cursor: pointer; padding: 0; }
-  .sw[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--ink); }
-  .sw-custom { position: relative; display: inline-block; box-sizing: border-box; overflow: hidden; background: conic-gradient(#E5484D, #F5D90A, #46A758, #0091FF, #8E4EC6, #E5484D); }
-  .sw-custom input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; border: 0; padding: 0; cursor: pointer; }
-  .glyphs { font-family: var(--brand); font-size: 36px; letter-spacing: 6px; line-height: 1.6; padding: 18px 20px; border-top: 1px solid var(--line); word-break: break-word; }
-  .file { display: flex; flex-direction: column; gap: 6px; }
-  .file b { font-family: var(--brand); font-weight: 400; font-size: 26px; color: var(--red); line-height: 1; }
-  .file span { color: var(--ink-2); font-size: 13.5px; flex: 1; }
-  .file .btn { align-self: flex-start; margin-top: 8px; }
-  ol.steps { margin: 0; padding-left: 20px; color: var(--ink-2); font-size: 14px; }
-  ol.steps li { margin: 4px 0; }
-  pre { background: var(--ink); color: #F2EEF6; border-radius: var(--radius); padding: 18px 20px; overflow-x: auto; font: 13px/1.6 ui-monospace, "Cascadia Mono", Consolas, monospace; margin: 0; }
-
-  .note-box { background: #FCF1EC; border: 1px dashed #E3C3B8; border-radius: var(--radius); padding: 16px 20px; color: var(--ink-2); font-size: 14px; }
-  .sample { width: 44px; height: 30px; border-radius: 6px; display: grid; place-items: center; font-family: var(--brand); font-size: 17px; color: #fff; flex: none; }
-
-  /* 전용서체: 디자인 크리틱 기록 */
-  .grade { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 9px; border-radius: 999px; color: #fff; white-space: nowrap; }
-  .grade.must { background: var(--red); } .grade.rec { background: #C77700; } .grade.keep { background: #1E7F55; }
-  .crit-sum { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-  .crit-sum .box b { display: block; font-size: 28px; line-height: 1.2; }
-  .crit-sum .must b { color: var(--red); } .crit-sum .rec b { color: #C77700; } .crit-sum .keep b { color: #1E7F55; }
-  .crit-sum .box span { color: var(--ink-2); font-size: 13.5px; }
-  .crit-fig { margin: 0; }
-  .crit-fig img { width: 100%; display: block; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); }
-  .crit-fig.fit { display: flex; flex-direction: column; } /* 폰트 업데이트 그림: 원래 크기로 보여 글자 크기를 맞춤 */
-  .crit-fig.fit .pic { flex: 1; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 24px 28px; overflow: hidden; }
-  .crit-fig.fit img { width: auto; max-width: 100%; height: auto; border: 0; border-radius: 0; background: none; }
-  .crit-fig figcaption { color: var(--ink-3); font-size: 13px; margin-top: 6px; }
-  .ver-line { margin: 28px 0 0; color: var(--ink-2); font-size: 14.5px; }
-  .dl-all { display: flex; align-items: center; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
-  .dl-all .btn { padding: 10px 16px; font-size: 14px; }
-  .dl-all span { color: var(--ink-3); font-size: 13px; }
-  /* 디자인 아티클 */
-  .art-pick { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
-  .art-pick label { font-size: 13px; color: var(--ink-3); font-weight: 600; display: flex; align-items: center; gap: 10px; }
-  .art-pick select { font: 600 14.5px var(--text); padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); background: var(--surface); min-width: 220px; }
-  .seg[hidden] { display: none; }
-  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
-  .seg button { border: 0; background: var(--surface); padding: 7px 14px; font: 600 13px var(--text); color: var(--ink-2); cursor: pointer; }
-  .seg button + button { border-left: 1px solid var(--line); }
-  .seg button[aria-pressed="true"] { background: var(--soft); color: #B9023D; }
-  .art-pick .note { color: var(--ink-3); font-size: 13px; display: inline-flex; align-items: center; gap: 8px; }
-  .art-icons { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 24px 28px; }
-  .art-icons figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; max-width: 100%; }
-  .art-icons svg { display: block; max-width: 100%; height: auto; }
-  .art-icons figcaption { font: 600 12px ui-monospace, Consolas, monospace; color: var(--ink-3); }
-  .art-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
-  .art-row .note { color: var(--ink-3); font-size: 13px; margin-right: auto; }
-  .art-og, .art-panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
-  .art-og canvas { display: block; width: 100%; max-width: 720px; height: auto; margin: 24px auto; box-shadow: 0 0 0 1px rgba(0,0,0,.06); }
-  .art-og .controls, .art-panel .controls { border-top: 1px solid var(--line); }
-  .art-apple { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 24px 56px; padding: 28px 24px; }
-  .art-apple figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 8px; }
-  .art-apple svg { display: block; box-shadow: 0 0 0 1px rgba(0,0,0,.08); } /* 흰 바탕 아이콘(CryptoGuide)도 테두리가 보이게 */
-  .art-apple .ios svg { border-radius: 22.5%; } /* 아이폰은 모서리를 자동으로 둥글게 깎음 */
-  .art-apple figcaption { font-size: 12.5px; color: var(--ink-3); font-weight: 600; }
-  .controls input#appleText { width: 120px; }
-  .art-panel .controls :disabled { opacity: .4; cursor: not-allowed; } /* 심볼을 고르면 이니셜·크기는 쓰지 않음 */
-  .controls textarea#artText { width: 380px; max-width: 100%; font: 500 14px/1.5 var(--text); padding: 7px 10px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink); resize: vertical; }
-  .toast { position: fixed; left: calc(50% + var(--side-w) / 2); bottom: 28px; transform: translateX(-50%) translateY(20px); background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: 14px; opacity: 0; pointer-events: none; transition: .25s; z-index: 30; }
-  .toast.on { opacity: 1; transform: translateX(-50%); }
-
-  @media (max-width: 1100px) {
-    .hero p.one-line { white-space: normal; }
-    .c4 { grid-template-columns: repeat(2, 1fr); }
-    .c3, .story { grid-template-columns: repeat(2, 1fr); }
-    main { padding: var(--top-h) 32px 80px; }
-  }
-  @media (max-width: 860px) {
-    aside { transform: translateX(-100%); transition: transform .25s; box-shadow: 0 0 40px rgba(0,0,0,.12); }
-    body.menu-open aside { transform: none; }
-    .topbar { padding: 0 12px; gap: 10px; }
-    .menu-toggle { display: block; }
-    .top-logo svg { height: 14.85px; }
-    .top-logo .top-note { display: none; }
-    .top-links { gap: 11px; }
-    .top-links a { padding: 6px 8px; font-size: 13px; }
-    main { margin-left: 0; padding: var(--top-h) 16px 72px; }
-    .toast { left: 50%; }
-    .c2, .c3, .c4, .split, .story, .archive, .crit-sum { grid-template-columns: 1fr; }
-    .stages { grid-template-columns: 1fr; }
-    .stage + .stage { border-left: 0; border-top: 1px solid var(--line); }
-    .specimen { padding: 24px 18px; }
-    .specimen div { font-size: 52px; }
-    .news li { grid-template-columns: 1fr; gap: 2px; }
-    th.hide-m, td.hide-m { display: none; }
-  }
-  @media (max-width: 560px) {
-    .top-logo span { display: none; }
-  }
-</style>
+<link rel="stylesheet" href="Apply%20skills%20Ver/style.css?v=1">
+<script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
 
-<header class="topbar">
-  <button type="button" class="menu-toggle" id="openMenu" aria-label="메뉴 열기">☰</button>
-  <a href="#home" class="top-logo" id="topLogo" aria-label="홈으로"></a>
-  <nav class="top-links" aria-label="바로가기">
-    <a href="https://corp.fnguide.com/" target="_blank" rel="noopener">회사소개</a>
-    <a href="https://gw.fnguide.com/" target="_blank" rel="noopener">그룹웨어</a>
-    <a href="https://www.fnguide.com/" target="_blank" rel="noopener">FnGuide.com</a>
-  </nav>
-</header>
-
-<aside>
-  <nav class="menu" id="menu">
-    <a href="#home">CI/BI 디자인 운영</a>
-    <a href="#font" data-parent="font">브랜드 전용서체 소개</a>
-    <div class="sub" id="fontSub">
-      <a href="#font">서체 소개</a>
-      <a href="#font/update">폰트 업데이트</a>
-      <a href="#font/critique">디자인 크리틱</a>
-    </div>
-    <a href="#logo/b2b" data-parent="logo download">브랜드 로고타입 소개</a>
-    <div class="sub" id="subMenu"></div>
+<header class="bar" id="bar">
+  <a href="#home" class="mark" id="mark" aria-label="FnGuide Brand Identity 홈"></a>
+  <nav class="links" id="links" aria-label="주 메뉴">
+    <a href="#font">전용서체</a>
+    <a href="#logo/b2b" data-page="logo download">로고타입</a>
     <a href="#article">디자인 아티클</a>
     <a href="#rules">사용 규칙</a>
   </nav>
-  <div class="side-foot"><b>사내 전용</b> · FnGuide 임직원만 사용할 수 있습니다.</div>
-</aside>
+  <!-- 서체가 업데이트되면 파일 이름과 버전 글자를 함께 바꾼다 -->
+  <a class="act" href="out/FnGuideLogotype-v1.31.zip" download>서체 다운로드 v1.31</a>
+  <button type="button" class="menu-word" id="menuWord" aria-expanded="false" aria-controls="links">메뉴</button>
+</header>
 
-<main>
-  <!-- 0. 홈 -->
+<main id="main">
+
+  <!-- 홈 -->
   <section class="page" id="page-home">
     <div class="hero">
-      <div class="eyebrow">FnGuide CI / BI</div>
-      <h1>CI/BI <em>Management</em></h1>
-      <p><b>로고·서체·컬러, 이제 여기서 받으세요.</b><br>이곳 파일이 항상 최신 공식본이니, 메일로 받은 옛 파일 대신 이곳 파일을 쓰면 됩니다.</p>
-    </div>
-
-    <div class="cols c3">
-      <a class="box go" href="#font"><b>Typeface</b><span>로고타입을 옮긴 사내 전용서체 FnGuide Logotype</span><i>서체 보기·받기 →</i></a>
-      <a class="box go" href="#logo/b2b"><b>Brand Logotype</b><span>회사 CI와 사업별 서비스 로고타입</span><i>로고 보기 →</i></a>
-      <a class="box go" href="#rules"><b>Guidelines</b><span>사용 원칙과 배경 조합 규칙</span><i>사용 규칙 →</i></a>
-    </div>
-
-    <div class="sec">
-      <div class="sec-head"><h2>브랜드 방향</h2></div>
-      <p class="lead"><b>하나의 CI 아래 일관되게, 고객에 따라 유연하게.</b> B2B 서비스는 회사와 같은 서체·사업별 컬러로 묶고, B2C 서비스는 고객에 맞춘 독립 브랜드로 운영합니다.</p>
-      <div class="cols c2">
-        <div class="box"><span class="big-no">01</span><h3>화면에서 더 또렷하게</h3><p>글자를 조금 더 굵게, 컬러를 FnRed 2025로 바꿔 작은 화면에서도 잘 보이게 했습니다.</p></div>
-        <div class="box"><span class="big-no">02</span><h3>컬러만 봐도 어느 사업인지</h3><p>사업마다 하나의 컬러를 정해, 서비스가 늘어도 헷갈리지 않게 합니다.</p></div>
+      <div class="hero-stage">
+        <div class="square" aria-hidden="true"></div>
+        <h1 class="line ink"><span class="track"><span>FnGuide Brand Identity</span></span></h1>
+        <div class="line paper" aria-hidden="true"><span class="track"></span></div>
+      </div>
+      <div class="hero-copy">
+        <p class="say">로고·서체·컬러, 이제 여기서 받으세요.</p>
+        <p class="fact">이곳 파일이 항상 최신 공식본입니다 · 전용서체 v1.31 · 로고타입 23종</p>
+      </div>
+      <div class="hero-foot">
+        <p>사내 전용 · FnGuide 임직원만 사용할 수 있습니다</p>
+        <button type="button" class="btn primary big zip-all" data-zip></button>
       </div>
     </div>
 
-    <div class="sec">
-      <div class="sec-head"><h2>사업별 컬러 체계</h2><p>전용서체는 모든 그룹에 공통으로 쓰고, 그룹은 컬러로 구분합니다.</p></div>
-      <p class="lead">같은 사업의 서비스는 같은 컬러를 씁니다. 새 서비스가 생겨도 어느 사업인지에 따라 컬러가 바로 정해집니다.</p>
-      <div class="cols c3" id="colorCards"></div>
-      <div class="split" style="margin-top:24px">
-        <div class="box"><h3><span class="tag">B2B</span>사업별 컬러 통일</h3>
-          <ul class="plain">
-            <li>B2B 대표상품 — Flagship 브랜드 (FnGuide.com, DataGuide, QuantiWise…)</li>
-            <li>지수상품, 펀드·운용</li>
-            <li>B2B 계약상품 — 고객사 맞춤형 서비스 (ETF Global, Market Monitor, CompanyGlobal)</li>
-          </ul>
-        </div>
-        <div class="box"><h3><span class="tag">B2C</span>독립 체계</h3>
-          <ul class="plain">
-            <li>모바일 앱 — 고객 친화형, 독립적인 정체성 강조</li>
-            <li>컬러: 서비스별 독립 컬러 사용</li>
-            <li>폰트: 서비스 성격에 맞게 사용</li>
-            <li>톤앤매너: 사용자 친화적, 감성</li>
-          </ul>
-        </div>
-      </div>
-      <div class="note-box" style="margin-top:24px">아직 전용서체로 바뀌지 않은 서비스 로고는 차례로 바꿀 예정입니다. 그 전까지는 이 사이트에 있는 지금 로고를 쓰세요.</div>
-    </div>
-
-    <div class="sec">
-      <div class="sec-head"><h2>기대 효과</h2></div>
-      <div class="cols c4">
-        <div class="box"><h3>브랜드 일관성 강화</h3></div>
-        <div class="box"><h3>내·외부 커뮤니케이션 효율 향상</h3></div>
-        <div class="box"><h3>브랜드 자산 강화와 사용자 경험 개선</h3></div>
-        <div class="box"><h3>신규 서비스 확장 시 유연한 대응</h3></div>
-      </div>
-    </div>
-
-    <div class="sec">
-      <div class="sec-head"><h2>최근 업데이트</h2></div>
-      <div class="box" style="padding:4px 22px">
-        <ul class="news">
-          <li><time>2026.10.30</time><div><b>WiseReport 서비스 심볼 등록</b><span>디자인 아티클에서 WiseReport를 고르면 새 심볼로 파비콘·아이콘·애플 터치 아이콘을 만들 수 있습니다. <a href="#article">바로 가기</a></span></div></li>
-          <li><time>2026.10.29</time><div><b>디자인 아티클 추가 — 파비콘·아이콘·오픈 그래프 만들기</b><span>서비스를 고르면 파비콘·아이콘 7종·오픈 그래프 그림을 만들어 한 번에 받을 수 있습니다. DataGuide·CryptoGuide·Retamin은 서비스 심볼로도 만듭니다. <a href="#article">바로 가기</a></span></div></li>
-          <li><time>2026.10.29</time><div><b>전용서체 FnGuide Logotype v1.31 공개</b><span>FY2025·T4·7A처럼 대문자와 숫자가 붙을 때의 간격을 고르게 맞췄습니다. 글자 모양은 v1.3과 같습니다. 이미 설치했다면 새 파일로 다시 설치하세요. <a href="#font/update">자세히 보기</a></span></div></li>
-          <li><time>2026.10.29</time><div><b>전용서체 FnGuide Logotype v1.3 공개</b><span>숫자 1과 소문자 l을 알아보기 쉽게 바꾸고, − ± × · 같은 금융 기호와 표에 맞는 숫자를 더했습니다. 로고타입도 새 서체로 다시 만들었습니다. 이미 설치했다면 새 파일로 다시 설치하세요. <a href="#font/update">자세히 보기</a></span></div></li>
-          <li><time>2026.10.27</time><div><b>전용서체 FnGuide Logotype v1.200 공개</b><span>일부 영문 글자(f m M s S y r)의 모양을 다듬었습니다. 해당 글자가 들어간 로고타입도 새 서체로 다시 만들었습니다.</span></div></li>
-          <li><time>2026.10.27</time><div><b>서비스 로고타입 17종을 전용서체로 새로 제작</b><span>B2B 대표·지수·펀드·B2B 계약상품과 FnAPI 로고타입을 FnGuide Logotype으로 다시 만들었습니다.</span></div></li>
-          <li><time>2026.10.26</time><div><b>전용서체 FnGuide Logotype v1.100 공개</b><span>대문자끼리의 간격을 로고 밀도에 맞춰 조정했습니다.</span></div></li>
-          <li><time>2025.06</time><div><b>FnGuide CI / BI 사용방안 · BI 컬러 가이드라인</b><span>사업별 컬러 체계와 FnRed 2025를 정했습니다.</span></div></li>
+    <div class="intro reveal">
+      <figure class="intro-pic">
+        <div class="ci-square" id="ciSquare"></div>
+        <figcaption>FnRed 2025 · #B9023D. 글자를 조금 더 굵게, 컬러를 더 선명하게 바꿔 작은 화면에서도 잘 보입니다.</figcaption>
+      </figure>
+      <div class="intro-text">
+        <h2>브랜드 방향</h2>
+        <p class="statement">하나의 CI 아래 일관되게, 고객에 따라 유연하게. B2B 서비스는 회사와 같은 서체와 사업별 컬러로 묶고, B2C 서비스는 고객에 맞춘 독립 브랜드로 운영합니다.</p>
+        <ul class="effects">
+          <li>브랜드 일관성 강화</li>
+          <li>내·외부 커뮤니케이션 효율 향상</li>
+          <li>브랜드 자산 강화와 사용자 경험 개선</li>
+          <li>신규 서비스 확장 시 유연한 대응</li>
         </ul>
+      </div>
+    </div>
+
+    <div class="colors reveal">
+      <div class="wrap">
+        <h2>사업별 컬러 체계</h2>
+        <p class="sub">전용서체는 모든 그룹이 함께 쓰고, 그룹은 컬러로 구분합니다. 같은 사업의 서비스는 같은 컬러를 씁니다.</p>
+      </div>
+      <div class="band" id="band"></div>
+      <div class="wrap split">
+        <div><h3>B2B · 사업별 컬러 통일</h3>
+          <p>B2B 대표상품(FnGuide.com, DataGuide, QuantiWise…), 지수상품, 펀드·운용, B2B 계약상품(ETF Global, Market Monitor, CompanyGlobal)은 사업마다 하나의 컬러를 씁니다.</p></div>
+        <div><h3>B2C · 독립 체계</h3>
+          <p>모바일 앱처럼 개인 고객을 위한 서비스는 서비스별 독립 컬러와 서체로, 사용자 친화적인 톤을 씁니다.</p></div>
+        <p class="note">FnGuide CI 전용색상 FnWine(#94243A)은 BI 컬러 FnRed 2025(#B9023D)와 다른 색입니다.<br>아직 전용서체로 바뀌지 않은 서비스 로고는 차례로 바꿀 예정입니다.</p>
+      </div>
+    </div>
+
+    <div class="news reveal">
+      <div class="wrap">
+        <h2>최근 업데이트</h2>
+        <ol class="lineup">
+          <li><time datetime="2026-10-30">2026.10.30</time><b>WiseReport 서비스 심볼 등록</b><a href="#article">디자인 아티클</a></li>
+          <li><time datetime="2026-10-29">2026.10.29</time><b>디자인 아티클: 파비콘·아이콘·오픈 그래프 만들기</b><a href="#article">디자인 아티클</a></li>
+          <li><time datetime="2026-10-29">2026.10.29</time><b>전용서체 v1.31, 대문자와 숫자 사이 간격</b><a href="#font/update">폰트 업데이트</a></li>
+          <li><time datetime="2026-10-29">2026.10.29</time><b>전용서체 v1.3, 1·l 구분, 금융 기호, 고정폭 숫자</b><a href="#font/update">폰트 업데이트</a></li>
+          <li><time datetime="2026-10-27">2026.10.27</time><b>전용서체 v1.200, f m M s S y r 다듬기</b><a href="#font">전용서체</a></li>
+          <li><time datetime="2026-10-27">2026.10.27</time><b>서비스 로고타입 17종을 전용서체로 새로 제작</b><a href="#logo/b2b">로고타입</a></li>
+          <li><time datetime="2026-10-26">2026.10.26</time><b>전용서체 v1.100, 대문자끼리의 간격</b><a href="#font">전용서체</a></li>
+          <li><time datetime="2025-06">2025.06</time><b>FnGuide CI / BI 사용방안 · BI 컬러 가이드라인</b><a href="#logo/ci">FnGuide CI</a></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="goto reveal">
+      <div class="wrap">
+        <h2>바로가기</h2>
+        <div class="mods">
+          <a class="mod" href="#font"><div class="panel pic-panel"><img src="out/font-critique/img/02-text-specimen.png" width="1386" height="668" alt="전용서체로 조판한 문장 견본" loading="lazy"></div>
+            <div><h3>전용서체 FnGuide Logotype</h3><p>로고의 글자 모양을 그대로 옮긴 사내 전용서체. 미리 써 보고 OTF·TTF·WOFF로 받습니다.</p></div></a>
+          <a class="mod" href="#logo/b2b"><div class="panel logo-panel" id="modLogos" aria-hidden="true"></div>
+            <div><h3>브랜드 로고타입</h3><p>회사 CI와 사업별 서비스 로고타입 23종. 컬러·흰색, SVG·PNG로 받습니다.</p></div></a>
+          <a class="mod" href="#article"><div class="panel icon-panel" id="modIcons"><img class="touch" src="out/brand-site/favicon/apple-touch-icon.png" width="180" height="180" alt="FnGuide 애플 터치 아이콘" loading="lazy"></div>
+            <div><h3>디자인 아티클</h3><p>서비스를 고르면 파비콘·아이콘·오픈 그래프 그림을 바로 만들어 받습니다.</p></div></a>
+          <a class="mod" href="#rules"><div class="panel pic-panel"><img src="out/font-critique/img/15-small-sizes.png" width="1330" height="1110" alt="작은 크기에서 글자가 보이는 정도 비교" loading="lazy"></div>
+            <div><h3>사용 규칙</h3><p>로고 자리에는 원본 파일, 사내 사용만 허용, 배경 조합과 명도 대비 기준.</p></div></a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 1. 전용서체 소개 -->
+  <!-- 전용서체 -->
   <section class="page" id="page-font">
-    <div class="hero">
-      <div class="eyebrow">Typeface</div>
-      <h1>FnGuide <em>Logotype</em></h1>
-      <p>FnGuide 로고의 글자 모양을 그대로 옮긴 사내 전용서체입니다. 서비스 이름과 제목을 로고와 같은 인상으로 쓸 수 있습니다. 단, 로고 자리에는 서체로 입력하지 말고 원본 로고 파일을 쓰세요.</p>
-    </div>
-
-    <div class="sec" style="margin-top:20px">
-      <div class="sec-head"><h2>왜 전용서체인가</h2></div>
-      <div class="cols c3">
-        <div class="box"><h3>이미지에서 서체로</h3><p>로고를 이미지 파일로만 관리하던 방식에서 벗어나, 누구나 같은 품질로 브랜드 문구를 만들 수 있게 합니다.</p></div>
-        <div class="box"><h3>CI 서체를 그대로</h3><p>CI 서체는 Rotis 계열 서체를 재구성한 전용 서체이며, 로고를 개선하면서 더 잘 보이도록 글자를 조금 굵게 다듬었습니다. 그 형태를 폰트로 옮겼습니다.</p></div>
-        <div class="box"><h3>사업별 BI에 일관되게</h3><p>FundGuide, FnIndex, ETF Global 같은 사업별 BI 문구를 같은 서체·같은 규칙으로 만들 수 있습니다.</p></div>
+    <nav class="tabs" data-tabs="font" aria-label="전용서체 메뉴"></nav>
+    <div class="font-hero">
+      <div class="wrap">
+        <h1 class="mono-h">FnGuide Logotype</h1>
+        <p class="say">로고의 글자 모양을 그대로 옮긴 사내 전용서체입니다.</p>
+        <p class="fact">현재 버전 v1.31 · 2026.10.29 · 114자 · <a href="#font/update">업데이트 내역</a></p>
       </div>
     </div>
 
-
-    <p class="ver-line">현재 버전 <span class="pill">v1.31</span> · 2026.10.29 · <a href="#font/update">업데이트 내역 보기 →</a></p>
-
-    <div class="sec">
-      <div class="sec-head"><h2>서체 사양</h2></div>
-      <div class="table-wrap">
-        <table>
-          <tbody>
-            <tr><th>서체명</th><td>FnGuide Logotype Regular (v1.31)</td></tr>
-            <tr><th>수록 글자</th><td>114자 — 영문 대문자 26 · 소문자 26 · 숫자 10 · 특수문자(키보드 입력 문자 32종 + – ‘ ’ “ ”) · 금융 기호 5(₩ − ± × ·) · f 합자 10</td></tr>
-            <tr><th>숫자</th><td>0–9. 표에서 숫자 자리를 맞추려면 '고정폭 숫자' 기능을 켜세요. <span style="color:var(--ink-3)">(웹 개발용: <code>font-variant-numeric: tabular-nums</code>)</span></td></tr>
-            <tr><th>합자</th><td>fi fl ff ffi ffl fb fh fk ft fj — 입력하면 자동으로 이어진 글자로 바뀜</td></tr>
-            <tr><th>파일</th><td>OTF(디자인 툴 권장) · TTF(오피스 호환) · WOFF(웹)</td></tr>
-            <tr><th>규격 <small style="font-weight:400;color:var(--ink-3)">디자이너용</small></th><td>1000 UPM · 대문자 높이 700 · x-height 498</td></tr>
-          </tbody>
-        </table>
+    <div class="tester">
+      <div class="specimen" id="specimen"><div contenteditable="true" spellcheck="false" id="specText" role="textbox" aria-label="미리보기 문구 (직접 입력)">FnGuide Brand</div></div>
+      <div class="wrap controls">
+        <label class="field">문구 <input type="text" id="specInput" value="FnGuide Brand" maxlength="40"></label>
+        <div class="field">크기 <input type="range" id="specSize" min="32" max="150" value="120" aria-label="글자 크기"><span class="size-num"><input type="number" id="specSizeNum" min="32" max="150" step="1" value="120" aria-label="글자 크기 직접 입력">px</span></div>
+        <div class="field">색상 <span class="swatches" id="swatches"></span></div>
+        <span class="btns" id="specDl"><button class="btn" data-type="svg">SVG 받기</button><button class="btn" data-type="png">PNG 받기</button></span>
       </div>
     </div>
 
-    <div class="sec">
-      <div class="sec-head"><h2>품질 기준</h2><p>모든 판단의 기준은 공식 로고였습니다.</p></div>
-      <div class="cols c4">
-        <div class="box"><span class="big-no">0.33%</span><h3>로고와 똑같이</h3><p>폰트로 입력한 "FnGuide"와 공식 로고의 글자 위치 차이가 최대 0.33%입니다.</p></div>
-        <div class="box"><span class="big-no">11</span><h3>구조의 일관성</h3><p>기둥·가로획·세리프 등 11개 요소를 원본 기준값과 비교해 어긋난 글자를 보정했습니다.</p></div>
-        <div class="box"><span class="big-no">1,787</span><h3>고른 간격</h3><p>글자 가장자리의 흰 공간을 측정해 여백을 정하고, 1,787개 간격 보정 규칙을 넣었습니다(v1.31 기준).</p></div>
-        <div class="box"><span class="big-no">0</span><h3>충돌 없음</h3><p>가능한 글자 쌍 10,808개를 검사해 글자끼리 닿는 경우가 없음을 확인했습니다(v1.31 기준).</p></div>
+    <div class="intro reveal">
+      <div class="intro-glyphs" aria-hidden="true"><span>ABCDEFGHIJKLM</span><span>NOPQRSTUVWXYZ</span><span>abcdefghijklm</span><span>nopqrstuvwxyz</span><span>0123456789</span><span>&amp;@#%$!?₩−±×·</span></div>
+      <div class="intro-text">
+        <h2>왜 전용서체인가</h2>
+        <p class="statement">로고를 이미지로만 관리하던 방식에서 벗어나, 누구나 같은 품질로 브랜드 문구를 만들 수 있게 합니다.</p>
+        <dl class="why">
+          <dt>CI 서체를 그대로</dt><dd>Rotis 계열을 재구성한 CI 서체를, 로고를 개선하며 조금 굵게 다듬은 형태 그대로 폰트로 옮겼습니다.</dd>
+          <dt>사업별 BI에 일관되게</dt><dd>FundGuide, FnIndex, ETF Global 같은 사업별 BI 문구를 같은 서체·같은 규칙으로 만듭니다.</dd>
+          <dt>로고 자리에는 원본 파일</dt><dd>로고가 들어갈 자리에는 서체로 입력하지 말고 원본 로고 파일을 쓰세요.</dd>
+        </dl>
       </div>
     </div>
 
-    <div class="sec">
-      <div class="sec-head"><h2>미리보기</h2><p>문구를 입력하고 그룹 컬러를 골라 보세요.</p></div>
-      <div class="font-panel">
-        <div class="specimen" id="specimen"><div contenteditable="true" spellcheck="false" id="specText">FnGuide Brand</div></div>
-        <div class="controls">
-          <label>문구 <input type="text" id="specInput" value="FnGuide Brand" maxlength="40"></label>
-          <div class="lbl">크기 <input type="range" id="specSize" min="32" max="150" value="88" aria-label="글자 크기"><span class="size-num"><input type="number" id="specSizeNum" min="32" max="150" step="1" value="88" aria-label="글자 크기 직접 입력">px</span></div>
-          <div class="lbl">색상 <span class="swatches" id="swatches"></span></div>
-          <span class="btns" id="specDl" style="margin-left:auto"><button class="btn" data-type="svg">SVG 받기</button><button class="btn" data-type="png">PNG 받기</button></span>
-        </div>
-        <div class="glyphs">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 &amp;@#%$!?()[]{}</div>
+    <div class="news reveal">
+      <div class="wrap">
+        <h2>품질 기준</h2>
+        <p class="sub">모든 판단의 기준은 공식 로고였습니다.</p>
+        <ol class="lineup quality">
+          <li><span class="num">0.33%</span><b>로고와 똑같이</b><span>폰트로 입력한 "FnGuide"와 공식 로고의 글자 위치 차이 최대값</span></li>
+          <li><span class="num">11</span><b>구조의 일관성</b><span>기둥·가로획·세리프 등 11개 요소를 원본 기준값과 비교해 보정</span></li>
+          <li><span class="num">1,787</span><b>고른 간격</b><span>글자 가장자리의 흰 공간을 재서 넣은 간격 보정 규칙 수(v1.31)</span></li>
+          <li><span class="num">0</span><b>충돌 없음</b><span>가능한 글자 쌍 10,808개 중 글자끼리 닿는 경우(v1.31)</span></li>
+        </ol>
       </div>
     </div>
 
-    <div class="sec">
-      <div class="sec-head"><h2>사용 방법</h2></div>
-      <div class="split">
-        <div class="box">
-          <h3>설치</h3>
-          <ol class="steps" style="margin-top:8px">
-            <li>디자인 툴(Figma, Illustrator 등)에는 <b>OTF</b>, 오피스(Word, PowerPoint)에는 <b>TTF</b>를 설치합니다.</li>
-            <li>PowerPoint·Word에서는 [글꼴] 설정의 <b>"글꼴 커닝"</b>을 켜야 로고와 같은 간격이 적용됩니다.</li>
-            <li>합자(fi, fl 등)는 대부분의 디자인 툴과 웹 브라우저에서 자동으로 적용됩니다.</li>
-          </ol>
-          <p style="margin-top:12px">제목·브랜드 문구 전용이며 한글은 들어 있지 않습니다. 자세한 원칙은 <a href="#rules">사용 규칙</a>을 확인하세요.</p>
+    <div class="evidence reveal">
+      <div class="wrap">
+        <h2>이렇게 점검했습니다</h2>
+        <p class="sub">새 버전마다 서체 파일을 직접 재고 그림으로 비교합니다. <a href="#font/critique">디자인 크리틱 기록</a></p>
+      </div>
+      <div class="wrap figs">
+        <figure class="wide"><img src="out/font-critique/img/39-site-before-after.png" width="1278" height="706" alt="같은 문장의 수정 전과 수정 후 비교" loading="lazy"><figcaption>같은 문장의 수정 전(v1.200)과 수정 후(v1.3)</figcaption></figure>
+        <figure><img src="out/font-critique/img/06-alignment.png" width="1512" height="482" alt="대문자와 소문자의 높이 정렬 측정" loading="lazy"><figcaption>높이 정렬 — C·G와 O, v·w·x와 n</figcaption></figure>
+        <figure><img src="out/font-critique/img/10-compare-handgloves.png" width="1386" height="620" alt="해외 서체와 같은 대문자 높이로 비교" loading="lazy"><figcaption>같은 계열 해외 서체와 비교</figcaption></figure>
+        <figure><img src="out/font-critique/img/40-final-1.png" width="1638" height="308" alt="숫자 1의 받침 수정안" loading="lazy"><figcaption>숫자 1 — F의 세리프로 만든 받침</figcaption></figure>
+        <figure><img src="out/font-critique/img/41-final-l.png" width="1235" height="321" alt="소문자 l의 꼬리 수정안" loading="lazy"><figcaption>소문자 l — t의 꼬리로 만든 꼬리</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="spec reveal">
+      <div class="wrap two">
+        <div>
+          <h2>서체 사양</h2>
+          <table>
+            <tbody>
+              <tr><th scope="row">서체명</th><td>FnGuide Logotype Regular (v1.31)</td></tr>
+              <tr><th scope="row">수록 글자</th><td>114자: 영문 대문자 26 · 소문자 26 · 숫자 10 · 특수문자(키보드 입력 문자 32종 + – ‘ ’ “ ”) · 금융 기호 5(₩ − ± × ·) · f 합자 10</td></tr>
+              <tr><th scope="row">숫자</th><td>표에서 자리를 맞추려면 '고정폭 숫자' 기능을 켜세요.</td></tr>
+              <tr><th scope="row">합자</th><td>fi fl ff ffi ffl fb fh fk ft fj. 입력하면 자동으로 이어진 글자로 바뀜</td></tr>
+              <tr><th scope="row">규격</th><td>1000 UPM · 대문자 높이 700 · x-height 498 (디자이너용)</td></tr>
+            </tbody>
+          </table>
         </div>
         <div>
-<pre>/* 웹 적용 (사내 서비스) */
+          <h2>사용 방법</h2>
+          <ol class="steps">
+            <li>디자인 툴(Figma, Illustrator 등)에는 <b>OTF</b>, 오피스(Word, PowerPoint)에는 <b>TTF</b>를 설치합니다.</li>
+            <li>PowerPoint·Word에서는 [글꼴] 설정의 <b>"글꼴 커닝"</b>을 켜야 로고와 같은 간격이 됩니다.</li>
+            <li>합자(fi, fl 등)는 대부분의 디자인 툴과 웹 브라우저에서 자동으로 적용됩니다.</li>
+            <li>제목·브랜드 문구 전용이며 한글은 들어 있지 않습니다.</li>
+          </ol>
+<pre><code>/* 웹 적용 (사내 서비스) */
 @font-face {
   font-family: "FnGuide Logotype";
   src: url("&lt;사내 CDN 경로&gt;/FnGuideLogotype-Regular.woff")
        format("woff");
   font-display: block;
 }
-.brand {
-  font-family: "FnGuide Logotype", serif;
-  font-kerning: normal;
-}</pre>
+.brand { font-family: "FnGuide Logotype", serif; font-kerning: normal; }</code></pre>
         </div>
       </div>
     </div>
 
-    <div class="sec">
-      <div class="sec-head"><h2>서체 파일 받기</h2><p>사내에서만 쓸 수 있습니다. 외부로 보내거나 공개된 곳에 올리지 마세요. 외부 제작물에 필요하면 웹&amp;모바일팀 디자인 파트에 요청하세요.</p></div>
-      <div class="cols c3 font-files"></div>
+    <div class="files reveal">
+      <div class="wrap">
+        <h2>서체 파일 받기</h2>
+        <p class="sub">사내에서만 쓸 수 있습니다. 외부로 보내거나 공개된 곳에 올리지 마세요. 외부 제작물에 필요하면 웹&amp;모바일팀 디자인 파트에 요청하세요.</p>
+        <ul class="file-list" id="fontFiles"></ul>
+      </div>
     </div>
   </section>
 
-  <!-- 1-2. 전용서체 디자인 크리틱 기록 (회차가 늘면 이력 표에 줄을 더하고 아래에 회차 단락을 추가) -->
-  <section class="page" id="page-critique">
-    <div class="hero">
-      <div class="eyebrow">Typeface · 디자인 크리틱</div>
-      <h1>Design <em>Critic</em></h1>
-      <p class="one-line">서체가 새 버전이 될 때마다 전문가 관점으로 점검한 기록입니다. 웹&amp;모바일팀 디자인 파트와 서체 관리자를 위한 자료입니다.</p>
-    </div>
-
-    <div class="sec" style="margin-top:28px">
-      <div class="sec-head"><h2>크리틱 이력</h2><p>최신 회차가 위에 옵니다.</p></div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>회차</th><th>대상 버전</th><th>날짜</th><th class="hide-m">참여 관점</th><th>결과</th><th>반영</th></tr></thead>
-          <tbody>
-            <tr><td><b>1차</b></td><td><a href="#crit-v1200" class="crit-jump">v1.200</a></td><td>2026.10.27</td><td class="hide-m">타이포그래픽 · CI/BI · 웹</td>
-              <td><span class="grade must">수정 필요 5</span> <span class="grade rec">개선 권장 6</span> <span class="grade keep">유지 5</span></td><td><a href="#font/update">v1.3에 반영</a></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="sec" id="crit-v1200">
-      <div class="sec-head"><h2>1차 · v1.200 크리틱</h2><p>2026.10.27 · <a href="out/font-critique/FnGuide-Logotype-v1.200-critique.html" target="_blank" rel="noopener">보고서 전체 보기 ↗</a></p></div>
-      <p class="lead">기본 비례와 굵기 균형은 같은 계열의 해외 서체(Rotis Semi Sans·Optima 계열)와 같은 수준입니다. 높이 정렬·f 주변 간격·혼동 글자처럼 사람이 손으로 다듬는 마지막 단계가 남아 있습니다.</p>
-      <div class="crit-sum">
-        <div class="box must"><b>5건</b><span>수정 필요 — 높이 정렬 3, f 간격 1, 파일 설정 1</span></div>
-        <div class="box rec"><b>6건</b><span>개선 권장 — 숫자 1, 얇은 가로획, 대각선 간격, 숫자·기호, woff2, 사용 규칙</span></div>
-        <div class="box keep"><b>5건</b><span>유지 — 비례, 기둥 굵기, 깃발 세리프, 굵기 차이 성격, 폭 비례</span></div>
-      </div>
-
-      <h3 style="margin:32px 0 12px">전문가 총평</h3>
-      <div class="cols c3">
-        <div class="box"><h3>타이포그래픽 디자이너</h3><p>장르 안의 비례는 교과서 범위입니다(소문자 높이 0.69, 기둥 비율 0.93). 남은 것은 높이 정렬·f 간격·혼동 글자 같은 마무리 손질입니다.</p></div>
-        <div class="box"><h3>CI/BI 그래픽디자이너</h3><p>흔한 산세리프와 바로 구별되는 개성이 있습니다. 깃발 세리프와 굵기 차이라는 정체성은 지키며 고쳐야 합니다.</p></div>
-        <div class="box"><h3>웹 디자이너</h3><p>로고·제목(16px 이상)용으로 좋습니다. 본문·표에 쓰려면 고정폭 숫자, ₩ 같은 기호, 최소 크기 규칙이 먼저 필요합니다.</p></div>
-      </div>
-
-      <h3 style="margin:32px 0 12px">결론과 개선안</h3>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th style="width:110px">등급</th><th>무엇을</th><th class="hide-m">근거</th></tr></thead>
-          <tbody>
-            <tr><td><span class="grade must">수정 필요</span></td><td>① C·G 윗부분을 O 수준(약 711)으로 올림</td><td class="hide-m">C·G 688 / H 700 / O 711</td></tr>
-            <tr><td><span class="grade must">수정 필요</span></td><td>② v·w·x·y 를 소문자 높이에 맞춤</td><td class="hide-m">v·w·x 485, y 491 / n 500</td></tr>
-            <tr><td><span class="grade must">수정 필요</span></td><td>③ o·c·e 위쪽에 넘침 주기</td><td class="hide-m">위쪽 0, 아래쪽만 −12</td></tr>
-            <tr><td><span class="grade must">수정 필요</span></td><td>④ ft·fj 이어 쓰기 글자 추가, +보정(ft·fj·ty·rv) 재검토</td><td class="hide-m">soft·lift가 "sof t"로 보임</td></tr>
-            <tr><td><span class="grade must">수정 필요</span></td><td>⑤ 파일 설정: Windows 위쪽 높이 값 850 → 870 이상, Regular 표시</td><td class="hide-m">가장 큰 글자 863 → 위끝 잘림 가능</td></tr>
-            <tr><td><span class="grade rec">개선 권장</span></td><td>⑥ 숫자 1 을 I·l 과 구분되게</td><td class="hide-m">Il1 이 "111"처럼 읽힘</td></tr>
-            <tr><td><span class="grade rec">개선 권장</span></td><td>⑦ o·e·c·a 위쪽 가로획을 조금 두껍게</td><td class="hide-m">11~13px에서 흐려짐</td></tr>
-            <tr><td><span class="grade rec">개선 권장</span></td><td>⑧ LY·LV 등 대각선 쌍 간격을 눈으로 조정</td><td class="hide-m">여러 쌍이 같은 최대치(−257)</td></tr>
-            <tr><td><span class="grade rec">개선 권장</span></td><td>⑨ 고정폭 숫자와 금융 기호(₩ · — … × °) 추가</td><td class="hide-m">숫자 폭 376~657, ₩ 없음</td></tr>
-            <tr><td><span class="grade rec">개선 권장</span></td><td>⑩ woff2 파일 추가</td><td class="hide-m">지금은 woff만</td></tr>
-            <tr><td><span class="grade rec">개선 권장</span></td><td>⑪ 사용 규칙에 최소 크기와 한글 짝 서체 명시</td><td class="hide-m">서체에 한글 없음</td></tr>
-            <tr><td><span class="grade keep">유지</span></td><td>소문자 높이 비율, 기둥 굵기 비율, 깃발 세리프, 굵기 차이 성격, O/H 폭 비례</td><td class="hide-m">같은 계열 해외 서체와 같은 범위</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3 style="margin:32px 0 12px">주요 근거</h3>
-      <div class="cols c2">
-        <figure class="crit-fig"><img src="out/font-critique/img/06-alignment.png" alt="높이 정렬" loading="lazy"><figcaption>높이 정렬 — C·G가 O보다 낮고, v·w·x가 n보다 낮음</figcaption></figure>
-        <figure class="crit-fig"><img src="out/font-critique/img/14-pairs-lower.png" alt="f 다음 간격" loading="lazy"><figcaption>f 다음 간격 — soft·lift에서 f와 t 사이 구멍</figcaption></figure>
-        <figure class="crit-fig"><img src="out/font-critique/img/10-compare-handgloves.png" alt="해외 서체 비교" loading="lazy"><figcaption>해외 서체 비교 — 같은 대문자 높이로 맞춤</figcaption></figure>
-        <figure class="crit-fig"><img src="out/font-critique/img/03-zoom-confusable.png" alt="혼동 글자" loading="lazy"><figcaption>혼동 글자 — Il1 이 "111"처럼 보임</figcaption></figure>
-      </div>
-      <div class="alert">ⓘ 전문가 3인은 AI가 각 분야의 관점을 나눠 맡아 쓴 것으로, 실제 디자이너의 검수를 대신하지 않습니다. 모든 의견은 서체 파일을 직접 잰 수치와 비교 그림을 근거로 했습니다.</div>
-    </div>
-  </section>
-
-  <!-- 1-3. 전용서체 폰트 업데이트 (새 버전이 나오면 맨 위에 버전 단락을 추가하고 아래 '버전 이력' 표에 한 줄을 더함) -->
+  <!-- 전용서체 · 폰트 업데이트 (새 버전은 맨 위에 버전 구역 추가 + 버전 이력 맨 위에 한 줄) -->
   <section class="page" id="page-update">
-    <div class="hero">
-      <div class="eyebrow">Typeface · 폰트 업데이트</div>
-      <h1>Font <em>Update</em></h1>
-      <p class="one-line">서체가 바뀔 때마다 무엇이 달라졌는지 기록합니다. 새 버전이 나오면 <a href="#font">서체 소개</a>에서 새 파일을 받아 다시 설치하세요.</p>
+    <nav class="tabs" data-tabs="font" aria-label="전용서체 메뉴"></nav>
+    <div class="g-hero"><h1>Font Update</h1>
+      <p class="lead">서체가 바뀔 때마다 무엇이 달라졌는지 기록합니다.</p>
+      <dl><dt>현재 버전</dt><dd>v1.31 · 2026.10.29</dd><dt>새 버전이 나오면</dt><dd><a href="#font">서체 소개</a>에서 새 파일을 받아 다시 설치하세요.</dd></dl></div>
+
+    <div class="g-sec reveal">
+      <h2>v1.31 · 대문자–숫자 간격</h2>
+      <p class="sub">2026.10.29</p>
+      <div class="two up-two">
+        <p class="statement">FY2025·Q4처럼 대문자 옆에 숫자가 오면 그 자리만 벌어져 보였습니다. 대문자와 숫자 사이 519쌍에 간격 보정을 넣어 고르게 맞췄습니다.</p>
+        <dl class="why">
+          <dt>기본: 중간 리듬</dt><dd>대문자끼리(−55 조임)와 숫자끼리(조임 없음)의 중간으로, 대문자–숫자 쌍을 모두 25 조였습니다.</dd>
+          <dt>모양에 따라 더 조임</dt><dd>T4·7A·Y4·V4처럼 사이에 빈 공간이 큰 쌍은 기존 간격 계산 방식으로 더 조였습니다(최대 90). 해외 서체 12종 중 이 쌍들을 조이는 Inter와 같은 방향이며, 고친 쌍끼리 닿는 곳은 없습니다.</dd>
+          <dt>그대로인 것</dt><dd>글자 모양, 숫자가 없는 로고타입. 고정폭 숫자 기능을 켜면 이 간격 보정은 적용되지 않습니다.</dd>
+        </dl>
+      </div>
+      <figure class="svgfig"><div class="pic"><img src="out/font-critique/img/update/kern-uc-digit.svg" alt="대문자–숫자 간격 수정 전과 후" loading="lazy"></div><figcaption>같은 글자의 수정 전(위)과 수정 후(아래). 대문자와 숫자 사이가 대문자끼리처럼 고르게 붙습니다.</figcaption></figure>
     </div>
 
-    <div class="sec" style="margin-top:28px">
-      <div class="sec-head"><h2>v1.31 · 대문자–숫자 간격</h2><p>2026.10.29</p></div>
-      <p>v1.3까지는 대문자와 숫자 사이에 간격 보정이 없었습니다. 대문자끼리는 로고 리듬에 맞춰 조여 두었기 때문에, FY2025·Q4처럼 대문자 옆에 숫자가 오면 그 자리만 벌어져 보였습니다. 대문자와 숫자 사이 519쌍에 간격 보정을 넣어 고르게 맞췄습니다. 글자 모양은 바뀌지 않았고, 숫자가 없는 로고타입도 그대로입니다.</p>
-      <div class="cols c2" style="margin-top:16px">
-        <div class="box"><h3>기본: 중간 리듬</h3><p>대문자끼리(−55 조임)와 숫자끼리(조임 없음)의 중간으로, 대문자–숫자 쌍을 모두 25 조였습니다.</p></div>
-        <div class="box"><h3>모양에 따라 더 조임</h3><p>T4·7A·Y4·V4처럼 사이에 빈 공간이 큰 쌍은 기존 간격 계산 방식으로 더 조였습니다(최대 90). 해외 서체 12종 중 이 쌍들을 조이는 Inter와 같은 방향이며, 고친 쌍끼리 닿는 곳은 없습니다.</p></div>
+    <div class="g-sec reveal">
+      <h2>v1.3 · 디자인 크리틱 반영</h2>
+      <p class="sub">2026.10.29 · 근거: <a href="#font/critique">1차 디자인 크리틱</a> · <a href="out/font-critique/FnGuide-Logotype-v1.200-proposal.html?v=1.3" target="_blank" rel="noopener">개선안 보고서 (새 창)</a></p>
+      <div class="table-scroll"><table>
+        <thead><tr><th scope="col">항목</th><th scope="col">달라지는 점</th><th scope="col" class="hide-m">수정 전 (v1.200)</th><th scope="col" class="hide-m">수정 후 (v1.3)</th></tr></thead>
+        <tbody>
+          <tr><td><b>C·G 높이</b></td><td>대문자 C·G가 O와 같은 높이로 보입니다</td><td class="hide-m">윗부분 688 (O 711보다 낮음)</td><td class="hide-m">711, O와 같게</td></tr>
+          <tr><td><b>v·w·x·y 높이</b></td><td>v·w·x·y가 다른 소문자와 같은 높이로 보입니다</td><td class="hide-m">484~491</td><td class="hide-m">500, 다른 소문자와 같게</td></tr>
+          <tr><td><b>o·c·e 위쪽</b></td><td>둥근 소문자가 작아 보이지 않습니다</td><td class="hide-m">넘침 없음 (498)</td><td class="hide-m">512, 아래쪽처럼 12 넘침</td></tr>
+          <tr><td><b>f 다음 간격</b></td><td>soft·lift의 f와 t 사이 구멍이 사라집니다</td><td class="hide-m">soft·lift가 "sof t"처럼 벌어짐</td><td class="hide-m">ft·fj 합자 추가, ty·rv 간격 보정 0</td></tr>
+          <tr><td><b>파일 설정</b></td><td>Windows에서 글자 위끝이 잘리지 않습니다</td><td class="hide-m">Windows 위쪽 높이 850, Regular 표시 없음</td><td class="hide-m">870, Regular 표시</td></tr>
+          <tr><td><b>1 · I · l 구분</b></td><td>Il1을 헷갈리지 않습니다</td><td class="hide-m">셋 모두 깃발만 있는 막대</td><td class="hide-m">1에 받침, l에 꼬리</td></tr>
+          <tr><td><b>숫자 · 기호</b></td><td>− ± × ·를 쓸 수 있고, 표의 숫자 자리를 맞출 수 있습니다</td><td class="hide-m">비례 숫자만, 금융 기호 없음</td><td class="hide-m">고정폭 숫자 선택 기능, − ± × · 추가</td></tr>
+        </tbody>
+      </table></div>
+      <figure class="svgfig"><div class="pic"><img src="out/font-critique/img/update/overview.svg" alt="수정 전후 종합" loading="lazy"></div><figcaption>같은 문장의 수정 전(위)과 수정 후(아래). 수정 전에는 금융 기호가 없어 빈 네모로 나옵니다.</figcaption></figure>
+      <p class="alert">로고타입 17종을 v1.3으로 다시 만들었습니다. C·G·e·o·c 높이가 바뀐 글자가 들어간 로고는 아주 조금, l이 들어간 CompanyGlobal·ETF Global은 눈에 띄게 바뀝니다.</p>
+
+      <h3 class="h3sec">글자 높이 맞춤</h3>
+      <div class="svgrow">
+        <figure class="svgfig"><div class="pic"><img src="out/font-critique/img/update/height-CG.svg" alt="C·G 높이" loading="lazy"></div><figcaption>C·G 윗부분을 O 높이로 (빨간 부분이 올라간 곳)</figcaption></figure>
+        <figure class="svgfig"><div class="pic"><img src="out/font-critique/img/update/height-vwxy.svg" alt="v·w·x·y 높이" loading="lazy"></div><figcaption>v·w·x·y를 다른 소문자 높이로</figcaption></figure>
+        <figure class="svgfig"><div class="pic"><img src="out/font-critique/img/update/height-oce.svg" alt="o·c·e 넘침" loading="lazy"></div><figcaption>o·c·e 위쪽도 아래쪽만큼 넘치게</figcaption></figure>
       </div>
-      <figure class="crit-fig fit" style="margin-top:16px"><div class="pic"><img src="out/font-critique/img/update/kern-uc-digit.svg" alt="대문자–숫자 간격" loading="lazy"></div><figcaption>같은 글자의 수정 전(위)과 수정 후(아래). 대문자와 숫자 사이가 대문자끼리처럼 고르게 붙습니다.</figcaption></figure>
-      <p class="ver-line" style="margin-top:8px">표에서 숫자 자리를 맞추는 고정폭 숫자 기능을 켜면 이 간격 보정은 적용되지 않습니다.</p>
+
+      <h3 class="h3sec">ft · fj 합자</h3>
+      <figure class="svgfig"><div class="pic"><img src="out/font-critique/img/update/lig-ft-fj.svg" alt="ft·fj 합자" loading="lazy"></div><figcaption>f 가로획이 t·j까지 이어져 soft·lift의 구멍이 사라집니다.</figcaption></figure>
+
+      <h3 class="h3sec">숫자 1 · 소문자 l 구분</h3>
+      <p class="body-p">v1.200에서는 대문자 I, 소문자 l, 숫자 1이 모두 깃발만 있는 막대라 "Il1"이 "111"처럼 읽혔습니다. 1에는 받침을, l에는 꼬리를 붙여 셋을 구분했습니다. 대문자 I는 그대로입니다. 두 글자 모두 새 모양을 만들지 않고 이 서체 안의 다른 글자에서 가져와, 서체 전체의 인상을 지켰습니다.</p>
+      <div class="two up-two">
+        <div><h3>숫자 1, F의 세리프로 만든 받침</h3><p class="body-p">위 깃발은 그대로 두고, F의 왼쪽 위 세리프를 위아래로 뒤집어 기둥 양쪽에 같은 모양으로 붙였습니다. 받침 너비는 1에 받침이 있는 해외 서체(Verdana·Tahoma·Calibri·Cambria·Times·Palatino·Book Antiqua)의 비율에 맞춰 420으로 정했습니다. 해외 서체는 받침이 기둥 굵기의 약 2.7배, 숫자 0 너비의 약 0.8배입니다.</p></div>
+        <div><h3>소문자 l, t의 꼬리로 만든 꼬리</h3><p class="body-p">위 깃발은 그대로 두고, t의 아래 꼬리를 가져와 끝으로 갈수록 얇아지게 붙였습니다. 위 깃발이 기둥 왼쪽으로 88 나가므로, 꼬리도 기둥 오른쪽으로 비슷하게 나가야 위아래가 대각선으로 균형을 이룹니다. 끝이 얇아 실제보다 짧아 보이는 만큼 6을 더해 94로 정했습니다.</p></div>
+      </div>
+      <figure class="svgfig"><div class="pic"><img src="out/font-critique/img/update/final-1.svg" alt="숫자 1 받침" loading="lazy"></div><figcaption>숫자 1: v1.200 / v1.3 / 참고한 F 왼쪽 위 세리프(점선) / 해외 서체의 1 받침</figcaption></figure>
+      <figure class="svgfig"><div class="pic"><img src="out/font-critique/img/update/final-l.svg" alt="소문자 l 꼬리" loading="lazy"></div><figcaption>소문자 l: v1.200 / v1.3(깃발 88 · 꼬리 94) / 참고한 t 아래 꼬리(점선) / 문장 속. l이 들어간 CompanyGlobal·ETF Global 로고타입도 새 l로 다시 만들었습니다.</figcaption></figure>
+
+      <h3 class="h3sec">고정폭 숫자 · 금융 기호</h3>
+      <p class="body-p">기본 숫자는 지금처럼 글자마다 폭이 다릅니다. 표에서는 고정폭 숫자 기능을 켜면 자리가 맞습니다. 웹은 <code>font-variant-numeric: tabular-nums</code> 한 줄로 켭니다.</p>
+      <figure class="svgfig"><div class="pic"><img src="out/font-critique/img/update/tabular.svg" alt="고정폭 숫자" loading="lazy"></div><figcaption>왼쪽: 기본 숫자 / 오른쪽: 고정폭 숫자 기능을 켠 표</figcaption></figure>
+      <figure class="svgfig"><div class="pic"><img src="out/font-critique/img/update/symbols.svg" alt="금융 기호" loading="lazy"></div><figcaption>새로 넣은 금융 기호 − ± × ·</figcaption></figure>
     </div>
 
-    <div class="sec" style="margin-top:28px">
-      <div class="sec-head"><h2>v1.3 · 디자인 크리틱 반영</h2><p>2026.10.29 · 근거: <a href="#font/critique">1차 디자인 크리틱</a> · <a href="out/font-critique/FnGuide-Logotype-v1.200-proposal.html?v=1.3" target="_blank" rel="noopener">개선안 보고서 ↗</a></p></div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th style="width:150px">항목</th><th>달라지는 점</th><th class="hide-m">수정 전 (v1.200)</th><th class="hide-m">수정 후 (v1.3)</th></tr></thead>
-          <tbody>
-            <tr><td><b>C·G 높이</b></td><td>대문자 C·G가 O와 같은 높이로 보입니다</td><td class="hide-m">윗부분 688 (O 711보다 낮음)</td><td class="hide-m">711 — O와 같게</td></tr>
-            <tr><td><b>v·w·x·y 높이</b></td><td>v·w·x·y가 다른 소문자와 같은 높이로 보입니다</td><td class="hide-m">484~491</td><td class="hide-m">500 — 다른 소문자와 같게</td></tr>
-            <tr><td><b>o·c·e 위쪽</b></td><td>둥근 소문자가 작아 보이지 않습니다</td><td class="hide-m">넘침 없음 (498)</td><td class="hide-m">512 — 아래쪽처럼 12 넘침</td></tr>
-            <tr><td><b>f 다음 간격</b></td><td>soft·lift의 f와 t 사이 구멍이 사라집니다</td><td class="hide-m">soft·lift가 "sof t"처럼 벌어짐</td><td class="hide-m">ft·fj 합자 추가, ty·rv 간격 보정 0</td></tr>
-            <tr><td><b>파일 설정</b></td><td>Windows에서 글자 위끝이 잘리지 않습니다</td><td class="hide-m">Windows 위쪽 높이 850, Regular 표시 없음</td><td class="hide-m">870, Regular 표시</td></tr>
-            <tr><td><b>1 · I · l 구분</b></td><td>Il1을 헷갈리지 않습니다</td><td class="hide-m">셋 모두 깃발만 있는 막대</td><td class="hide-m">1에 받침, l에 꼬리</td></tr>
-            <tr><td><b>숫자 · 기호</b></td><td>− ± × ·를 쓸 수 있고, 표의 숫자 자리를 맞출 수 있습니다</td><td class="hide-m">비례 숫자만, 금융 기호 없음</td><td class="hide-m">고정폭 숫자 선택 기능, − ± × · 추가</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <figure class="crit-fig fit"><div class="pic"><img src="out/font-critique/img/update/overview.svg" alt="수정 전후 종합" loading="lazy"></div><figcaption>같은 문장의 수정 전(위)과 수정 후(아래). 수정 전에는 금융 기호가 없어 빈 네모로 나옵니다.</figcaption></figure>
-      <div class="alert">ⓘ 로고타입 17종을 v1.3으로 다시 만들었습니다. C·G·e·o·c 높이가 바뀐 글자가 들어간 로고는 아주 조금, l이 들어간 CompanyGlobal·ETF Global은 눈에 띄게 바뀝니다.</div>
-
-      <h3 style="margin:32px 0 12px">글자 높이 맞춤</h3>
-      <div class="cols c3">
-        <figure class="crit-fig fit"><div class="pic"><img src="out/font-critique/img/update/height-CG.svg" alt="C·G 높이" loading="lazy"></div><figcaption>C·G 윗부분을 O 높이로 (빨간 부분이 올라간 곳)</figcaption></figure>
-        <figure class="crit-fig fit"><div class="pic"><img src="out/font-critique/img/update/height-vwxy.svg" alt="v·w·x·y 높이" loading="lazy"></div><figcaption>v·w·x·y를 다른 소문자 높이로</figcaption></figure>
-        <figure class="crit-fig fit"><div class="pic"><img src="out/font-critique/img/update/height-oce.svg" alt="o·c·e 넘침" loading="lazy"></div><figcaption>o·c·e 위쪽도 아래쪽만큼 넘치게</figcaption></figure>
-      </div>
-
-      <h3 style="margin:32px 0 12px">ft · fj 합자</h3>
-      <figure class="crit-fig fit"><div class="pic"><img src="out/font-critique/img/update/lig-ft-fj.svg" alt="ft·fj 합자" loading="lazy"></div><figcaption>f 가로획이 t·j까지 이어져 soft·lift의 구멍이 사라집니다.</figcaption></figure>
-
-      <h3 style="margin:32px 0 12px">숫자 1 · 소문자 l 구분</h3>
-      <p>v1.200에서는 대문자 I, 소문자 l, 숫자 1이 모두 깃발만 있는 막대라 "Il1"이 "111"처럼 읽혔습니다. 1에는 받침을, l에는 꼬리를 붙여 셋을 구분했습니다. 대문자 I는 그대로입니다. 두 글자 모두 새 모양을 만들지 않고 이 서체 안의 다른 글자에서 가져와, 서체 전체의 인상을 지켰습니다.</p>
-      <div class="cols c2">
-        <div class="box"><h3>숫자 1 — F의 세리프로 만든 받침</h3><p>위 깃발은 그대로 두고, F의 왼쪽 위 세리프를 위아래로 뒤집어 기둥 양쪽에 같은 모양으로 붙였습니다. 받침 너비는 1에 받침이 있는 해외 서체(Verdana·Tahoma·Calibri·Cambria·Times·Palatino·Book Antiqua)의 비율에 맞춰 420으로 정했습니다. 해외 서체는 받침이 기둥 굵기의 약 2.7배, 숫자 0 너비의 약 0.8배입니다.</p></div>
-        <div class="box"><h3>소문자 l — t의 꼬리로 만든 꼬리</h3><p>위 깃발은 그대로 두고, t의 아래 꼬리를 가져와 끝으로 갈수록 얇아지게 붙였습니다. 위 깃발이 기둥 왼쪽으로 88 나가므로, 꼬리도 기둥 오른쪽으로 비슷하게 나가야 위아래가 대각선으로 균형을 이룹니다. 끝이 얇아 실제보다 짧아 보이는 만큼 6을 더해 94로 정했습니다.</p></div>
-      </div>
-      <figure class="crit-fig fit" style="margin-top:16px"><div class="pic"><img src="out/font-critique/img/update/final-1.svg" alt="숫자 1 받침" loading="lazy"></div><figcaption>숫자 1 — v1.200 / v1.3 / 참고한 F 왼쪽 위 세리프(점선) / 해외 서체의 1 받침</figcaption></figure>
-      <figure class="crit-fig fit" style="margin-top:16px"><div class="pic"><img src="out/font-critique/img/update/final-l.svg" alt="소문자 l 꼬리" loading="lazy"></div><figcaption>소문자 l — v1.200 / v1.3(깃발 88 · 꼬리 94) / 참고한 t 아래 꼬리(점선) / 문장 속</figcaption></figure>
-      <p class="ver-line" style="margin-top:8px">l이 들어간 CompanyGlobal·ETF Global 로고타입도 새 l로 다시 만들었습니다.</p>
-
-      <h3 style="margin:32px 0 12px">고정폭 숫자 · 금융 기호</h3>
-      <p>기본 숫자는 지금처럼 글자마다 폭이 다릅니다. 표에서는 고정폭 숫자 기능을 켜면 자리가 맞습니다. 웹은 <code>font-variant-numeric: tabular-nums</code> 한 줄로 켭니다.</p>
-      <figure class="crit-fig fit"><div class="pic"><img src="out/font-critique/img/update/tabular.svg" alt="고정폭 숫자" loading="lazy"></div><figcaption>왼쪽: 기본 숫자 / 오른쪽: 고정폭 숫자 기능을 켠 표</figcaption></figure>
-      <figure class="crit-fig fit" style="margin-top:16px"><div class="pic"><img src="out/font-critique/img/update/symbols.svg" alt="금융 기호" loading="lazy"></div><figcaption>새로 넣은 금융 기호 − ± × ·</figcaption></figure>
-    </div>
-
-    <div class="sec">
-      <div class="sec-head"><h2>버전 이력</h2><p>최신 버전이 위에 옵니다. 새 버전이 나오면 맨 위에 한 줄을 더합니다.</p></div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>버전</th><th>단계</th><th>주요 내용</th></tr></thead>
-          <tbody>
-            <tr><td><b>v1.31</b></td><td>대문자–숫자 간격</td><td>대문자와 숫자 사이 519쌍의 간격 보정 추가(대문자끼리와 숫자끼리의 중간 리듬, 빈 공간이 큰 T4·7A·Y4 등은 더 조임). 글자 모양은 v1.3과 같음</td></tr>
-            <tr><td><b>v1.3</b></td><td>디자인 크리틱 반영</td><td>C·G·v·w·x·y·o·c·e 높이 정렬, ft·fj 합자 추가, 숫자 1 받침·소문자 l 꼬리, 금융 기호 − ± × · 추가, 고정폭 숫자 선택 기능, 파일 설정 보정</td></tr>
-            <tr><td><b>v1.200</b></td><td>글자 디자인 수정</td><td>f m M s S y r 새 디자인 반영, f 합자 8종을 새 f에 맞춰 다시 제작, I·f·m·r 기둥을 4% 가늘게 보정</td></tr>
-            <tr><td><b>v1.100</b></td><td>대문자 리듬</td><td>B2C API 로고를 참고해 대문자끼리의 간격을 로고 밀도에 맞춤</td></tr>
-            <tr><td><b>v1.000</b></td><td>최종 커닝·합자</td><td>글자 간격 보정 강도 최종 조정, f 합자 8종 추가</td></tr>
-            <tr><td><b>v0.700</b></td><td>구조 점검</td><td>11개 구조 요소 점검, K k M N S U X f r w z 보정</td></tr>
-            <tr><td><b>v0.600</b></td><td>자동 커닝</td><td>글자 묶음 정의, 전체 글자 쌍 간격 자동 보정</td></tr>
-            <tr><td><b>v0.500</b></td><td>스페이싱</td><td>FnGuide 로고 간격으로 글자 양옆 여백 기준 보정</td></tr>
-            <tr><td><b>v0.300–0.430</b></td><td>글자 확장</td><td>숫자·특수문자 추가, 디자인팀 수정안 반영</td></tr>
-            <tr><td><b>v0.100–0.200</b></td><td>초기 제작</td><td>로고 22자로 폰트 생성, 대소문자 52자로 확장</td></tr>
-          </tbody>
-        </table>
-      </div>
+    <div class="g-sec reveal">
+      <h2>버전 이력</h2>
+      <p class="sub">최신 버전이 위에 옵니다.</p>
+      <ol class="lineup history">
+        <li><b class="ver">v1.31</b><b>대문자–숫자 간격</b><span>대문자와 숫자 사이 519쌍의 간격 보정 추가(빈 공간이 큰 T4·7A·Y4 등은 더 조임). 글자 모양은 v1.3과 같음</span></li>
+        <li><b class="ver">v1.3</b><b>디자인 크리틱 반영</b><span>C·G·v·w·x·y·o·c·e 높이 정렬, ft·fj 합자, 숫자 1 받침·소문자 l 꼬리, 금융 기호 − ± × ·, 고정폭 숫자, 파일 설정 보정</span></li>
+        <li><b class="ver">v1.200</b><b>글자 디자인 수정</b><span>f m M s S y r 새 디자인, f 합자 8종 다시 제작, I·f·m·r 기둥 4% 가늘게</span></li>
+        <li><b class="ver">v1.100</b><b>대문자 리듬</b><span>B2C API 로고를 참고해 대문자끼리의 간격을 로고 밀도에 맞춤</span></li>
+        <li><b class="ver">v1.000</b><b>최종 커닝·합자</b><span>글자 간격 보정 강도 최종 조정, f 합자 8종 추가</span></li>
+        <li><b class="ver">v0.700</b><b>구조 점검</b><span>11개 구조 요소 점검, K k M N S U X f r w z 보정</span></li>
+        <li><b class="ver">v0.600</b><b>자동 커닝</b><span>글자 묶음 정의, 전체 글자 쌍 간격 자동 보정</span></li>
+        <li><b class="ver">v0.500</b><b>스페이싱</b><span>FnGuide 로고 간격으로 글자 양옆 여백 기준 보정</span></li>
+        <li><b class="ver">v0.300–0.430</b><b>글자 확장</b><span>숫자·특수문자 추가, 디자인팀 수정안 반영</span></li>
+        <li><b class="ver">v0.100–0.200</b><b>초기 제작</b><span>로고 22자로 폰트 생성, 대소문자 52자로 확장</span></li>
+      </ol>
     </div>
   </section>
 
-  <!-- 2. 로고타입 소개 (그룹별 화면은 스크립트가 채움) -->
-  <section class="page" id="page-logo"></section>
+  <!-- 전용서체 · 디자인 크리틱 (회차가 늘면 이력에 줄을 더하고 회차 구역 추가) -->
+  <section class="page" id="page-critique">
+    <nav class="tabs" data-tabs="font" aria-label="전용서체 메뉴"></nav>
+    <div class="g-hero"><h1>Design Critic</h1>
+      <p class="lead">서체가 새 버전이 될 때마다 전문가 관점으로 디자인 크리틱을 진행합니다.</p>
+      <dl><dt>디자인&amp;크리틱</dt><dd>웹&amp;모바일팀 디자인 파트, 서체 관리자</dd><dt>최근 회차</dt><dd>1차 · v1.200 · 2026.10.27 · <a href="#font/update">v1.3에 반영</a></dd></dl></div>
 
-  <!-- 3. 다운로드 -->
+    <div class="g-sec reveal">
+      <h2>크리틱 이력</h2>
+      <p class="sub">최신 회차가 위에 옵니다.</p>
+      <div class="table-scroll"><table>
+        <thead><tr><th scope="col">회차</th><th scope="col">대상 버전</th><th scope="col">날짜</th><th scope="col" class="hide-m">참여 관점</th><th scope="col">결과</th><th scope="col">반영</th></tr></thead>
+        <tbody><tr><td><b>1차</b></td><td><a href="#crit-v1200" class="jump">v1.200</a></td><td>2026.10.27</td><td class="hide-m">타이포그래픽 · CI/BI · 웹</td>
+          <td><span class="grade must">수정 필요 5</span> <span class="grade rec">개선 권장 6</span> <span class="grade keep">유지 5</span></td><td><a href="#font/update">v1.3에 반영</a></td></tr></tbody>
+      </table></div>
+    </div>
+
+    <div class="g-sec reveal" id="crit-v1200">
+      <h2>1차 · v1.200 크리틱</h2>
+      <p class="sub">2026.10.27 · <a href="out/font-critique/FnGuide-Logotype-v1.200-critique.html" target="_blank" rel="noopener">보고서 전체 보기 (새 창)</a></p>
+      <p class="statement crit-lead">기본 비례와 굵기 균형은 같은 계열의 해외 서체(Rotis Semi Sans·Optima 계열)와 같은 수준입니다. 높이 정렬·f 주변 간격·혼동 글자처럼 사람이 손으로 다듬는 마지막 단계가 남아 있습니다.</p>
+      <ol class="lineup quality counts">
+        <li><span class="num">5건</span><b>수정 필요</b><span>높이 정렬 3, f 간격 1, 파일 설정 1</span></li>
+        <li><span class="num rec">6건</span><b>개선 권장</b><span>숫자 1, 얇은 가로획, 대각선 간격, 숫자·기호, woff2, 사용 규칙</span></li>
+        <li><span class="num keep">5건</span><b>유지</b><span>비례, 기둥 굵기, 깃발 세리프, 굵기 차이 성격, 폭 비례</span></li>
+      </ol>
+
+      <h3 class="h3sec">전문가 총평</h3>
+      <dl class="why three">
+        <div><dt>타이포그래픽 디자이너</dt><dd>장르 안의 비례는 교과서 범위입니다(소문자 높이 0.69, 기둥 비율 0.93). 남은 것은 높이 정렬·f 간격·혼동 글자 같은 마무리 손질입니다.</dd></div>
+        <div><dt>CI/BI 그래픽디자이너</dt><dd>흔한 산세리프와 바로 구별되는 개성이 있습니다. 깃발 세리프와 굵기 차이라는 정체성은 지키며 고쳐야 합니다.</dd></div>
+        <div><dt>웹 디자이너</dt><dd>로고·제목(16px 이상)용으로 좋습니다. 본문·표에 쓰려면 고정폭 숫자, ₩ 같은 기호, 최소 크기 규칙이 먼저 필요합니다.</dd></div>
+      </dl>
+
+      <h3 class="h3sec">결론과 개선안</h3>
+      <div class="table-scroll"><table>
+        <thead><tr><th scope="col">등급</th><th scope="col">무엇을</th><th scope="col" class="hide-m">근거</th></tr></thead>
+        <tbody>
+          <tr><td><span class="grade must">수정 필요</span></td><td>① C·G 윗부분을 O 수준(약 711)으로 올림</td><td class="hide-m">C·G 688 / H 700 / O 711</td></tr>
+          <tr><td><span class="grade must">수정 필요</span></td><td>② v·w·x·y 를 소문자 높이에 맞춤</td><td class="hide-m">v·w·x 485, y 491 / n 500</td></tr>
+          <tr><td><span class="grade must">수정 필요</span></td><td>③ o·c·e 위쪽에 넘침 주기</td><td class="hide-m">위쪽 0, 아래쪽만 −12</td></tr>
+          <tr><td><span class="grade must">수정 필요</span></td><td>④ ft·fj 이어 쓰기 글자 추가, +보정(ft·fj·ty·rv) 재검토</td><td class="hide-m">soft·lift가 "sof t"로 보임</td></tr>
+          <tr><td><span class="grade must">수정 필요</span></td><td>⑤ 파일 설정: Windows 위쪽 높이 값 850 → 870 이상, Regular 표시</td><td class="hide-m">가장 큰 글자 863 → 위끝 잘림 가능</td></tr>
+          <tr><td><span class="grade rec">개선 권장</span></td><td>⑥ 숫자 1 을 I·l 과 구분되게</td><td class="hide-m">Il1 이 "111"처럼 읽힘</td></tr>
+          <tr><td><span class="grade rec">개선 권장</span></td><td>⑦ o·e·c·a 위쪽 가로획을 조금 두껍게</td><td class="hide-m">11~13px에서 흐려짐</td></tr>
+          <tr><td><span class="grade rec">개선 권장</span></td><td>⑧ LY·LV 등 대각선 쌍 간격을 눈으로 조정</td><td class="hide-m">여러 쌍이 같은 최대치(−257)</td></tr>
+          <tr><td><span class="grade rec">개선 권장</span></td><td>⑨ 고정폭 숫자와 금융 기호(₩ · — … × °) 추가</td><td class="hide-m">숫자 폭 376~657, ₩ 없음</td></tr>
+          <tr><td><span class="grade rec">개선 권장</span></td><td>⑩ woff2 파일 추가</td><td class="hide-m">지금은 woff만</td></tr>
+          <tr><td><span class="grade rec">개선 권장</span></td><td>⑪ 사용 규칙에 최소 크기와 한글 짝 서체 명시</td><td class="hide-m">서체에 한글 없음</td></tr>
+          <tr><td><span class="grade keep">유지</span></td><td>소문자 높이 비율, 기둥 굵기 비율, 깃발 세리프, 굵기 차이 성격, O/H 폭 비례</td><td class="hide-m">같은 계열 해외 서체와 같은 범위</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3 class="h3sec">주요 근거</h3>
+      <div class="figs crit-figs">
+        <figure><img src="out/font-critique/img/06-alignment.png" width="1512" height="482" alt="높이 정렬 측정" loading="lazy"><figcaption>높이 정렬: C·G가 O보다 낮고, v·w·x가 n보다 낮음</figcaption></figure>
+        <figure><img src="out/font-critique/img/14-pairs-lower.png" width="1014" height="337" alt="f 다음 간격" loading="lazy"><figcaption>f 다음 간격: soft·lift에서 f와 t 사이 구멍</figcaption></figure>
+        <figure><img src="out/font-critique/img/10-compare-handgloves.png" width="1386" height="620" alt="해외 서체 비교" loading="lazy"><figcaption>해외 서체 비교: 같은 대문자 높이로 맞춤</figcaption></figure>
+        <figure><img src="out/font-critique/img/03-zoom-confusable.png" width="1296" height="245" alt="혼동 글자" loading="lazy"><figcaption>혼동 글자: Il1 이 "111"처럼 보임</figcaption></figure>
+      </div>
+      <p class="alert">전문가 3인은 AI가 각 분야의 관점을 나눠 맡아 쓴 것으로, 실제 디자이너의 검수를 대신하지 않습니다. 모든 의견은 서체 파일을 직접 잰 수치와 비교 그림을 근거로 했습니다.</p>
+    </div>
+  </section>
+
+  <!-- 로고 받기 -->
   <section class="page" id="page-download">
-    <div class="hero">
-      <div class="eyebrow">Logotype · 로고 받기</div>
-      <h1>Assets <em>Download</em></h1>
-      <p>로고는 SVG(크기를 바꿔도 깨지지 않는 그림)와 PNG(투명 배경 이미지, 원본의 4배 크기)로 받을 수 있습니다. 흰색 버전은 그룹 컬러나 어두운 배경 위에 씁니다. 서체 파일은 <a href="#font">서체 소개</a> 맨 아래에서 받을 수 있습니다.</p>
-    </div>
-    <div class="note-box">모든 자산은 사내 전용입니다. 외부에 전달하지 말고, 협력사 제작물에 필요하면 웹&amp;모바일팀 디자인 파트를 통해 요청하세요.</div>
-    <div class="sec">
-      <div class="sec-head"><h2>로고</h2></div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>로고</th><th>이름</th><th class="hide-m">그룹</th><th style="text-align:right">컬러</th><th style="text-align:right">흰색</th></tr></thead>
-          <tbody id="dlRows"></tbody>
-        </table>
-      </div>
-      <div class="dl-all"><button class="btn primary" id="dlAll" type="button"></button><span id="dlAllNote"></span></div>
+    <nav class="tabs" data-tabs="logo" aria-label="로고타입 그룹"></nav>
+    <div class="g-hero"><h1>Assets Download</h1>
+      <p class="lead">로고를 SVG와 PNG로 받습니다. 흰색 버전은 그룹 컬러나 어두운 배경 위에 씁니다.</p>
+      <dl><dt>SVG</dt><dd>크기를 바꿔도 깨지지 않는 그림</dd><dt>PNG</dt><dd>투명 배경 이미지, 원본의 4배 크기</dd><dt>서체 파일</dt><dd><a href="#font">서체 소개</a> 맨 아래에서 받습니다</dd></dl></div>
+    <p class="alert"><b>사내 전용.</b> 외부에 전달하지 말고, 협력사 제작물에 필요하면 웹&amp;모바일팀 디자인 파트를 통해 요청하세요.</p>
+    <div class="g-sec">
+      <div class="dl-all top"><button type="button" class="btn primary big" data-zip></button><span id="dlNote"></span></div>
+      <div id="dlGroups"></div>
     </div>
   </section>
 
-  <!-- 3-2. 디자인 아티클: 파비콘·아이콘·오픈 그래프 (스크립트가 채움) -->
+  <!-- 디자인 아티클: 파비콘·아이콘·오픈 그래프 (스크립트가 채움) -->
   <section class="page" id="page-article">
-    <div class="hero">
-      <div class="eyebrow">Design Article · 아이콘 · 오픈 그래프</div>
-      <h1>Design <em>Article</em></h1>
-      <p>서비스 웹사이트에 넣는 파비콘(브라우저 탭의 작은 그림)·아이콘·오픈 그래프 그림(링크를 공유할 때 뜨는 미리보기)을 로고타입으로 만들어 받습니다. 서비스를 고르면 바로 만들어집니다.</p>
-    </div>
-    <div class="box art-pick">
-      <label>서비스 <select id="artSel" aria-label="서비스 고르기"></select></label>
+    <div class="g-hero"><h1>Design Article</h1>
+      <p class="lead">서비스를 고르면 파비콘·아이콘·오픈 그래프를 로고타입으로 바로 만들 수 있습니다.</p>
+      <dl><dt>파비콘</dt><dd>브라우저 탭의 작은 그림</dd><dt>오픈 그래프</dt><dd>링크를 공유할 때 뜨는 미리보기 그림</dd></dl></div>
+    <div class="art-pick" id="artPick">
+      <button type="button" class="pick-btn" id="artPickBtn" aria-expanded="false" aria-controls="artPanel">
+        <span class="cur-ic" id="artCurIc" aria-hidden="true"></span>
+        <span class="cur-tx"><b id="artCurName"></b></span>
+        <span class="pick-go">바꾸기<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg></span>
+      </button>
       <span class="seg" id="artKind" hidden><button type="button" data-k="symbol">심볼</button><button type="button" data-k="fn">이니셜 Fn</button></span>
-      <span class="note" id="artNote"></span>
+      <span class="art-note" id="artNote"></span>
+      <div class="pick-panel" id="artPanel" hidden role="dialog" aria-label="서비스 고르기">
+        <div class="pick-groups" id="artGroups" role="group" aria-label="그룹으로 좁히기"></div>
+        <div class="pick-list" id="artList"></div>
+      </div>
     </div>
-    <div class="sec">
-      <div class="sec-head"><h2>아이콘</h2><p>16 · 24 · 32 · 64 · 128 · 256px 실제 크기 (아이콘 512px 포함)</p></div>
-      <div class="box art-icons" id="artIcons"></div>
-      <div class="art-row"><span class="note">파비콘(favicon.ico)에는 16 · 32 · 48px, 아이콘(icon.ico)에는 16 · 24 · 32 · 48 · 64 · 128 · 256px이 함께 들어 있습니다.</span><span class="btns" id="artIconDl"><button class="btn" data-a="ico">favicon.ico</button><button class="btn" data-a="icon">icon.ico</button><button class="btn" data-a="svg">SVG</button><button class="btn" data-a="png">PNG-512px</button></span></div>
+    <div class="g-sec">
+      <h2>아이콘</h2>
+      <p class="sub">16 · 24 · 32 · 64 · 128 · 256px 실제 크기. 파비콘(favicon.ico)에는 16 · 32 · 48px, 아이콘(icon.ico)에는 16 · 24 · 32 · 48 · 64 · 128 · 256 · 512px이 함께 들어 있습니다.</p>
+      <div class="art-icons" id="artIcons"></div>
+      <div class="meta"><span class="name"></span><span class="btns" id="artIconDl"><button class="btn" data-a="ico">favicon.ico</button><button class="btn" data-a="icon">icon.ico</button><button class="btn" data-a="svg">SVG</button><button class="btn" data-a="png">PNG-512px</button></span></div>
     </div>
-    <div class="sec">
-      <div class="sec-head"><h2>애플 터치 아이콘</h2><p>180 × 180px · 아이폰·아이패드 홈 화면에 추가할 때 보이는 아이콘</p></div>
-      <div class="art-panel">
+    <div class="g-sec">
+      <h2>애플 터치 아이콘</h2>
+      <p class="sub">180 × 180px · 아이폰·아이패드 홈 화면에 추가할 때 보이는 아이콘. 채널톡 아이콘 사이즈와 동일합니다.</p>
+      <div class="art-stage">
         <div class="art-apple" id="artApple"></div>
-        <div class="controls">
+        <div class="controls art-controls">
           <span class="seg" id="appleKind" hidden><button type="button" data-k="symbol">심볼</button><button type="button" data-k="text">이니셜</button></span>
-          <label>이니셜 <input type="text" id="appleText" value="Fn" maxlength="4" spellcheck="false"></label>
-          <div class="lbl">크기 <input type="range" id="appleSize" min="50" max="150" value="100" aria-label="이니셜 크기"><span class="size-num"><input type="number" id="appleSizeNum" min="50" max="150" step="1" value="100" aria-label="이니셜 크기 직접 입력">%</span></div>
-          <span class="btns" style="margin-left:auto"><button class="btn" id="appleDl" type="button">PNG-180px</button><button class="btn" id="appleZip" type="button" title="180 · 167 · 152 · 120px">기기별 PNG ZIP</button></span>
+          <label class="field">이니셜 <input type="text" id="appleText" value="Fn" maxlength="4" spellcheck="false"></label>
+          <div class="field">크기 <input type="range" class="gauge" id="appleSize" min="50" max="150" value="100" aria-label="이니셜 크기"><span class="size-num"><input type="number" id="appleSizeNum" min="50" max="150" step="1" value="100" aria-label="이니셜 크기 직접 입력">%</span></div>
+          <span class="btns push"><button class="btn" id="appleDl" type="button">PNG-180px</button><button class="btn" id="appleZip" type="button">기기별 PNG ZIP (180 · 167 · 152 · 120)</button></span>
         </div>
       </div>
-      <div class="art-row"><span class="note">채널톡 아이콘 사이즈와 동일합니다.</span></div>
     </div>
-    <div class="sec">
-      <div class="sec-head"><h2>오픈 그래프</h2><p>1200 × 630px · 카카오톡·슬랙·메신저에 링크를 붙이면 뜨는 그림</p></div>
-      <div class="art-og">
-        <canvas id="artOg" width="1200" height="630" aria-label="오픈 그래프 미리보기"></canvas>
-        <div class="controls"><label>소개 문구 <textarea id="artText" rows="2" maxlength="80" placeholder="소개 문구 (비워 두면 로고만 · Enter 로 줄 바꿈)"></textarea></label>
-          <div class="lbl">크기 <input type="range" id="ogSize" min="28" max="72" value="50" aria-label="소개 문구 크기"><span class="size-num"><input type="number" id="ogSizeNum" min="28" max="72" step="1" value="50" aria-label="소개 문구 크기 직접 입력">px</span></div>
-          <span class="btns" style="margin-left:auto"><button class="btn" id="artOgDl" type="button">PNG 받기</button></span></div>
+    <div class="g-sec">
+      <h2>오픈 그래프</h2>
+      <p class="sub">1200 × 630px · 카카오톡·슬랙·메신저에 링크를 붙이면 뜨는 그림</p>
+      <div class="art-stage">
+        <div class="og-wrap"><canvas id="artOg" width="1200" height="630" aria-label="오픈 그래프 미리보기"></canvas></div>
+        <div class="controls art-controls">
+          <label class="field og-text">소개 문구 <textarea id="artText" rows="2" maxlength="80" placeholder="비워 두면 로고만 · Enter 로 줄 바꿈"></textarea></label>
+          <div class="field">크기 <input type="range" class="gauge" id="ogSize" min="28" max="72" value="50" aria-label="소개 문구 크기"><span class="size-num"><input type="number" id="ogSizeNum" min="28" max="72" step="1" value="50" aria-label="소개 문구 크기 직접 입력">px</span></div>
+          <span class="btns push"><button class="btn" id="artOgDl" type="button">PNG 받기</button></span>
+        </div>
       </div>
     </div>
-    <div class="sec">
-      <div class="sec-head"><h2>한 번에 받기</h2></div>
-      <div class="dl-all" style="margin-top:0"><button class="btn primary" id="artAll" type="button"></button><span>파비콘(ico·svg) · 아이폰 180 · 안드로이드 192·512 · 아이콘 7종 · 오픈 그래프 · 웹페이지에 붙일 코드</span></div>
-      <p class="lead" style="margin:20px 0 10px">웹페이지의 &lt;head&gt; 안에 붙일 코드 (받은 파일을 사이트 맨 위 폴더에 올린 경우)</p>
-      <pre id="artCode"></pre>
+    <div class="g-sec">
+      <h2>한 번에 받기</h2>
+      <p class="sub">파비콘(ico·svg) · 아이폰 180 · 안드로이드 192·512 · 아이콘 7종 · 오픈 그래프 · 웹페이지에 붙일 코드</p>
+      <div class="dl-all"><button class="btn primary big" id="artAll" type="button"></button></div>
+      <h3 class="h3sec">웹페이지의 &lt;head&gt; 안에 붙일 코드</h3>
+      <p class="body-p">받은 파일을 사이트 맨 위 폴더에 올린 경우입니다.</p>
+      <pre><code id="artCode"></code></pre>
     </div>
   </section>
 
-  <!-- 4. 사용 규칙 -->
+  <!-- 사용 규칙 -->
   <section class="page" id="page-rules">
-    <div class="hero">
-      <div class="eyebrow">Guidelines</div>
-      <h1>Usage <em>Rules</em></h1>
-      <p>서체와 로고는 사내 브랜드 자산으로, 정해진 범위 안에서만 사용합니다.</p>
+    <div class="g-hero"><h1>Usage Rules</h1>
+      <p class="lead">서체와 로고는 사내 브랜드 자산으로, 정해진 범위 안에서만 사용합니다.</p>
+      <dl><dt>문의</dt><dd>웹&amp;모바일팀 디자인 파트</dd></dl></div>
+
+    <div class="g-sec reveal">
+      <h2>기본 원칙</h2>
+      <dl class="why rules">
+        <div><dt>로고 자리에는 원본 파일</dt><dd>로고가 들어갈 자리에는 서체로 입력하지 말고 로고 파일을 넣으세요. 서체는 제목·문구·그래픽용입니다.</dd></div>
+        <div><dt>제목·브랜드 문구 전용</dt><dd>간격이 로고 기준으로 조여져 있어 작은 크기의 본문에는 적합하지 않습니다. 작은 글자에 꼭 써야 한다면 글자 사이를 조금 넓혀 쓰세요.</dd></div>
+        <div><dt>사내 사용만 허용</dt><dd>폰트 파일을 외부에 전달하거나 외부 서버·공개 저장소에 올리지 않습니다.</dd></div>
+        <div><dt>영문·숫자·기호만 수록</dt><dd>한글은 들어 있지 않습니다.</dd></div>
+      </dl>
     </div>
 
-    <div class="sec" style="margin-top:20px">
-      <div class="sec-head"><h2>기본 원칙</h2></div>
-      <div class="cols c4">
-        <div class="box"><span class="big-no">01</span><h3>로고 자리에는 원본 파일</h3><p>로고가 들어갈 자리에는 서체로 입력하지 말고 로고 파일을 넣으세요. 서체는 제목·문구·그래픽용입니다.</p></div>
-        <div class="box"><span class="big-no">02</span><h3>제목·브랜드 문구 전용</h3><p>간격이 로고 기준으로 조여져 있어 작은 크기의 본문에는 적합하지 않습니다. 작은 글자에 꼭 써야 한다면 글자 사이를 조금 넓혀 쓰세요.</p></div>
-        <div class="box"><span class="big-no">03</span><h3>사내 사용만 허용</h3><p>폰트 파일을 외부에 전달하거나 외부 서버·공개 저장소에 올리지 않습니다.</p></div>
-        <div class="box"><span class="big-no">04</span><h3>영문·숫자·기호만 수록</h3><p>한글은 들어 있지 않습니다.</p></div>
-      </div>
+    <div class="g-sec reveal">
+      <h2>배경 조합</h2>
+      <p class="sub">흰 바탕과의 명도 대비가 4.5 이상이면 작은 글자에도 쓸 수 있습니다. 그보다 낮으면 큰 제목이나 그래픽에만 쓰세요.</p>
+      <div class="pairs" id="pairs"></div>
     </div>
 
-    <div class="sec">
-      <div class="sec-head"><h2>배경 조합</h2><p>흰 바탕과의 대비 값이 4.5 이상이면 작은 글자에도 쓸 수 있습니다. 그보다 낮으면 큰 제목이나 그래픽에만 쓰세요.</p></div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>그룹</th><th>컬러</th><th>흰 배경 명도 대비</th><th class="hide-m">권장 조합</th></tr></thead>
-          <tbody id="bgRows"></tbody>
-        </table>
-      </div>
+    <div class="g-sec reveal">
+      <h2>협력사 제작물</h2>
+      <p class="statement">협력사 제작물에 로고나 서체가 필요하면 파일을 직접 전달하지 말고 웹&amp;모바일팀 디자인 파트를 통해 요청합니다.</p>
     </div>
 
-    <div class="sec">
-      <div class="sec-head"><h2>협력사 제작물</h2></div>
-      <div class="box"><p>협력사 제작물에 로고나 서체가 필요하면 파일을 직접 전달하지 말고 <b>웹&amp;모바일팀 디자인 파트</b>를 통해 요청합니다.</p></div>
-    </div>
-
-    <div class="sec">
-      <div class="sec-head"><h2>로고 여백 · 최소 크기 · 금지 예시</h2></div>
-      <div class="note-box">브랜드 매뉴얼(BI별 톤·컬러·서체 규정)이 확정되면 이 자리에 추가됩니다.</div>
+    <div class="g-sec reveal">
+      <h2>로고 여백 · 최소 크기 · 금지 예시</h2>
+      <p class="alert">브랜드 매뉴얼(BI별 톤·컬러·서체 규정)이 확정되면 이 자리에 추가됩니다.</p>
     </div>
   </section>
+
+  <!-- 로고타입 (그룹별 화면은 스크립트가 채움) -->
+  <section class="page" id="page-logo"></section>
 </main>
-<div class="toast" id="toast"></div>
+
+<footer class="foot" id="foot">
+  <div class="foot-cols">
+    <div><b>이 사이트</b><a href="#home">홈</a><a href="#font">전용서체</a><a href="#logo/b2b">로고타입</a><a href="#article">디자인 아티클</a><a href="#rules">사용 규칙</a></div>
+    <div><b>바로가기</b><a href="https://corp.fnguide.com/" target="_blank" rel="noopener">회사소개 (새 창)</a><a href="https://gw.fnguide.com/" target="_blank" rel="noopener">그룹웨어 (새 창)</a><a href="https://www.fnguide.com/" target="_blank" rel="noopener">FnGuide.com (새 창)</a></div>
+    <div><b>담당</b><span>웹&amp;모바일팀 디자인 파트</span><span>협력사 제작물은 파일을 직접 보내지 말고 담당 부서에 요청하세요.</span></div>
+    <div><b>사내 전용</b><span>FnGuide 임직원만 사용할 수 있습니다.</span><a href="index_old.html">이전 버전 보기</a></div>
+  </div>
+  <div class="foot-mark" id="footMark" aria-hidden="true"></div>
+</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="out/brand-site/logos.js?v=1.31w"></script>
 <script src="out/brand-site/font-data.js?v=1.31"></script>
 <script src="out/brand-site/symbols.js?v=5"></script>
-<script>
-(() => {
-  const { groups, logos, archive } = window.BRAND;
-  const G = Object.fromEntries(groups.map(g => [g.id, g]));
-  const L = Object.fromEntries(logos.map(l => [l.id, l]));
-  const $ = s => document.querySelector(s);
-  const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  const icon = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M3 13h10"/></svg>';
-
-  // 그룹 정보 — 출처: 서체 문서 4장, BI 컬러 가이드라인(2025.06), CI/BI 사용방안
-  const INFO = {
-    b2b: { menu: "B2B 대표상품", title: "B2B 대표상품", h1: 'B2B <span class="ko">대표상품</span>', mood: "열정, 자신감, 역동성, 현대적", ratio: 6.69,
-      desc: "대표 주력 상품으로 FnRed 2025 컬러를 단독으로 사용합니다.", extra: "Flagship 브랜드" },
-    index: { menu: "지수 상품", title: "지수", h1: 'Index <span class="ko">상품</span>', mood: "성장, 투명성, 중립성", ratio: 2.49,
-      desc: "FnIndex·WiseIndex·CryptoGuide 같은 지수 서비스 그룹입니다. Index 컬러를 함께 씁니다.", extra: "지수 산출의 중립성과 투명한 처리과정",
-      darkBg: true },
-    fund: { menu: "펀드 상품", title: "펀드", h1: 'Fund <span class="ko">상품</span>', mood: "신뢰, 정확성, 전문성", ratio: 12.17,
-      desc: "FundGuide·FnSpectrum 같은 펀드·평가 서비스 그룹입니다. Fund 컬러를 함께 씁니다." },
-    contract: { menu: "B2B 계약상품", title: "B2B 계약상품", h1: 'B2B <span class="ko">계약상품</span>', mood: "고객사 맞춤형 서비스", ratio: 16.45,
-      desc: "고객사에 맞춰 제공하는 계약형 서비스 그룹입니다(고객사 전용 화면·웹 서비스). Contract 컬러를 함께 씁니다." },
-    b2c: { menu: "B2C 독립 체계", title: "B2C 독립 체계", h1: 'B2C <span class="ko">독립 체계</span>', mood: "사용자 친화적, 서비스별 독립 컬러",
-      desc: "개인 고객에게 특화된 서비스로, 사용자 트렌드에 맞게 독립적인 컬러를 사용합니다. 폰트도 서비스 성격에 맞게 사용합니다." },
-    ci: { menu: "FnGuide CI", title: "FnGuide CI", h1: "FnGuide <em>CI</em>", mood: "고급스러움, 신뢰, 무게감, 헤리티지", ratio: 8.16,
-      desc: "FnGuide의 CI는 금융시장을 바라보는 새로운 창이라는 컨셉으로 디자인하였습니다." },
-  };
-  const ORDER = ["b2b", "contract", "fund", "index", "b2c", "ci"];
-  const B2C_COLORS = { retamin: "#1C1C3A", wisereport: "#594FC8", fnapi: "#2457C5" }; // 리타민: 주 #1C1C3A, 보조 #26C0D2
-  const bgOf = l => l.group === "b2c" ? B2C_COLORS[l.id] : l.kind === "improved" ? "#B9023D" : G[l.group].color;
-
-  // 로고 자리
-  const logoSvg = L.fnguide.svg;
-  $("#topLogo").innerHTML = logoSvg + "<span>Brand Identity</span>";
-
-  // 하위 메뉴
-  $("#subMenu").innerHTML = ORDER.map(id =>
-    `<a href="#logo/${id}"><i class="dot" style="background:${id === "b2c" ? "#2457C5" : G[id].color}"></i>${INFO[id].menu}</a>`).join("")
-    + `<a href="#download">로고타입 다운로드</a>`; // 맨 아래 하위 메뉴(주소는 #download 그대로)
-
-  // 내려받기
-  function save(blob, name) {
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(blob); a.download = name;
-    document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-    toast(name + " 저장");
-  }
-  // 받는 파일은 그림 둘레에 여백을 둔다: SVG 10px(그림 크기 기준), PNG 16px(파일 안의 실제 픽셀)
-  const PAD_SVG = 10, PAD_PNG = 16;
-  function padSvg(svg, m = PAD_SVG) {
-    return svg.replace(/<svg\b[^>]*>/, tag => {
-      const get = n => (tag.match(new RegExp("\\s" + n + '="([^"]+)"')) || [])[1];
-      const w = parseFloat(get("width")), h = parseFloat(get("height"));
-      const [x, y, vw, vh] = get("viewBox").split(/[\s,]+/).map(Number);
-      const px = m * vw / w, py = m * vh / h, r = v => Math.round(v * 100) / 100;
-      return tag.replace(/(\swidth=")[^"]+/, "$1" + r(w + 2 * m)).replace(/(\sheight=")[^"]+/, "$1" + r(h + 2 * m))
-        .replace(/(\sviewBox=")[^"]+/, "$1" + [r(x - px), r(y - py), r(vw + 2 * px), r(vh + 2 * py)].join(" "));
-    });
-  }
-  function pngBlob(svg, w, h, scale = 4) {
-    return new Promise(done => {
-      const img = new Image();
-      img.onload = () => {
-        const c = document.createElement("canvas");
-        c.width = Math.round(w * scale) + 2 * PAD_PNG; c.height = Math.round(h * scale) + 2 * PAD_PNG;
-        c.getContext("2d").drawImage(img, PAD_PNG, PAD_PNG, Math.round(w * scale), Math.round(h * scale));
-        c.toBlob(done, "image/png");
-      };
-      img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
-    });
-  }
-  function savePng(svg, w, h, name, scale = 4) { pngBlob(svg, w, h, scale).then(b => save(b, name)); }
-  // ZIP 묶기 (압축 없이 담기만 함 — 외부 라이브러리 없이 사내망에서도 동작)
-  const CRC = Array.from({ length: 256 }, (_, n) => { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; return c >>> 0; });
-  const crc32 = u => { let c = 0xFFFFFFFF; for (const b of u) c = CRC[(c ^ b) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; };
-  async function makeZip(files) { // files: [{ name, blob }]
-    const enc = new TextEncoder(), parts = [], dir = []; let off = 0;
-    const le = (n, b) => { const a = new Uint8Array(b); for (let i = 0; i < b; i++) a[i] = (n >>> (8 * i)) & 255; return a; };
-    for (const f of files) {
-      const data = new Uint8Array(await f.blob.arrayBuffer()), nm = enc.encode(f.name), crc = crc32(data);
-      const head = [le(0x04034b50, 4), le(20, 2), le(0x0800, 2), le(0, 2), le(0, 4), le(crc, 4), le(data.length, 4), le(data.length, 4), le(nm.length, 2), le(0, 2), nm];
-      dir.push([le(0x02014b50, 4), le(20, 2), le(20, 2), le(0x0800, 2), le(0, 2), le(0, 4), le(crc, 4), le(data.length, 4), le(data.length, 4), le(nm.length, 2), le(0, 2), le(0, 2), le(0, 2), le(0, 2), le(0, 4), le(off, 4), nm]);
-      parts.push(...head, data); off += head.reduce((t, a) => t + a.length, 0) + data.length;
-    }
-    const cd = dir.flat(), size = cd.reduce((t, a) => t + a.length, 0);
-    return new Blob([...parts, ...cd, le(0x06054b50, 4), le(0, 2), le(0, 2), le(files.length, 2), le(files.length, 2), le(size, 4), le(off, 4), le(0, 2)], { type: "application/zip" });
-  }
-  let tId;
-  function toast(msg) {
-    const t = $("#toast"); t.textContent = msg; t.classList.add("on");
-    clearTimeout(tId); tId = setTimeout(() => t.classList.remove("on"), 1600);
-  }
-  document.addEventListener("click", e => {
-    const b = e.target.closest("[data-dl]"); if (!b) return;
-    const l = L[b.dataset.id], v = b.dataset.v;
-    const svg = v === "color" ? l.svg : v === "white" ? l.white : l.variants.find(x => x.key === v).svg;
-    const base = l.id + (v === "color" ? "" : "-" + v);
-    const [w, h] = svg.match(/width="([\d.]+)" height="([\d.]+)"/).slice(1).map(Number);
-    b.dataset.dl === "svg" ? save(new Blob([padSvg(svg)], { type: "image/svg+xml" }), base + ".svg") : savePng(svg, w, h, `${base}@4x.png`);
-  });
-  const dl = (id, v = "color", label = "") => `<span class="btns"><button class="btn" data-dl="svg" data-v="${v}" data-id="${id}">${icon}${label}SVG</button><button class="btn" data-dl="png" data-v="${v}" data-id="${id}">${icon}${label}PNG</button></span>`;
-
-  // 홈 — 컬러 카드
-  $("#colorCards").innerHTML = ["ci", "b2b", "contract", "fund", "index", "b2c"].map(id => {
-    const g = G[id], i = INFO[id];
-    const targets = logos.filter(l => l.group === id).map(l => l.name).join(", ");
-    // 색 이름은 그 색으로 쓴다 ([이름, 색] 묶음)
-    const [names, hexes] = id === "b2c" ? [[["Retamin", "#1C1C3A"], ["WiseReport", "#594FC8"], ["API", "#2457C5"]], ["#1C1C3A", "#26C0D2", "#594FC8", "#2457C5"]]
-      : id === "ci" ? [[["FnWine", "#94243A"], ["FnDarkGray", "#778288"]], ["#94243A", "#778288"]]
-      : [[[g.colorName, g.color]], [g.color]];
-    const label = names.map(([n, c]) => `<span class="nm" style="color:${c};font:inherit">${n}</span>`).join("");
-    const top = `<div class="chip-top"><div class="chip-name"><b>${label}</b></div><div class="chips${hexes.length > 1 ? " many" : ""}">${hexes.map(h => `<i style="background:${h}"></i>`).join("")}</div></div>`;
-    return `<a class="box color-card go" href="#logo/${id}" style="gap:0;--main:${id === "b2c" ? G.b2c.color : hexes[0]}">${top}<div class="body"><h3>${i.title}</h3><p>${i.mood}</p><div class="targets">${esc(targets)}</div><div class="ratio">${hexes.map(h => `<span style="color:${h}">${h}</span>`).join(`<span style="color:var(--ink-3)"> · </span>`)}</div></div></a>`;
-  }).join("");
-  $("#colorCards").insertAdjacentHTML("afterend",
-    `<p style="margin:12px 0 0;color:var(--ink-3);font-size:13px"><span class="dot" style="background:#94243A;width:8px;height:8px"></span> 회사 CI 전용색상 FnWine(#94243A)은 BI 컬러 FnRed 2025(#B9023D)와 다른 색입니다.</p>`);
-
-  // 서체 파일
-  document.querySelectorAll(".font-files").forEach(el => el.innerHTML = [
-    ["OTF", "디자인 툴용 (Figma, Illustrator 등)"], ["TTF", "오피스용 (Word, PowerPoint)"], ["WOFF", "사내 웹 서비스용"],
-  ].map(([f, d]) => `<div class="box file"><b>${f}</b><span>${d}</span><a class="btn primary" href="out/brand-site/fonts/FnGuideLogotype-Regular.${f.toLowerCase()}" download>${icon}${f} 받기</a></div>`).join(""));
-
-  // 서체 미리보기
-  const spec = $("#specText"), input = $("#specInput");
-  // 사용자가 문구를 입력했으면 색을 바꿔도 문구를 그대로 둔다 (지우면 다시 예시 문구로 바뀜)
-  let typed = false;
-  input.addEventListener("input", () => { spec.textContent = input.value || " "; typed = input.value.trim() !== ""; });
-  spec.addEventListener("keydown", e => { if (e.key === "Enter") e.preventDefault(); }); // 한 줄 문구만
-  spec.addEventListener("input", () => { input.value = spec.textContent; typed = input.value.trim() !== ""; });
-  // 글자 크기: 게이지와 숫자 칸이 서로 맞춰 움직인다. 숫자 칸은 32~150 밖이면 입력을 마칠 때 범위 안으로 맞춤
-  const size = $("#specSize"), sizeNum = $("#specSizeNum");
-  const setSize = v => { spec.style.fontSize = v + "px"; size.value = v; sizeNum.value = v; };
-  // 좁은 화면은 처음 크기가 작음. 직접 바꾸기 전에는 창 크기가 바뀌어도 실제 크기를 따라 표시
-  const syncSize = () => { if (!spec.style.fontSize) size.value = sizeNum.value = Math.round(parseFloat(getComputedStyle(spec).fontSize)); };
-  syncSize(); addEventListener("resize", syncSize);
-  size.addEventListener("input", () => setSize(size.value));
-  sizeNum.addEventListener("input", () => {
-    const v = Number(sizeNum.value);
-    if (v >= 32 && v <= 150) { spec.style.fontSize = v + "px"; size.value = v; }
-  });
-  sizeNum.addEventListener("change", () => setSize(Math.min(150, Math.max(32, Math.round(Number(sizeNum.value)) || 88))));
-  // 투명 배경 표시용 회색 격자 (받는 파일은 그대로 투명)
-  const CHECKER = "repeating-conic-gradient(#C4C4C4 0 25%, #E2E2E2 0 50%) 0 0 / 20px 20px";
-  // 비즈니스별 컬러 (단추 아래에 이름 표기). 처음 고른 색은 FnRed
-  const SW = [
-    { c: "#B9023D", bg: "#FFFFFF", word: "FnGuide", name: "B2B 대표" },
-    { c: "#1C1C3A", bg: "#FFFFFF", word: "ETF Global", name: "B2B 계약" },
-    { c: "#0C3178", bg: "#FFFFFF", word: "FundGuide", name: "펀드" },
-    { c: "#45B792", bg: "#FFFFFF", word: "FnIndex", name: "지수" },
-    { c: "#594FC8", bg: "#FFFFFF", word: "WiseReport", name: "WiseReport" },
-    { c: "#2457C5", bg: "#FFFFFF", word: "FnAPI", name: "API" },
-    { c: "#FFFFFF", bg: CHECKER, word: "FnGuide", name: "흰색" },
-  ];
-  $("#swatches").innerHTML = SW.map((s, i) =>
-    `<span class="sw-item"><button class="sw" aria-label="${s.name} ${s.c}" aria-pressed="${i === 0}" data-i="${i}" style="background:${s.bg === CHECKER ? CHECKER.replace("20px 20px", "8px 8px") : s.c}"></button><small>${s.name}</small></span>`).join("")
-    + `<span class="sw-item"><span class="sw sw-custom" aria-pressed="false" title="사용자 지정 색상"><input type="color" value="#1C1C3A" aria-label="사용자 지정 색상"></span><small>사용자</small></span>`
-    + `<input type="text" class="sw-hex" maxlength="7" placeholder="#RRGGBB" title="웹 컬러 코드를 입력하세요" aria-label="사용자 지정 색상 웹 컬러 코드">`;
-  $("#swatches").addEventListener("click", e => {
-    const b = e.target.closest(".sw"); if (!b || b.classList.contains("sw-custom")) return;
-    const s = SW[b.dataset.i];
-    document.querySelectorAll(".sw").forEach(x => x.setAttribute("aria-pressed", x === b));
-    $("#specimen").style.background = s.bg; paint(s.c);
-    if (s.word && !typed) { spec.textContent = s.word; input.value = s.word; }
-  });
-  // 고른 색을 문구와 크기 게이지 손잡이에 함께 칠한다. 아주 밝은 색은 손잡이가 안 보이므로 회색으로
-  const light = c => { const [r, g, b] = [1, 3, 5].map(k => parseInt(c.slice(k, k + 2), 16)); return 0.299 * r + 0.587 * g + 0.114 * b > 230; };
-  let specColor;
-  function paint(c) {
-    spec.style.color = c; specColor = c;
-    $("#specSize").style.setProperty("--thumb", light(c) ? "#9AA0A6" : c);
-  }
-  paint(SW[0].c);
-  // 사용자 지정 색상: 웹 컬러 코드(#RRGGBB)를 입력하거나 색 고르기 창에서 고른다.
-  // 아주 밝은 색이면 흰 배경에서 안 보이므로 투명 배경(격자)으로
-  const custom = $(".sw-custom"), picker = custom.querySelector("input"), hex = $(".sw-hex");
-  function applyCustom(c) {
-    document.querySelectorAll(".sw").forEach(x => x.setAttribute("aria-pressed", x === custom));
-    custom.style.background = c;
-    $("#specimen").style.background = light(c) ? CHECKER : "#FFFFFF";
-    paint(c);
-  }
-  picker.addEventListener("input", () => {
-    const c = picker.value.toUpperCase();
-    hex.value = c; hex.classList.remove("bad"); applyCustom(c);
-  });
-  hex.addEventListener("input", () => {
-    // # 은 없어도 되고, 3자리 줄임(#F60)도 받는다
-    let v = hex.value.trim().replace(/^#?/, "#").toUpperCase();
-    if (/^#[0-9A-F]{3}$/.test(v)) v = "#" + [...v.slice(1)].map(x => x + x).join("");
-    const ok = /^#[0-9A-F]{6}$/.test(v);
-    hex.classList.toggle("bad", !ok && hex.value.trim() !== "");
-    if (ok) { picker.value = v.toLowerCase(); applyCustom(v); }
-  });
-
-  // 미리보기 문구를 SVG·PNG로 저장: 서체 안의 합자·글자 간격 규칙을 그대로 적용해 글자 윤곽선으로 그린다 (font-data.js)
-  function shape(text) {
-    const F = window.FONT_DATA, out = [], missing = new Set();
-    let i = 0, x = 0, prev = null;
-    while (i < text.length) {
-      const lg = F.liga.find(([seq]) => text.startsWith(seq, i));
-      const name = lg ? lg[1] : F.cmap[text[i]];
-      i += lg ? lg[0].length : 1;
-      if (!name) { missing.add(text[i - 1]); continue; }
-      if (prev) x += F.kern[prev + " " + name] || 0;
-      out.push([name, x]); x += F.glyphs[name][0]; prev = name;
-    }
-    return { glyphs: out, missing: [...missing] };
-  }
-  // 글자 하나의 윤곽선을 옆으로 dx만큼 옮긴다 (M·L·C·Q는 x,y 짝, H는 x만)
-  const shift = (d, dx) => d.replace(/([MLCQHVZ])([^MLCQHVZ]*)/g, (_, c, args) => {
-    const n = args.trim() ? args.trim().split(/[\s,]+/).map(Number) : [];
-    return c + n.map((v, k) => c === "V" || (c !== "H" && k % 2) ? v : Math.round((v + dx) * 100) / 100).join(" ");
-  });
-  function pathBox(d) {
-    const probe = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    probe.style.cssText = "position:absolute;width:0;height:0;visibility:hidden";
-    probe.innerHTML = `<path d="${d}"/>`;
-    document.body.appendChild(probe);
-    const bb = probe.firstChild.getBBox(); probe.remove();
-    return bb;
-  }
-  function specSvg() {
-    const text = spec.textContent.replace(/\s+/g, " ");
-    const { glyphs, missing } = shape(text);
-    const d = glyphs.map(([n, x]) => shift(window.FONT_DATA.glyphs[n][1], x)).join("");
-    if (!d) return { missing };
-    // 실제 글자 윤곽 크기를 재서 여백 없이 자른다 (로고 파일과 같은 방식)
-    const bb = pathBox(d);
-    const k = parseFloat(getComputedStyle(spec).fontSize) / window.FONT_DATA.upem;
-    const r = v => Math.round(v * 100) / 100;
-    const w = r(bb.width * k), h = r(bb.height * k);
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="${r(bb.x)} ${r(bb.y)} ${r(bb.width)} ${r(bb.height)}"><path fill="${specColor}" d="${d}"/></svg>\n`;
-    return { svg, w, h, missing, name: text.trim().replace(/[\\/:*?"<>|\s]+/g, "-").slice(0, 40) || "FnGuide-Logotype" };
-  }
-  $("#specDl").addEventListener("click", e => {
-    const b = e.target.closest("button"); if (!b) return;
-    const r = specSvg();
-    if (!r.svg) { toast("저장할 글자가 없습니다 (한글은 서체에 없습니다)"); return; }
-    b.dataset.type === "svg" ? save(new Blob([padSvg(r.svg)], { type: "image/svg+xml" }), r.name + ".svg") : savePng(r.svg, r.w, r.h, r.name + "@4x.png");
-    if (r.missing.length) setTimeout(() => toast("서체에 없는 글자는 빠졌습니다: " + r.missing.join(" ")), 1700);
-  });
-
-  // 로고타입 그룹 화면
-  // 로고 카드도 칸에 맞춰 줄이지 않고 같은 배율로 (글자 크기가 같게 보이도록)
-  const STAGE_SCALE = 1;
-  // 회사 CI 원본 파일은 크기 기준이 달라 따로 맞춘다 (상자가 있는 CI, 긴 로고타입)
-  const fit = l => ({ official: 0.7, logotype: 0.6 }[l.kind] || 1);
-  const big = (svg, l) => sized(svg, l.w * STAGE_SCALE * fit(l), l.h * STAGE_SCALE * fit(l));
-  // 서비스 웹사이트 링크 (있는 로고만, 서비스명 아래)
-  const site = l => l.url ? `<a class="note" href="${l.url}" target="_blank" rel="noopener">서비스 바로가기 ↗</a>` : "";
-  // B2B 계약상품과 FnSpectrum은 로고가 바뀔 예정이라 이름 옆에 안내
-  const pending = l => l.group === "contract" ? '<small class="pending">(로고 컬러 변경 예정 · 현재 파일 사용)</small>'
-    : l.id === "fnspectrum" ? '<small class="pending">(로고 변경 예정 · 현재 파일 사용)</small>'
-    : l.id === "wisereport" ? '<small class="pending">(2026년 디자인 리뉴얼 버전)</small>' : "";
-  function logoRow(l, info) {
-    if (!l.white) return `<div class="logo-row">
-      <div class="stages" style="grid-template-columns:1fr"><div class="stage" style="background:#fff"><small>흰 배경</small>${big(l.svg, l)}</div></div>
-      <div class="row-meta"><div class="name-col"><strong>${esc(l.name)}${pending(l)}</strong>${site(l)}</div>${dl(l.id)}</div>
-    </div>`;
-    const second = info.darkBg
-      ? `<div class="stage" style="background:#1C1C3A;color:#fff"><small>어두운 배경 · 권장</small>${big(l.svg, l)}</div>`
-      : `<div class="stage" style="background:${bgOf(l)};color:#fff"><small>컬러 배경 · 흰색 버전</small>${big(l.white, l)}</div>`;
-    return `<div class="logo-row">
-      <div class="stages"><div class="stage" style="background:#fff"><small>흰 배경</small>${big(l.svg, l)}</div>${second}</div>
-      <div class="row-meta"><div class="name-col"><strong>${esc(l.name)}${pending(l)}</strong>${site(l)}</div>${dl(l.id)}${dl(l.id, "white", "흰색 ")}</div>
-    </div>`;
-  }
-  function renderGroup(id) {
-    const g = G[id], i = INFO[id];
-    const items = logos.filter(l => l.group === id);
-    const color = id === "b2c" ? "리타민 주 #1C1C3A · 보조 #26C0D2 · WiseReport #594FC8 · API #2457C5" : `${g.colorName} ${g.color}`;
-    let html = `<div class="group-hero"><div>
-        <div class="eyebrow">Logotype · ${i.menu}</div>
-        <h1${i.h1 ? ' class="brand-h1"' : ""}>${i.h1 || i.title}</h1>
-        <p class="lead" style="margin:0">${i.desc}</p>
-        <div class="facts"><span><b>컬러</b>${color}</span><span><b>성격</b>${i.mood}</span>${i.extra ? `<span><b>의미</b>${i.extra}</span>` : ""}${i.ratio ? `<span><b>흰 배경 대비</b>${i.ratio} — ${i.ratio >= 4.5 ? "작은 글자도 잘 보임(4.5 이상)" : "큰 글자·그래픽용(4.5 미만)"}</span>` : ""}</div>
-      </div></div>`;
-    if (id === "index") html += `<div class="alert">⚠ Index 컬러는 흰 배경에서 명도 대비가 낮아(2.49) 흰 배경 사용을 권장하지 않습니다. 어두운 배경과 조합하세요.</div>`;
-    if (id === "b2c") html += `<div class="alert">ⓘ 리타민은 B2C 독립 체계에 따라 전용서체가 아닌 서비스 고유 로고를 사용합니다. 리타민은 주 색상 #1C1C3A, 보조 색상 #26C0D2를 씁니다. 보조 색상은 흰 배경 대비가 낮아(2.20) 흰 배경 글자에는 권장하지 않습니다. WiseReport(#594FC8)와 FnAPI(#2457C5)는 전용서체 로고타입에 서비스별 독립 컬러를 씁니다.</div>`;
-    if (id === "ci") {
-      const ci = L["fnguide-ci"], improved = L.fnguide;
-      const mono = [
-        ["#94243A", ci.white, "FnWine 배경 · 흰색"], ["#FFFFFF", ci.variants[0].svg, "단색 FnWine"],
-        ["#778288", ci.white, "FnDarkGray 배경 · 흰색"], ["#FFFFFF", ci.variants[1].svg, "단색 FnDarkGray"],
-      ];
-      const sys = [
-        ["FnWine", "#94243A", "Pantone 704 C", "148 / 36 / 58", "50 / 100 / 80 / 0"],
-        ["FnDarkGray", "#778288", "Pantone 431 C", "119 / 130 / 136", "15 / 0 / 0 / 60"],
-        ["FnLightGray", "#A8B0B6", "Pantone 429 C", "155 / 165 / 165", "5 / 0 / 0 / 35"],
-      ];
-      html += `<div class="sec" style="margin-top:28px"><div class="sec-head"><h2>공식 로고 · CI (Corporate Identity)</h2></div>
-          <div class="logo-row">
-            <div class="stages"><div class="stage" style="background:#fff;height:260px"><small>흰 배경</small>${big(ci.svg, ci)}</div><div class="stage" style="background:#94243A;color:#fff;height:260px"><small>FnWine 배경 · 흰색</small>${big(ci.white, ci)}</div></div>
-            <div class="row-meta"><strong>${esc(ci.name)}</strong><span class="note"></span>${dl(ci.id)}${dl(ci.id, "white", "흰색 ")}</div>
-            <div class="row-meta"><span class="note">원본 파일 (<a href="https://corp.fnguide.com/Company/CIP" target="_blank" rel="noopener">회사 홈페이지 브랜드 리소스 ↗</a> 제공)</span><span class="btns"><a class="btn primary" href="out/brand-site/files/fnguide-logo-AI.zip" download>${icon}AI 파일</a><a class="btn primary" href="out/brand-site/files/fnguide-logo-PNG.zip" download>${icon}PNG 파일</a></span></div>
-          </div>
-        </div>
-        <div class="sec"><div class="sec-head"><h2>로고타입 (Logotype)</h2></div>
-          <div class="logo-list">${["fnguide-inc", "fnguide-kr"].map(k => logoRow(L[k], i)).join("")}</div>
-          <div class="alert">* 로고타입은 임의로 타이핑하여 사용하거나 색상 조정, 일부만 사용하는 등의 변형을 할 수 없습니다.</div>
-        </div>
-        <div class="sec"><div class="sec-head"><h2>전용색상 (Color System)</h2><p>FnGuide의 두 가지 핵심 컬러는 FnWine과 FnDarkGray를 기본으로 합니다.</p></div>
-          <div class="table-wrap"><table>
-            <thead><tr><th>컬러</th><th>HEX</th><th>Pantone</th><th class="hide-m">RGB</th><th class="hide-m">CMYK</th></tr></thead>
-            <tbody>${sys.map(([n, hx, p, rgb, cmyk]) => `<tr><td><span style="display:inline-flex;align-items:center;gap:10px"><span class="sample" style="background:${hx}"></span><b>${n}</b></span></td><td><span class="code">${hx}</span></td><td>${p}</td><td class="hide-m">${rgb}</td><td class="hide-m">${cmyk}</td></tr>`).join("")}</tbody>
-          </table></div>
-        </div>
-        <div class="sec"><div class="sec-head"><h2>단색</h2><p>한 가지 색으로 표현해야 할 때 씁니다.</p></div>
-          <div class="cols c4">${mono.map(([bg, svg, cap]) => `<div class="logo-row"><div class="stage" style="background:${bg};height:160px">${sized(svg, ci.w * 0.4, ci.h * 0.4)}</div><div class="row-meta" style="font-size:13px">${cap}</div></div>`).join("")}</div>
-          <div class="row-meta" style="border:0;padding:12px 0 0"><span class="note">단색 파일</span><span class="btns">${dl(ci.id, "wine", "FnWine ")}${dl(ci.id, "darkgray", "FnDarkGray ")}</span></div>
-        </div>
-        <div class="sec"><div class="sec-head"><h2>개선된 브랜드 로고</h2><p>리뉴얼 후 FnRed 2025(#B9023D)를 쓰는 브랜드 로고입니다.</p></div><div class="logo-list">${logoRow(improved, i)}</div></div>
-        <div class="sec"><div class="sec-head"><h2>로고타입 개선</h2></div>
-          <div class="story">
-            <div class="box"><span>이전</span><h3>2000년의 클래식 세리프</h3><p>회사의 역사를 담은 클래식 세리프 로고타입으로, 2000년에 만들었습니다.</p></div>
-            <div class="box"><span>개선</span><h3>볼륨 향상</h3><p>서체 고유의 유니크함을 유지하되, 시인성을 높이기 위해 타입의 전체적인 볼륨을 키웠습니다.</p></div>
-            <div class="box"><span>컬러</span><h3>Dark Wine에서 FnRed로</h3><p>더 밝고 선명한 빨강으로 바꿔, 화면에서 힘 있게 보이도록 했습니다.</p></div>
-          </div>
-        </div>
-        <div class="sec"><div class="sec-head"><h2>그 밖의 CI</h2><p>기록용으로만 보여 드리며 다운로드는 제공하지 않습니다.</p></div>
-          <div class="archive">${archive.map(a => `<div class="logo-row"><div class="stage">${a.svg}</div><div class="row-meta"><strong>${esc(a.name)}</strong><span class="note">${esc(a.desc)}</span>${a.url ? `<a class="note" href="${a.url}" target="_blank" rel="noopener">${esc(a.url.replace(/^https:\/\//, ""))} ↗</a>` : ""}</div></div>`).join("")}</div>
-        </div>`;
-    } else {
-      html += `<div class="sec" style="margin-top:28px"><div class="sec-head"><h2>로고타입</h2><p>${items.length}종</p></div><div class="logo-list">${items.map(l => logoRow(l, i)).join("")}</div></div>`;
-    }
-    $("#page-logo").innerHTML = html;
-  }
-
-  // 다운로드 표 — 칸에 맞춰 줄이지 않고 모든 로고를 같은 배율로 보여 준다 (글자 크기가 같게 보이도록)
-  const DL_SCALE = 0.6;
-  const sized = (svg, w, h) => svg.replace(/width="[^"]*" height="[^"]*"/, `width="${w.toFixed(1)}" height="${h.toFixed(1)}"`);
-  // 다운로드 표에서만: FnGuide Inc. 빼기, 한글 로고타입은 크게
-  const DL_FIT = { "fnguide-kr": 0.8 };
-  const dlFit = l => DL_FIT[l.id] || fit(l);
-  const dlList = ["ci", "b2b", "contract", "fund", "index", "b2c"].flatMap(gid => logos.filter(l => l.group === gid))
-    .filter(l => l.id !== "fnguide-inc");
-  $("#dlRows").innerHTML = dlList.map(l => `<tr>
-    <td class="logo-cell">${sized(l.svg, l.w * DL_SCALE * dlFit(l), l.h * DL_SCALE * dlFit(l))}</td>
-    <td><b>${esc(l.name)}</b></td>
-    <td class="hide-m"><span style="display:inline-flex;align-items:center;gap:8px"><i class="dot" style="background:${bgOf(l)}"></i>${INFO[l.group].title}</span></td>
-    <td class="actions">${dl(l.id)}</td><td class="actions">${l.white ? dl(l.id, "white") : '<span style="color:var(--ink-3)">—</span>'}</td></tr>`).join("");
-
-  // 전체 로고타입 받기: 표에 있는 로고를 컬러·흰색, SVG·PNG(4배) 로 한 파일에 묶음
-  const allBtn = $("#dlAll"), allLabel = `${icon}전체 로고타입 받기 (ZIP)`;
-  allBtn.innerHTML = allLabel;
-  $("#dlAllNote").textContent = `로고 ${dlList.length}종 · 컬러와 흰색 버전 · SVG와 PNG(4배 크기)`;
-  allBtn.addEventListener("click", async () => {
-    if (allBtn.disabled) return;
-    allBtn.disabled = true; allBtn.textContent = "파일을 묶는 중…";
-    try {
-      const files = [];
-      for (const l of dlList) for (const [v, svg] of [["color", l.svg], ["white", l.white]]) {
-        if (!svg) continue;
-        const base = l.id + (v === "color" ? "" : "-white"), dirName = v === "color" ? "color" : "white";
-        const [w, h] = svg.match(/width="([\d.]+)" height="([\d.]+)"/).slice(1).map(Number);
-        files.push({ name: `FnGuide-logotypes/svg/${dirName}/${base}.svg`, blob: new Blob([padSvg(svg)], { type: "image/svg+xml" }) });
-        files.push({ name: `FnGuide-logotypes/png/${dirName}/${base}@4x.png`, blob: await pngBlob(svg, w, h) });
-      }
-      save(await makeZip(files), "FnGuide-logotypes.zip");
-    } finally { allBtn.disabled = false; allBtn.innerHTML = allLabel; }
-  });
-
-  // 디자인 아티클 — 파비콘·아이콘·오픈 그래프 (피그마 "FnGuide Brand Symbol" 시안 기준)
-  const SYM = window.SYMBOLS || {};
-  const artList = dlList.filter(l => l.white); // 오픈 그래프에 흰색 로고가 필요하므로 흰색 판이 있는 로고만
-  const ci = artList.findIndex(l => l.id === "fnguide-ci"), im = artList.findIndex(l => l.id === "fnguide");
-  [artList[ci], artList[im]] = [artList[im], artList[ci]]; // 여기서만: 개선 로고를 FnGuide CI 앞으로
-  const OG_DEFAULT = "Your Best Financial Guide";
-  // 오픈 그래프 소개 문구 (사용자 제공 2026-10-29). 서비스 → 그룹 → 기본 문구 순으로 찾음
-  const OG_TEXT = {
-    "fnguide-com": "따라가기 힘든 금융 정보, 에프앤가이드로 한 발 앞서가세요!",
-    "fnguide-ci": OG_DEFAULT, fnguide: "데이터로 세상을 바꾸는 사람들", // 회사 CI 는 기본 문구(사용자 요청)
-    quantiwise: "기업/주식투자 분석 시스템",
-    wisereport: "흩어져 있는 투자 정보는 와이즈리포트에서",
-    retamin: "하루 한 번, 건강한 투자 습관 리타민",
-    cryptoguide: "디지털자산 정보 플랫폼",
-    dataguide: "단 하나의 솔루션으로 필요한 모든 데이터를 탐색하세요",
-    fnspace: "금융데이터를 API를 통해 쉽고 편리하게",
-    companyguide: "데일리 업데이트되는 온라인 상장기업분석", companywise: "데일리 업데이트되는 온라인 상장기업분석",
-  };
-  const OG_GROUP = { index: "국내 민간 최초 실시간 지수 서비스 구현", fund: "데이터 기반의 고객 맞춤형 펀드평가 서비스" };
-  const ICON_SIZES = [16, 24, 32, 64, 128, 256, 512];
-  const APPLE_FILL = { dataguide: "#B9023D" }; // 모서리가 둥근 심볼: 아이폰 아이콘은 투명 모서리를 심볼 색으로 채움
-  const art = { l: artList[0], kind: "fn", text: {}, ogSize: 50 };
-  const sizedTo = (svg, n) => svg.replace(/width="[^"]*" height="[^"]*"/, `width="${n}" height="${n}"`);
-  // "Fn" 아이콘: 사업 색 네모 + 전용서체 흰 Fn. 512 기준 글자 폭 377, 글자 가운데 (252.6, 256.2), 그림자 아래로 4·흐림 2·검정 25% (피그마 Icon 시안)
-  // 애플 터치 아이콘은 이니셜(text)과 크기(size, 기본 100%)를 바꿀 수 있다. 크기 기준은 Fn 의 시안 크기
-  function fnIcon(color, text = "Fn", size = 100) {
-    // 피그마 원본처럼 n 의 왼쪽 세리프를 F 윗팔 끝에 붙인다(서체 기본 간격보다 좁음, 겹침 1 단위)
-    const g = c => window.FONT_DATA.glyphs[window.FONT_DATA.cmap[c]][1], bF = pathBox(g("F")), bN = pathBox(g("n"));
-    const fn = g("F") + shift(g("n"), bF.x + bF.width - 1 - bN.x);
-    const d = text === "Fn" ? fn : shape(text).glyphs.map(([n, x]) => shift(window.FONT_DATA.glyphs[n][1], x)).join("");
-    const bb = pathBox(d), k = 377 / pathBox(fn).width * size / 100, r = v => Math.round(v * 1000) / 1000;
-    // 가로는 가운데(Fn 은 시안 위치 252.6), 세로는 대문자 높이(700)의 가운데를 256.2 에 — 아래로 내려가는 글자가 있어도 높이가 흔들리지 않게
-    const tx = (text === "Fn" ? 252.6 : 256) - (bb.x + bb.width / 2) * k, ty = 256.2 + 350 * k;
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512"><defs><filter id="fnShadow" x="-10%" y="-10%" width="120%" height="130%" color-interpolation-filters="sRGB"><feDropShadow dx="0" dy="4" stdDeviation="2" flood-color="#000" flood-opacity=".25"/></filter></defs>`
-      + `<rect width="512" height="512" fill="${color}"/><g filter="url(#fnShadow)"><path fill="#FFFFFF" transform="translate(${r(tx)} ${r(ty)}) scale(${r(k)})" d="${d}"/></g></svg>\n`;
-  }
-  const artSvg = () => art.kind === "symbol" ? SYM[art.l.id].svg + "\n" : fnIcon(bgOf(art.l));
-  const apple = { kind: "text", text: "Fn", size: 100 };
-  // 서체에 없는 글자(한글 등)는 빼고, 남는 글자가 없으면 Fn
-  const appleText = () => [...apple.text.trim()].filter(c => window.FONT_DATA.cmap[c]).join("") || "Fn";
-  // 심볼: 모서리가 둥근 심볼(DataGuide)은 아이폰이 투명 모서리를 검게 채우므로 심볼 색 바탕을 깔아 둠
-  function symbolFilled(id) {
-    const { svg, size } = SYM[id], f = APPLE_FILL[id];
-    return (f ? svg.replace(/<svg\b[^>]*>/, m => m + `<rect width="${size}" height="${size}" fill="${f}"/>`) : svg) + "\n";
-  }
-  const appleSvg = () => apple.kind === "symbol" && SYM[art.l.id] ? symbolFilled(art.l.id) : fnIcon(bgOf(art.l), appleText(), apple.size);
-  const loadImg = svg => new Promise(ok => { const i = new Image(); i.onload = () => ok(i); i.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg); });
-  async function iconPng(svg, n, fill) {
-    const c = document.createElement("canvas"); c.width = c.height = n;
-    const x = c.getContext("2d");
-    if (fill) { x.fillStyle = fill; x.fillRect(0, 0, n, n); }
-    x.drawImage(await loadImg(svg), 0, 0, n, n);
-    return new Promise(ok => c.toBlob(ok, "image/png"));
-  }
-  // favicon.ico: 16·32·48, 일반 아이콘(icon.ico): 16~256 PNG 를 한 파일에 담음 (ico 안의 크기 칸은 1바이트라 256은 0으로 적음)
-  async function icoBlob(svg, sizes = [16, 32, 48]) {
-    const pngs = await Promise.all(sizes.map(n => iconPng(svg, n).then(b => b.arrayBuffer())));
-    const head = new DataView(new ArrayBuffer(6 + 16 * sizes.length));
-    head.setUint16(2, 1, true); head.setUint16(4, sizes.length, true);
-    let off = head.byteLength;
-    sizes.forEach((n, i) => {
-      const p = 6 + 16 * i;
-      head.setUint8(p, n & 255); head.setUint8(p + 1, n & 255); head.setUint16(p + 4, 1, true); head.setUint16(p + 6, 32, true);
-      head.setUint32(p + 8, pngs[i].byteLength, true); head.setUint32(p + 12, off, true); off += pngs[i].byteLength;
-    });
-    return new Blob([head, ...pngs], { type: "image/x-icon" });
-  }
-  // 오픈 그래프: 사업 색 배경 + 흰 로고타입 + 한글 소개 한 줄 (피그마 Open Graph 시안 600×315 의 2배)
-  // 로고는 그림의 3배(시안의 WiseReport·CryptoGuide 폭으로 잰 값), 소개 문구는 Pretendard 600
-  // 시안 data/Symbol/오픈 그래프-WiseReport.svg: 로고와 문구 사이에 양 끝이 흐려지는 흰 가로선(폭 932 · 두께 2, 가운데)
-  //   로고 그림 아래 끝 → 40px(글자 기준 42px) → 가로선 → 62px → 첫 줄 글자 윗선
-  let ogTurn = 0;
-  // 소개 문구: 크기 조절(기본 50px), 좌우 80px 여백(폭 1040)을 넘으면 띄어쓰기에서 줄을 바꿈(Enter 로 직접 바꿔도 됨), 줄간격 148%
-  // 세로 배치: 로고·가로선은 늘 같은 자리 — 기본(50px 한 줄)일 때 묶음 전체가 가운데에 오는 자리. 문구는 가로선 아래로 늘어남
-  // 글자 윗선·아랫선은 글자 크기의 0.81·0.07 (Pretendard 한글 어림값)
-  function wrapLines(x, text, maxW) {
-    const fit = t => x.measureText(t).width <= maxW;
-    const lines = [];
-    for (const para of text.split("\n")) {
-      let line = "";
-      for (const word of para.trim().split(/ +/)) {
-        const t = line ? line + " " + word : word;
-        if (fit(t) || !line) line = t; else { lines.push(line); line = word; }
-      }
-      lines.push(line);
-    }
-    // 띄어쓰기 없이 긴 낱말은 글자 단위로 나눔
-    return lines.flatMap(l => {
-      if (fit(l)) return [l];
-      const out = []; let cur = "";
-      for (const c of l) { if (cur && !fit(cur + c)) { out.push(cur); cur = c; } else cur += c; }
-      return [...out, cur];
-    });
-  }
-  async function drawOg(cv, l, text) {
-    const turn = cv === $("#artOg") ? ++ogTurn : 0, W = 1200, H = 630, k = 3 * fit(l), w = l.w * k, h = l.h * k, fs = art.ogSize, lh = fs * 1.48;
-    const [img] = await Promise.all([loadImg(l.white), document.fonts.load('600 44px "Pretendard Variable"').catch(() => {})]);
-    if (turn && turn !== ogTurn) return; // 빠르게 바꾸면 마지막 것만 그림
-    const x = cv.getContext("2d");
-    x.fillStyle = bgOf(l); x.fillRect(0, 0, W, H);
-    x.font = `600 ${fs}px "Pretendard Variable", Pretendard, "Malgun Gothic", sans-serif`;
-    const LW = 932, lines = text ? wrapLines(x, text, 1040) : [];
-    const gap = h + 40 + 2 + 62, first = gap + fs * 0.81; // 로고 윗선에서 첫 줄 글자 바닥선까지
-    const top = Math.round((H - (lines.length ? gap + 50 * 0.88 : h)) / 2); // 가로선이 흐려지지 않게 정수 자리
-    x.drawImage(img, (W - w) / 2, top, w, h);
-    if (!lines.length) return;
-    const g = x.createLinearGradient((W - LW) / 2, 0, (W + LW) / 2, 0);
-    g.addColorStop(0, "rgba(255,255,255,.1)"); g.addColorStop(.5, "#FFFFFF"); g.addColorStop(1, "rgba(255,255,255,.1)");
-    x.fillStyle = g; x.fillRect((W - LW) / 2, Math.round(top + h + 40), LW, 2);
-    x.fillStyle = "#FFFFFF"; x.textAlign = "center"; x.textBaseline = "alphabetic";
-    lines.forEach((t, i) => x.fillText(t, W / 2, top + first + i * lh));
-  }
-  async function ogBlob(l, text) {
-    const c = document.createElement("canvas"); c.width = 1200; c.height = 630;
-    await drawOg(c, l, text);
-    return new Promise(ok => c.toBlob(ok, "image/png"));
-  }
-  const ogText = () => (art.text[art.l.id] ?? OG_TEXT[art.l.id] ?? OG_GROUP[art.l.group] ?? OG_DEFAULT).trim();
-  const ext = n => /^https?:/.test(art.l.url || "") ? new URL(n, art.l.url).href : "/" + n;
-  function headCode() {
-    const l = art.l, t = ogText();
-    return [
-      `<link rel="icon" href="/favicon.ico" sizes="48x48">`,
-      `<link rel="icon" href="/favicon.svg" type="image/svg+xml">`,
-      `<link rel="apple-touch-icon" href="/apple-touch-icon.png">`,
-      `<link rel="manifest" href="/site.webmanifest">`,
-      `<meta property="og:title" content="${esc(l.name)}">`,
-      t ? `<meta property="og:description" content="${esc(t.replace(/\s*\n\s*/g, " "))}">` : "",
-      `<meta property="og:image" content="${esc(ext("og-image.png"))}">`,
-      `<meta property="og:image:width" content="1200">`,
-      `<meta property="og:image:height" content="630">`,
-    ].filter(Boolean).join("\n") + "\n";
-  }
-  const manifest = () => JSON.stringify({
-    name: art.l.name, short_name: art.l.name,
-    icons: [192, 512].map(n => ({ src: `/icon-${n}.png`, sizes: `${n}x${n}`, type: "image/png" })),
-    theme_color: art.kind === "symbol" ? APPLE_FILL[art.l.id] || bgOf(art.l) : bgOf(art.l), background_color: "#FFFFFF",
-  }, null, 2) + "\n";
-
-  $("#artSel").innerHTML = ["ci", "b2b", "contract", "fund", "index", "b2c"].map(gid => {
-    const items = artList.filter(l => l.group === gid);
-    return items.length ? `<optgroup label="${INFO[gid].title}">${items.map(l => `<option value="${l.id}">${esc(l.name)}${SYM[l.id] ? " · 심볼" : ""}</option>`).join("")}</optgroup>` : "";
-  }).join("");
-  function renderArt() {
-    const l = art.l, svg = artSvg();
-    $("#artKind").hidden = !SYM[l.id];
-    $("#artKind").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === art.kind));
-    $("#artNote").innerHTML = art.kind === "symbol"
-      ? `서비스 심볼 — ${esc(SYM[l.id].desc)}`
-      : `<i class="dot" style="background:${bgOf(l)}"></i>${INFO[l.group].title} 컬러 ${bgOf(l)} + 전용서체 Fn`;
-    // 같은 그림을 여러 번 넣으므로 그림자·그러데이션 이름이 겹치지 않게 크기별로 바꿔 붙임
-    $("#artIcons").innerHTML = ICON_SIZES.filter(n => n < 512).map(n => `<figure>${sizedTo(svg, n).replace(/(id="|url\(#)([\w-]+)/g, `$1$2-${n}`)}<figcaption>${n}px</figcaption></figure>`).join("");
-    $("#appleKind").hidden = !SYM[l.id];
-    $("#appleKind").querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.k === apple.kind));
-    ["#appleText", "#appleSize", "#appleSizeNum"].forEach(q => $(q).disabled = apple.kind === "symbol");
-    const a = appleSvg(), uid = (svg, k) => svg.replace(/(id="|url\(#)([\w-]+)/g, `$1$2-${k}`);
-    $("#artApple").innerHTML = `<figure>${uid(sizedTo(a, 180), "a1")}<figcaption>받는 파일 · 180px</figcaption></figure>`
-      + `<figure class="ios">${uid(sizedTo(a, 120), "a2")}<figcaption>아이폰 홈 화면에서 보이는 모습</figcaption></figure>`;
-    const input = $("#artText");
-    if (document.activeElement !== input) input.value = ogText();
-    drawOg($("#artOg"), l, ogText());
-    $("#artCode").textContent = headCode();
-    $("#artAll").innerHTML = `${icon}${esc(l.name)} 전체 받기 (ZIP)`;
-  }
-  $("#artSel").addEventListener("change", e => {
-    art.l = L[e.target.value]; art.kind = SYM[art.l.id] ? "symbol" : "fn";
-    // 서비스를 바꾸면 기본값으로: 오픈 그래프 글자 크기 50px, 애플 터치 아이콘 심볼(있으면)·이니셜 Fn·크기 100%
-    art.ogSize = $("#ogSize").value = $("#ogSizeNum").value = 50;
-    apple.kind = SYM[art.l.id] ? "symbol" : "text"; apple.text = $("#appleText").value = "Fn";
-    apple.size = $("#appleSize").value = $("#appleSizeNum").value = 100;
-    renderArt();
-  });
-  $("#artKind").addEventListener("click", e => {
-    const b = e.target.closest("button"); if (!b) return;
-    art.kind = b.dataset.k; renderArt();
-  });
-  $("#artText").addEventListener("input", e => { art.text[art.l.id] = e.target.value; renderArt(); });
-  $("#appleKind").addEventListener("click", e => {
-    const b = e.target.closest("button"); if (!b) return;
-    apple.kind = b.dataset.k; renderArt();
-  });
-  $("#appleText").addEventListener("input", e => {
-    apple.text = e.target.value; renderArt();
-    const miss = [...e.target.value.trim()].filter(c => !window.FONT_DATA.cmap[c]);
-    if (miss.length) toast("서체에 없는 글자는 빠집니다: " + miss.join(" "));
-  });
-  const oSize = $("#ogSize"), oSizeNum = $("#ogSizeNum");
-  oSize.addEventListener("input", () => { art.ogSize = oSizeNum.value = Number(oSize.value); renderArt(); });
-  oSizeNum.addEventListener("input", () => { const v = Number(oSizeNum.value); if (v >= 28 && v <= 72) { art.ogSize = oSize.value = v; renderArt(); } });
-  oSizeNum.addEventListener("change", () => { art.ogSize = oSize.value = oSizeNum.value = Math.min(72, Math.max(28, Math.round(Number(oSizeNum.value)) || 50)); renderArt(); });
-  const aSize = $("#appleSize"), aSizeNum = $("#appleSizeNum");
-  aSize.addEventListener("input", () => { apple.size = aSizeNum.value = Number(aSize.value); renderArt(); });
-  aSizeNum.addEventListener("input", () => { const v = Number(aSizeNum.value); if (v >= 50 && v <= 150) { apple.size = aSize.value = v; renderArt(); } });
-  aSizeNum.addEventListener("change", () => { apple.size = aSize.value = aSizeNum.value = Math.min(150, Math.max(50, Math.round(Number(aSizeNum.value)) || 100)); renderArt(); });
-  $("#appleDl").addEventListener("click", async () => save(await iconPng(appleSvg(), 180), `${art.l.id}-apple-touch-icon.png`));
-  // 기기별 크기: 180 아이폰 · 167 아이패드 프로 · 152 아이패드 · 120 옛 아이폰
-  $("#appleZip").addEventListener("click", async () => {
-    const svg = appleSvg(), files = [];
-    for (const n of [180, 167, 152, 120]) files.push({ name: `apple-touch-icon-${n}x${n}.png`, blob: await iconPng(svg, n) });
-    save(await makeZip(files), "touch-icon.zip");
-  });
-  const artBase = () => art.l.id + (art.kind === "symbol" ? "-symbol" : "-fn");
-  $("#artIconDl").addEventListener("click", async e => {
-    const b = e.target.closest("button"); if (!b) return;
-    const svg = artSvg();
-    if (b.dataset.a === "ico") save(await icoBlob(svg), `${art.l.id}-favicon.ico`);
-    if (b.dataset.a === "icon") save(await icoBlob(svg, [16, 24, 32, 48, 64, 128, 256]), `${artBase()}-icon.ico`);
-    if (b.dataset.a === "svg") save(new Blob([svg], { type: "image/svg+xml" }), `${artBase()}-icon.svg`);
-    if (b.dataset.a === "png") save(await iconPng(svg, 512), `${artBase()}-icon-512.png`);
-  });
-  $("#artOgDl").addEventListener("click", async () => save(await ogBlob(art.l, ogText()), `${art.l.id}-og-image.png`));
-  $("#artAll").addEventListener("click", async () => {
-    const btn = $("#artAll"); if (btn.disabled) return;
-    btn.disabled = true; btn.textContent = "파일을 묶는 중…";
-    try {
-      const svg = artSvg(), dir = `${art.l.id}-web-icons/`;
-      const text = (s, type) => new Blob([s], { type });
-      const files = [
-        { name: dir + "favicon.ico", blob: await icoBlob(svg) },
-        { name: dir + "favicon.svg", blob: text(svg, "image/svg+xml") },
-        { name: dir + "apple-touch-icon.png", blob: await iconPng(appleSvg(), 180) }, // 애플 터치 아이콘 칸에서 고른 이니셜·크기
-        { name: dir + "icon-192.png", blob: await iconPng(svg, 192) },
-        { name: dir + "icon-512.png", blob: await iconPng(svg, 512) },
-        { name: dir + "og-image.png", blob: await ogBlob(art.l, ogText()) },
-        { name: dir + "site.webmanifest", blob: text(manifest(), "application/manifest+json") },
-        { name: dir + "head.html", blob: text(headCode(), "text/html") },
-      ];
-      for (const n of ICON_SIZES) files.push({ name: `${dir}icons/icon-${n}.png`, blob: await iconPng(svg, n) });
-      save(await makeZip(files), `${art.l.id}-web-icons.zip`);
-    } finally { btn.disabled = false; renderArt(); }
-  });
-  art.kind = SYM[art.l.id] ? "symbol" : "fn";
-  apple.kind = SYM[art.l.id] ? "symbol" : "text";
-  document.fonts.ready.then(renderArt); // 전용서체(Fn 글자)는 font-data.js 윤곽이라 바로 되지만, 소개 문구 글꼴을 기다림
-
-  // 사용 규칙 — 배경 조합
-  const bgRows = [
-    ["회사 CI", "#94243A", "FnWine", "8.16", true, "흰 배경 / FnWine·FnDarkGray 배경에 흰색 버전"],
-    ["B2B 대표상품 · 개선 로고", "#B9023D", "FnRed 2025", "6.69", true, "흰 배경 / FnRed 배경에 흰색 버전"],
-    ["지수", "#45B792", "Index", "2.49", false, "어두운 배경(#1C1C3A)과 조합"],
-    ["펀드", "#0C3178", "Fund", "12.17", true, "흰 배경 / Fund 배경에 흰색 버전"],
-    ["B2B 계약상품", "#1C1C3A", "Contract", "16.45", true, "흰 배경 / 어두운 배경에 흰색 버전"],
-  ];
-  $("#bgRows").innerHTML = bgRows.map(([n, c, cn, r, ok, rec]) => `<tr><td><b>${n}</b></td>
-    <td><span style="display:inline-flex;align-items:center;gap:10px"><span class="sample" style="background:${c}">Fn</span><span><b>${cn}</b><br><span class="code">${c}</span></span></span></td>
-    <td><span class="${ok ? "ok" : "warn"}">${r} · ${ok ? "본문까지 가능" : "흰 배경 비권장"}</span></td><td class="hide-m">${rec}</td></tr>`).join("")
-    // 리타민은 주·보조 색을 한 줄에 함께 표시
-    + `<tr><td><b>B2C · 리타민</b></td>
-    <td><span style="display:inline-flex;align-items:center;gap:10px"><span class="sample" style="background:#1C1C3A">R</span><span class="sample" style="background:#26C0D2">R</span><span><b>주 · 보조</b><br><span class="code">#1C1C3A · #26C0D2</span></span></span></td>
-    <td><span class="ok">주 16.45 · 본문까지 가능</span><br><span class="warn">보조 2.20 · 흰 배경 비권장</span></td>
-    <td class="hide-m">흰 배경 / 주 색상 배경에 흰색 버전. 보조 색상은 흰 배경 글자에 쓰지 않음</td></tr>`
-    + `<tr><td><b>B2C · WiseReport</b></td>
-    <td><span style="display:inline-flex;align-items:center;gap:10px"><span class="sample" style="background:#594FC8">W</span><span><b>WiseReport</b><br><span class="code">#594FC8</span></span></span></td>
-    <td><span class="ok">6.22 · 본문까지 가능</span></td><td class="hide-m">흰 배경 / WiseReport 배경에 흰색 버전</td></tr>`
-    + `<tr><td><b>B2C · API</b></td>
-    <td><span style="display:inline-flex;align-items:center;gap:10px"><span class="sample" style="background:#2457C5">Fn</span><span><b>API</b><br><span class="code">#2457C5</span></span></span></td>
-    <td><span class="ok">6.47 · 본문까지 가능</span></td><td class="hide-m">흰 배경 / API 배경에 흰색 버전</td></tr>`;
-
-  // 쪽 넘기기
-  function route() {
-    const h = location.hash.slice(1) || "home";
-    let [page, sub] = h.split("/");
-    if (!["home", "font", "logo", "download", "article", "rules"].includes(page)) page = "home";
-    if (page === "logo") { if (!ORDER.includes(sub)) sub = "b2b"; renderGroup(sub); }
-    if (page === "font" && !["critique", "update"].includes(sub)) sub = "";
-    const shown = page === "font" && sub ? sub : page;
-    document.querySelectorAll("section.page").forEach(s => s.classList.toggle("on", s.id === "page-" + shown));
-    document.querySelectorAll("#menu a").forEach(a => {
-      const t = a.getAttribute("href").slice(1);
-      const on = a.dataset.parent ? a.dataset.parent.split(" ").includes(page) : (sub ? t === page + "/" + sub : t === page);
-      on ? a.setAttribute("aria-current", "page") : a.removeAttribute("aria-current");
-    });
-    document.body.classList.remove("menu-open");
-    window.scrollTo(0, 0);
-  }
-  window.addEventListener("hashchange", route);
-  document.querySelectorAll(".crit-jump").forEach(a => a.addEventListener("click", e => {
-    e.preventDefault(); document.querySelector(a.getAttribute("href")).scrollIntoView({ behavior: "smooth" });
-  }));
-  $("#openMenu").addEventListener("click", () => document.body.classList.toggle("menu-open"));
-  route();
-})();
-</script>
+<script src="Apply%20skills%20Ver/app.js?v=1"></script>
 </body>
 </html>

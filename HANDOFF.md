@@ -1,6 +1,9 @@
 # HANDOFF — 이 파일은 clear 전에 항상 최신으로 덮어쓴다 (이 줄 포함)
 
 ## 현재 상태
+- **정식 사이트 교체(2026-10-30)**: 스킬 적용 리뉴얼판을 index.html 로 정함(사용자 결정). 모양·동작은 Apply skills Ver/(style.css·app.js), 서체·로고는 out/brand-site/ 그대로. 이전 사이트는 index_old.html(꼬리의 "이전 버전 보기" 링크). 화면 구조·주소(#font/update 등)는 이전과 같아서 아래의 "index.html 의 page-update 에 단락 추가" 같은 안내는 새 index.html 에 그대로 적용, 단 그룹 정보·받기 동작은 이제 Apply skills Ver/app.js 에 있음. 받기 13종 자동 확인, 전체 ZIP 은 이전과 크기 같음. 기록 plan/phase-2/01~04
+  - 위쪽 바 오른쪽 단추 = "서체 다운로드 v1.31"(out/FnGuideLogotype-v1.31.zip, 2026-10-30 사용자 요청으로 로고 전체 받기 대신). 서체가 업데이트되면 index.html 의 이 단추 파일 이름·버전 글자도 바꿀 것
+  - 이후 다듬기(2026-10-30): 하위 메뉴(탭) 스크롤해도 붙어 있음, 디자인 아티클 서비스 고르기 = 바의 단추 → 그룹 단추 + 같은 폭 로고 카드 판(검색 없음, 심볼 표시는 옅은 회색), icon.ico 에 512px 포함(8개 크기), 꼬리 큰 FnGuide 불투명도 10%
 - **WiseReport B2C 전환(2026-10-30)**: B2B 대표상품 → B2C 독립 체계, 색 #594FC8, 전용서체 그대로. 순서는 어디서나 Retamin → WiseReport → FnAPI(다운로드 표 예외 삭제). 서체 미리보기 칩 추가(FnAPI 칩 이름은 API). 기록 plan/phase-1/18
 - 주제: FnGuide Brand Identity Management(회사 CI/BI 자원 관리·공유 서비스) 웹페이지 디자인
 - 요청·결정 기록: plan/phase-1/01~06 (06에 최종 콘텐츠 결정)
