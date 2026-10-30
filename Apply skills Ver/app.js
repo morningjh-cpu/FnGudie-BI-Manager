@@ -526,7 +526,8 @@
     ["#appleText", "#appleSize", "#appleSizeNum"].forEach(q => $(q).disabled = apple.kind === "symbol");
     const a = appleSvg();
     $("#artApple").innerHTML = `<figure>${uid(sizedTo(a, 180), "a1")}<figcaption>받는 파일 · 180px</figcaption></figure>`
-      + `<figure class="ios">${uid(sizedTo(a, 120), "a2")}<figcaption>아이폰 홈 화면에서 보이는 모습</figcaption></figure>`;
+      + `<figure class="ios">${uid(sizedTo(a, 120), "a2")}<figcaption>아이폰 홈 화면</figcaption></figure>`
+      + `<figure class="android">${uid(sizedTo(a, 120), "a3")}<figcaption>안드로이드 홈 화면</figcaption></figure>`;
     const input = $("#artText");
     if (document.activeElement !== input) input.value = ogText();
     drawOg($("#artOg"), l, ogText());
@@ -556,11 +557,15 @@
   }
   pairInputs($("#ogSize"), $("#ogSizeNum"), 28, 72, 50, v => { art.ogSize = v; renderArt(); });
   pairInputs($("#appleSize"), $("#appleSizeNum"), 50, 150, 100, v => { apple.size = v; renderArt(); });
-  $("#appleDl").addEventListener("click", async () => save(await iconPng(appleSvg(), 180), `${art.l.id}-apple-touch-icon.png`));
-  $("#appleZip").addEventListener("click", async () => { // 180 아이폰 · 167 아이패드 프로 · 152 아이패드 · 120 옛 아이폰
-    const svg = appleSvg(), files = [];
-    for (const n of [180, 167, 152, 120]) files.push({ name: `apple-touch-icon-${n}x${n}.png`, blob: await iconPng(svg, n) });
-    save(await makeZip(files), "touch-icon.zip");
+  $("#appleDl").addEventListener("click", async () => save(await iconPng(appleSvg(), 180), `${art.l.id}-apple-touch-icon.png`)); // 채널톡 아이콘과 같은 180px
+  // 터치 아이콘 ZIP: 한 파일 안에서 아이폰·안드로이드 폴더를 나눔
+  //   iphone/  180 아이폰 · 167 아이패드 프로 · 152 아이패드 · 120 옛 아이폰
+  //   android/ 192 · 512 (같은 그림을 정사각형으로, 모양은 기기가 원형 등으로 깎음)
+  $("#appleZip").addEventListener("click", async () => {
+    const svg = appleSvg(), dir = `${art.l.id}-touch-icon/`, files = [];
+    for (const n of [180, 167, 152, 120]) files.push({ name: `${dir}iphone/apple-touch-icon-${n}x${n}.png`, blob: await iconPng(svg, n) });
+    for (const n of [192, 512]) files.push({ name: `${dir}android/android-chrome-${n}x${n}.png`, blob: await iconPng(svg, n) });
+    save(await makeZip(files), `${art.l.id}-touch-icon.zip`);
   });
   const artBase = () => art.l.id + (art.kind === "symbol" ? "-symbol" : "-fn");
   $("#artIconDl").addEventListener("click", async e => {
