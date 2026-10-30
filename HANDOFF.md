@@ -14,7 +14,7 @@
   - 오픈 그래프(1200×630): 사업 색 바탕 + 흰 로고 + 가로선(가운데 흰색→양 끝 흐림, 폭 932) + 소개 문구. 시안 data/Symbol/오픈그래프-WiseReport.svg. 문구 Pretendard 600 기본 50px(28~72 조절)·줄간격 148%·폭 1040 넘으면 줄 바꿈. 로고·가로선은 글자 크기와 상관없이 같은 자리(50px 한 줄 기준 가운데), 문구는 아래로 늘어남. 서비스별 기본 문구는 OG_TEXT·OG_GROUP, 없으면 Your Best Financial Guide
   - 서비스를 바꾸면 문구 크기·애플 아이콘 이니셜·크기가 기본값으로 돌아감
   - 한 번에 받기 ZIP <id>-web-icons/ 15개(icon.ico 는 넣지 않음 — 사용자 결정)
-  - 심볼 4종(Retamin·DataGuide·CryptoGuide·WiseReport)은 data/Symbol → py scripts/build_symbols.py → out/brand-site/symbols.js(불러오기 ?v=5). WiseReport 는 사용자가 디자인한 일러스트레이터 파일(data/Symbol/wisereport/WR-White-modify.svg, 2026-10-30 11:26 수정본) — 도구가 클래스 색·한글 그러데이션 이름을 정리해 넣음. DataGuide 바탕은 FnRed #B9023D(피그마 #BF2645 대신, 결정 완료). 오픈 그래프 바탕도 시안의 #BF2645 대신 사이트 색
+  - 심볼 4종(Retamin·DataGuide·CryptoGuide·WiseReport)은 data/Symbol → py scripts/build_symbols.py → out/brand-site/symbols.js(불러오기 ?v=6). WiseReport 는 사용자가 디자인한 일러스트레이터 파일(data/Symbol/wisereport/WR-White-modify.svg, 2026-10-30 11:26 수정본) — 도구가 클래스 색·한글 그러데이션 이름을 정리해 넣음. DataGuide 바탕은 FnRed #B9023D(피그마 #BF2645 대신, 결정 완료). 오픈 그래프 바탕도 시안의 #BF2645 대신 사이트 색
 - 사이트 파비콘(2026-10-29): FnGuide 개선 로고 Fn 아이콘(FnRed), out/brand-site/favicon/. 내 컴퓨터 파일로 열면 크롬이 탭 아이콘을 안 보여 줌(웹 주소로 열 때만 보임, 확인 완료)
 - 깃: origin = 깃허브(비공개), gitlab = 사내 깃랩 igit.fnguide.com/design/brand-design-management. `! git push` 한 번에 둘 다 올라감. 깃허브 무료 계정의 Pages 는 저장소가 비공개여도 공개라 사내 서체가 드러날 수 있음 — 깃랩 Pages(사내 회원만) 검토 제안했고 결정 안 됨
 - 로고타입 다운로드 맨 아래 "전체 로고타입 받기 (ZIP)" 버튼(2026-10-29): 표의 로고 23종 × 컬러·흰색 × SVG·PNG(4배) = 90개 파일을 브라우저에서 바로 묶음(외부 라이브러리 없음, 개별 받기와 같은 여백·크기). 크롬에서 눌러 ZIP 정상 확인
@@ -26,7 +26,7 @@
   - 브랜드 전용서체 소개 — 하위 메뉴 3개(이 순서): 서체 소개(#font) · 폰트 업데이트(#font/update, 제목 Font Update, 2026-10-29 추가. 버전별 수정 전/후 + 버전 이력 표. 새 버전은 page-update 맨 위에 단락 추가 + 버전 이력 맨 위에 한 줄) · 디자인 크리틱(#font/critique, 제목 Design Critic, 2026-10-29 추가. 크리틱 이력 표 + 회차별 결과. 그림은 out/font-critique/img 를 불러옴. 새 회차는 index.html 의 page-critique 이력 표에 줄 추가 + 회차 단락 추가)
   - 서체 소개(왜·현재 버전 한 줄 링크·사양·품질 기준·미리보기·사용 방법·파일 받기). 미리보기 문구를 SVG·PNG로 받기 가능(font-data.js 의 글자 윤곽·간격으로 그림, 하르프버즈 조판과 5천여 문구 일치 확인)
   - 브랜드 로고타입 소개(하위: B2B 대표/지수/펀드/B2B 계약/B2C/회사 CI — 흰 배경+컬러 배경 흰색 판, 웹사이트 링크(서비스 이력 메모는 삭제), CI 화면에 로고타입 개선·이전 CI 2종 전시용)
-  - 로고타입 다운로드(#download, 제목 Assets Download · 작은 글씨 Logotype · 로고 받기. 로고 컬러·흰색 SVG/PNG. 서체 파일은 전용서체 소개에만), 사용 규칙(원칙·배경 조합·협력사·매뉴얼 빈칸)
+  - 로고타입 다운로드(#download, 제목 Downloads · 작은 글씨 Logotype · 로고 받기. 로고 컬러·흰색 SVG/PNG. 서체 파일은 전용서체 소개에만), 사용 규칙(원칙·배경 조합·협력사·매뉴얼 빈칸)
 - **사이트 콘텐츠 크리틱 완료(2026-10-29)**: 브랜드 전략가·카피라이터·UX 콘텐츠 3인, 수정 필요 6·개선 권장 18·유지 6, 문장 수정안(지금→수정안). 보고서 out/content-critique/brand-site-content-critique.html, 기록 plan/phase-1/15. 결정 필요 없는 수정안 45곳 반영 완료(plan/phase-1/15 반영 단락). 품질 수치 v1.3 으로 다시 잼(1,268 규칙·9,793쌍 충돌 0), 그 과정에서 CV·CW·CY 닿음 발견 → 서체 커닝 고침(plan/phase-1/14). 폰트 업데이트 화면은 ₩ 숨김·받기 항목 삭제. 결정 완료(2026-10-29): 헤더 안내문 유지(이후 사용자 요청으로 삭제), 연락처 넣지 않음, 한글 지정 서체 없음(규칙 04 문장 삭제), 메뉴 이름·기대 효과는 제외(현행 유지), 사양의 ₩ 유지
 - **전용서체 v1.31 완성·사이트 반영(2026-10-29)**: v1.3 + 대문자–숫자 커닝 519쌍(공통 −25 + 모양 보정, 해외 서체 중 Inter 만 같은 쌍을 조임). 서체 out/font-update/v1.31/fonts, 압축 out/FnGuideLogotype-v1.31.zip(v1.3 zip 은 font-backup), 만들기 py scripts/build_v13.py --v131, 값 계산 scripts/font_critique/kern_ucdigit.py. 규칙 1,787·충돌 검사 10,808쌍 0. 로고는 숫자가 없어 그대로. 불러오기 ?v=1.31. 기록 plan/phase-1/16
 - 사이트 이름 정리(2026-10-29): 홈 카드 Brand Logotype, 회사 CI → FnGuide CI, 로고타입 페이지 제목 전용서체(영문 60px + 한글 34px #778288), 상품군 → 상품, 다운로드 표 줄 높이 70px, 폰트 업데이트 그림은 같은 배율 SVG(scripts/font_critique/update_figs.py)
